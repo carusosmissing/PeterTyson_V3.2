@@ -4,6 +4,7 @@ import type { NavigatorScreenParams } from '@react-navigation/native';
 export type AuthStackParamList = {
   Welcome: undefined;
   Login: undefined;
+  SignupOptions: undefined;
   SignUp: undefined;
   ForgotPassword: undefined;
   Terms: undefined;
@@ -12,9 +13,13 @@ export type AuthStackParamList = {
 // Onboarding Stack Types
 export type OnboardingStackParamList = {
   MusicOrSports: undefined;
-  MusicOnboardingQuestions: undefined;
-  SportsOnboardingQuestions: undefined;
-  Claim: undefined;
+  MusicGigCount: undefined;
+  MusicFanFuel: undefined;
+  MusicVibe: undefined;
+  SportsGameCount: undefined;
+  SportsBig3: undefined;
+  SportsFanFuel: undefined;
+  WelcomeClaimScreen: undefined;
   ClaimReveal: undefined;
 };
 

@@ -16,8 +16,8 @@ const onboardingSlice = createSlice({
   name: 'onboarding',
   initialState,
   reducers: {
-    // Set selected category (music/sports)
-    setSelectedCategory: (state, action: PayloadAction<'music' | 'sports'>) => {
+    // Set selected category (music/sports/both)
+    setSelectedCategory: (state, action: PayloadAction<'music' | 'sports' | 'both'>) => {
       state.selectedCategory = action.payload;
     },
     

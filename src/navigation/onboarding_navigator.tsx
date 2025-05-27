@@ -1,11 +1,17 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { OnboardingStackParamList } from '../types';
-import { MusicOrSportsScreen } from '../screens/onboarding/music_or_sports_screen';
-import { MusicOnboardingQuestionsScreen } from '../screens/onboarding/music_onboarding_questions_screen';
-import { SportsOnboardingQuestionsScreen } from '../screens/onboarding/sports_onboarding_questions_screen';
-import { ClaimScreen } from '../screens/onboarding/claim_screen';
-import { ClaimRevealScreen } from '../screens/onboarding/claim_reveal_screen';
+import { 
+  MusicOrSportsScreen,
+  MusicGigCountScreen,
+  MusicFanFuelScreen,
+  MusicVibeScreen,
+  SportsGameCountScreen,
+  SportsBig3Screen,
+  SportsFanFuelScreen,
+  WelcomeClaimScreen,
+  WelcomeClaimRevealScreen
+} from '../screens/onboarding';
 
 const Stack = createNativeStackNavigator<OnboardingStackParamList>();
 
@@ -15,13 +21,27 @@ export const OnboardingNavigator: React.FC = () => {
       initialRouteName="MusicOrSports"
       screenOptions={{
         headerShown: false,
+        gestureEnabled: false, // Prevent swipe back during onboarding
       }}
     >
+      {/* Initial selection screen */}
       <Stack.Screen name="MusicOrSports" component={MusicOrSportsScreen} />
-      <Stack.Screen name="MusicOnboardingQuestions" component={MusicOnboardingQuestionsScreen} />
-      <Stack.Screen name="SportsOnboardingQuestions" component={SportsOnboardingQuestionsScreen} />
-      <Stack.Screen name="Claim" component={ClaimScreen} />
-      <Stack.Screen name="ClaimReveal" component={ClaimRevealScreen} />
+      
+      {/* Music flow screens */}
+      <Stack.Screen name="MusicGigCount" component={MusicGigCountScreen} />
+      <Stack.Screen name="MusicFanFuel" component={MusicFanFuelScreen} />
+      <Stack.Screen name="MusicVibe" component={MusicVibeScreen} />
+      
+      {/* Sports flow screens */}
+      <Stack.Screen name="SportsGameCount" component={SportsGameCountScreen} />
+      <Stack.Screen name="SportsBig3" component={SportsBig3Screen} />
+      <Stack.Screen name="SportsFanFuel" component={SportsFanFuelScreen} />
+      
+      {/* Final screens */}
+              <Stack.Screen name="WelcomeClaimScreen" component={WelcomeClaimScreen} />
+        <Stack.Screen name="ClaimReveal" component={WelcomeClaimRevealScreen} />
+      
+
     </Stack.Navigator>
   );
 }; 

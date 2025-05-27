@@ -45,6 +45,19 @@ const authSlice = createSlice({
       state.refreshToken = action.payload.refreshToken;
       state.isAuthenticated = true;
     },
+    
+    // Simple login for testing/demo purposes
+    loginSuccess: (state, action: PayloadAction<{
+      user?: any;
+      token?: string;
+      refreshToken?: string;
+    }>) => {
+      state.user = action.payload.user || { id: '1', name: 'Kevin', email: 'kevin@example.com' };
+      state.token = action.payload.token || 'demo-token';
+      state.refreshToken = action.payload.refreshToken || 'demo-refresh-token';
+      state.isAuthenticated = true;
+      state.error = null;
+    },
   },
   extraReducers: (builder) => {
     // Handle login
@@ -129,5 +142,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { logout, clearError, setLoading, restoreSession } = authSlice.actions;
+export const { logout, clearError, setLoading, restoreSession, loginSuccess } = authSlice.actions;
 export default authSlice.reducer; 

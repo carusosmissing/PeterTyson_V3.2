@@ -1,88 +1,112 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Colors, Typography, Layout } from '../../constants';
+import { Colors, Typography, Spacing, Images } from '../../constants';
 
 export const WelcomeScreen: React.FC = () => {
   const navigation = useNavigation();
 
+  const handleGetStarted = () => {
+    navigation.navigate('SignupOptions' as never);
+  };
+
+  const handleSignIn = () => {
+    navigation.navigate('Login' as never);
+  };
+
   return (
-    <View style={styles.container}>
+    <ImageBackground 
+      source={Images.background1}
+      style={styles.backgroundImage}
+      resizeMode="cover"
+    >
       <View style={styles.content}>
-        <Text style={styles.title}>Welcome to TruEXP</Text>
-        <Text style={styles.subtitle}>
-          A data-driven fan engagement and loyalty platform
-        </Text>
-        
-        <View style={styles.buttonContainer}>
+        {/* Logo Section */}
+        <View style={styles.logoSection}>
+          <Image 
+            source={Images.fullLogotypeWhite}
+            style={styles.logoImage}
+            resizeMode="contain"
+          />
+        </View>
+
+        {/* Button Section */}
+        <View style={styles.buttonSection}>
           <TouchableOpacity 
-            style={styles.primaryButton}
-            onPress={() => navigation.navigate('Login' as never)}
+            style={styles.getStartedButton}
+            onPress={handleGetStarted}
           >
-            <Text style={styles.primaryButtonText}>Login</Text>
+            <Text style={styles.getStartedButtonText}>Get Started</Text>
           </TouchableOpacity>
           
           <TouchableOpacity 
-            style={styles.secondaryButton}
-            onPress={() => navigation.navigate('SignUp' as never)}
+            style={styles.signInButton}
+            onPress={handleSignIn}
           >
-            <Text style={styles.secondaryButtonText}>Sign Up</Text>
+            <Text style={styles.signInButtonText}>Sign In</Text>
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  backgroundImage: {
     flex: 1,
-    backgroundColor: Colors.background,
+    width: '100%',
+    height: '100%',
   },
   content: {
     flex: 1,
+    paddingHorizontal: Spacing.semantic.screenPadding,
+    paddingBottom: 40,
+    paddingTop: 60,
+  },
+  logoSection: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: Layout.screenPaddingHorizontal,
   },
-  title: {
-    ...Typography.textStyles.h1,
-    color: Colors.text,
-    textAlign: 'center',
-    marginBottom: 16,
+  logoImage: {
+    width: 280,
+    height: 80,
   },
-  subtitle: {
-    ...Typography.textStyles.body,
-    color: Colors.textSecondary,
-    textAlign: 'center',
-    marginBottom: 48,
-  },
-  buttonContainer: {
-    width: '100%',
+  buttonSection: {
     gap: 16,
   },
-  primaryButton: {
-    backgroundColor: Colors.buttonPrimary,
-    height: Layout.buttonHeight,
-    borderRadius: Layout.buttonRadius,
+  getStartedButton: {
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    height: 56,
+    borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
-  primaryButtonText: {
-    ...Typography.textStyles.button,
-    color: Colors.text,
+  getStartedButtonText: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#1F2937',
   },
-  secondaryButton: {
-    backgroundColor: Colors.buttonSecondary,
-    height: Layout.buttonHeight,
-    borderRadius: Layout.buttonRadius,
+  signInButton: {
+    backgroundColor: 'transparent',
+    height: 56,
+    borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: Colors.border,
+    borderWidth: 2,
+    borderColor: 'rgba(255, 255, 255, 0.3)',
   },
-  secondaryButtonText: {
-    ...Typography.textStyles.button,
-    color: Colors.text,
+  signInButtonText: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: Colors.text.primary,
   },
 }); 

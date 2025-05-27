@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, ImageBackground, Image, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Colors, Typography, Layout } from '../../constants';
+import { Colors, Typography, Layout, Images, Icons } from '../../constants';
+
+const { width, height } = Dimensions.get('window');
 
 export const ForgotPasswordScreen: React.FC = () => {
   const navigation = useNavigation();
@@ -13,93 +15,173 @@ export const ForgotPasswordScreen: React.FC = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.content}>
-        <Text style={styles.title}>Reset Password</Text>
-        <Text style={styles.subtitle}>
-          Enter your email address and we'll send you a link to reset your password
-        </Text>
-        
-        <View style={styles.form}>
-          <TextInput
-            style={styles.input}
-            placeholder="Email"
-            placeholderTextColor={Colors.textMuted}
-            value={email}
-            onChangeText={setEmail}
-            keyboardType="email-address"
-            autoCapitalize="none"
+    <ImageBackground 
+      source={Images.welcomeBackground}
+      style={styles.backgroundImage}
+      resizeMode="cover"
+    >
+      <View style={styles.container}>
+        {/* Header with logo and title */}
+        <View style={styles.header}>
+          <Image 
+            source={Images.logo}
+            style={styles.logo}
+            resizeMode="contain"
           />
-          
-          <TouchableOpacity 
-            style={styles.primaryButton}
-            onPress={handleResetPassword}
-          >
-            <Text style={styles.primaryButtonText}>Send Reset Link</Text>
-          </TouchableOpacity>
+          <Text style={styles.title}>Reset Password</Text>
         </View>
         
-        <TouchableOpacity 
-          onPress={() => navigation.goBack()}
-        >
-          <Text style={styles.linkText}>Back to Login</Text>
-        </TouchableOpacity>
+        {/* Content */}
+        <View style={styles.content}>
+          <Text style={styles.description}>
+            Enter your email address and we'll send you a link to reset your password
+          </Text>
+          
+          <View style={styles.form}>
+            <TextInput
+              style={styles.input}
+              placeholder="Email"
+              placeholderTextColor="rgba(255, 255, 255, 0.5)"
+              value={email}
+              onChangeText={setEmail}
+              keyboardType="email-address"
+              autoCapitalize="none"
+            />
+            
+            <TouchableOpacity 
+              style={styles.sendResetButton}
+              onPress={handleResetPassword}
+            >
+              <Text style={styles.sendResetButtonText}>Send Reset Link</Text>
+            </TouchableOpacity>
+            
+            <View style={styles.signInContainer}>
+              <Text style={styles.signInText}>Remember your password? </Text>
+              <TouchableOpacity onPress={() => navigation.navigate('Login' as never)}>
+                <Text style={styles.signInLink}>Sign In</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+        
+        {/* Go Back button */}
+        <View style={styles.footer}>
+          <TouchableOpacity 
+            style={styles.goBackButton}
+            onPress={() => navigation.goBack()}
+          >
+            <Text style={styles.goBackButtonText}>Go Back</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+  },
   container: {
     flex: 1,
-    backgroundColor: Colors.background,
+    paddingHorizontal: 20,
+    paddingTop: 60,
+    paddingBottom: 40,
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 60,
+  },
+  logo: {
+    width: 40,
+    height: 40,
+    marginRight: 12,
+  },
+  title: {
+    fontSize: 32,
+    fontWeight: '600',
+    color: '#fff',
   },
   content: {
     flex: 1,
     justifyContent: 'center',
-    paddingHorizontal: Layout.screenPaddingHorizontal,
+    alignItems: 'center',
   },
-  title: {
-    ...Typography.textStyles.h1,
-    color: Colors.text,
+  description: {
+    fontSize: 16,
+    color: 'rgba(255, 255, 255, 0.8)',
     textAlign: 'center',
-    marginBottom: 8,
-  },
-  subtitle: {
-    ...Typography.textStyles.body,
-    color: Colors.textSecondary,
-    textAlign: 'center',
-    marginBottom: 32,
+    marginBottom: 40,
+    paddingHorizontal: 20,
+    lineHeight: 24,
   },
   form: {
-    marginBottom: 32,
+    width: '100%',
+    alignItems: 'center',
   },
   input: {
-    backgroundColor: Colors.inputBackground,
-    borderWidth: 1,
-    borderColor: Colors.inputBorder,
-    borderRadius: Layout.inputRadius,
-    height: Layout.inputHeight,
+    backgroundColor: 'rgba(30, 41, 59, 0.8)',
+    borderRadius: 12,
+    height: 56,
     paddingHorizontal: 16,
-    marginBottom: 16,
-    color: Colors.text,
-    fontSize: Typography.fontSize.base,
+    marginBottom: 40,
+    color: '#fff',
+    fontSize: 16,
+    width: '100%',
   },
-  primaryButton: {
-    backgroundColor: Colors.buttonPrimary,
-    height: Layout.buttonHeight,
-    borderRadius: Layout.buttonRadius,
+  sendResetButton: {
+    backgroundColor: '#60A5FA',
+    borderRadius: 12,
+    height: 56,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 16,
+    marginBottom: 32,
+    width: '100%',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
-  primaryButtonText: {
-    ...Typography.textStyles.button,
-    color: Colors.text,
+  sendResetButtonText: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#fff',
   },
-  linkText: {
-    ...Typography.textStyles.body,
-    color: Colors.primary,
-    textAlign: 'center',
+  signInContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  signInText: {
+    fontSize: 16,
+    color: 'rgba(255, 255, 255, 0.7)',
+  },
+  signInLink: {
+    fontSize: 16,
+    color: '#60A5FA',
+    fontWeight: '600',
+  },
+  footer: {
+    alignItems: 'center',
+  },
+  goBackButton: {
+    backgroundColor: 'rgba(30, 41, 59, 0.8)',
+    borderRadius: 12,
+    height: 56,
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  goBackButtonText: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#fff',
   },
 }); 

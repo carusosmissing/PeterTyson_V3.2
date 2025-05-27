@@ -22,26 +22,21 @@ export const RootNavigator: React.FC = () => {
         screenOptions={{
           headerShown: false,
         }}
+        initialRouteName={!isAuthenticated ? "Auth" : !hasCompletedOnboarding ? "Onboarding" : "Main"}
       >
-        {!isAuthenticated ? (
-          <Stack.Screen name="Auth" component={AuthNavigator} />
-        ) : !hasCompletedOnboarding ? (
-          <Stack.Screen name="Onboarding" component={OnboardingNavigator} />
-        ) : (
-          <>
-            <Stack.Screen name="Main" component={MainNavigator} />
-            <Stack.Screen 
-              name="Events" 
-              component={EventsNavigator}
-              options={{ presentation: 'modal' }}
-            />
-            <Stack.Screen 
-              name="Shrine" 
-              component={ShrineNavigator}
-              options={{ presentation: 'modal' }}
-            />
-          </>
-        )}
+        <Stack.Screen name="Auth" component={AuthNavigator} />
+        <Stack.Screen name="Onboarding" component={OnboardingNavigator} />
+        <Stack.Screen name="Main" component={MainNavigator} />
+        <Stack.Screen 
+          name="Events" 
+          component={EventsNavigator}
+          options={{ presentation: 'modal' }}
+        />
+        <Stack.Screen 
+          name="Shrine" 
+          component={ShrineNavigator}
+          options={{ presentation: 'modal' }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

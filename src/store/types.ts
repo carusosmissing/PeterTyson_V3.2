@@ -22,7 +22,7 @@ export interface UserState {
 
 export interface OnboardingState {
   hasCompletedOnboarding: boolean;
-  selectedCategory: 'music' | 'sports' | null;
+  selectedCategory: 'music' | 'sports' | 'both' | null;
   currentStep: number;
   totalSteps: number;
   answers: Array<{

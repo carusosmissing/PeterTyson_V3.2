@@ -4,7 +4,7 @@ export type { RootState, AppDispatch } from './store';
 export { useAppDispatch, useAppSelector } from './hooks';
 
 // Export all slice actions
-export { logout, clearError as clearAuthError, setLoading, restoreSession } from './slices/auth_slice';
+export { logout, clearError as clearAuthError, setLoading, restoreSession, loginSuccess } from './slices/auth_slice';
 export { 
   updatePreferences, 
   setCategory, 

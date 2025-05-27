@@ -1,13 +1,14 @@
 import React from 'react';
-import { View, ViewStyle, StyleSheet, SafeAreaView } from 'react-native';
+import { View, ViewStyle, StyleSheet, SafeAreaView, ImageBackground } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Colors, Design, Spacing } from '../../constants';
 
 export interface ContainerProps {
   children: React.ReactNode;
-  variant?: 'default' | 'gradient' | 'solid';
+  variant?: 'default' | 'gradient' | 'solid' | 'image';
   gradientType?: keyof typeof Design.gradients;
   customGradient?: string[];
+  backgroundImage?: any;
   safeArea?: boolean;
   padding?: boolean;
   style?: ViewStyle;
@@ -18,6 +19,7 @@ export const Container: React.FC<ContainerProps> = ({
   variant = 'gradient',
   gradientType = 'background',
   customGradient,
+  backgroundImage,
   safeArea = true,
   padding = true,
   style,
@@ -44,6 +46,8 @@ export const Container: React.FC<ContainerProps> = ({
         return {
           backgroundColor: Colors.background.secondary,
         };
+      case 'image':
+        return {};
       default: // gradient
         return {};
     }
@@ -51,6 +55,20 @@ export const Container: React.FC<ContainerProps> = ({
 
   const renderContent = () => {
     const containerStyle = [getContainerStyle(), style];
+    
+    if (variant === 'image' && backgroundImage) {
+      return (
+        <ImageBackground
+          source={backgroundImage}
+          style={[StyleSheet.absoluteFill]}
+          resizeMode="cover"
+        >
+          <View style={containerStyle}>
+            {children}
+          </View>
+        </ImageBackground>
+      );
+    }
     
     if (variant === 'gradient') {
       const gradientColors = customGradient || Design.gradients[gradientType].colors;

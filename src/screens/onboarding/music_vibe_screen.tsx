@@ -3,58 +3,69 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Colors, Typography, Spacing, Images } from '../../constants';
 import { useAppDispatch, useAppSelector } from '../../store';
-import { setSelectedCategory } from '../../store';
+import { addAnswer, nextStep } from '../../store';
 import { Container, Button } from '../../components';
 
-export const MusicOrSportsScreen: React.FC = () => {
+export const MusicVibeScreen: React.FC = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
+  const { selectedCategory } = useAppSelector((state: any) => state.onboarding);
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
-  const handleOptionToggle = (option: 'music' | 'sports') => {
+  const options = [
+    'Rock/Alternative',
+    'Pop',
+    'Hip-Hop/Rap/R&B',
+    'Country',
+    'Electronic/EDM'
+  ];
+
+  const handleOptionToggle = (option: string) => {
     setSelectedOptions(prev => {
       if (prev.includes(option)) {
         return prev.filter(item => item !== option);
-      } else {
+      } else if (prev.length < 3) {
         return [...prev, option];
       }
+      return prev;
     });
   };
 
   const handleContinue = () => {
     if (selectedOptions.length === 0) return;
     
-    // Store selected categories in Redux
-    if (selectedOptions.includes('music') && selectedOptions.includes('sports')) {
-      dispatch(setSelectedCategory('both'));
-      navigation.navigate('MusicVibe' as never);
-    } else if (selectedOptions.includes('music')) {
-      dispatch(setSelectedCategory('music'));
-      navigation.navigate('MusicVibe' as never);
-    } else if (selectedOptions.includes('sports')) {
-      dispatch(setSelectedCategory('sports'));
-      navigation.navigate('SportsBig3' as never);
-    }
+    // Save answer to Redux
+    dispatch(addAnswer({
+      questionId: 'music_vibe',
+      selectedOptions: selectedOptions
+    }));
+    
+    // Navigate to next screen - always go to MusicGigCount
+    navigation.navigate('MusicGigCount' as never);
   };
 
-  const renderOptionCard = (type: 'music' | 'sports', icon: string, label: string) => {
-    const isSelected = selectedOptions.includes(type);
+  const renderOption = (option: string) => {
+    const isSelected = selectedOptions.includes(option);
+    const isDisabled = !isSelected && selectedOptions.length >= 3;
     
     return (
       <TouchableOpacity
+        key={option}
         style={[
-          styles.optionCard,
-          isSelected && styles.optionCardSelected
+          styles.optionButton,
+          isSelected && styles.optionButtonSelected,
+          isDisabled && styles.optionButtonDisabled
         ]}
-        onPress={() => handleOptionToggle(type)}
+        onPress={() => handleOptionToggle(option)}
         activeOpacity={0.8}
+        disabled={isDisabled}
       >
-        <Text style={styles.optionIcon}>{icon}</Text>
         <Text style={[
-          styles.optionLabel,
-          isSelected && styles.optionLabelSelected
+          styles.optionText,
+          isSelected && styles.optionTextSelected,
+          isDisabled && styles.optionTextDisabled
         ]}>
-          {label}
+          {option}
         </Text>
       </TouchableOpacity>
     );
@@ -70,24 +81,21 @@ export const MusicOrSportsScreen: React.FC = () => {
 
         {/* Header */}
         <View style={styles.header}>
-          <Text style={styles.title}>Welcome, Wew!</Text>
-          <Text style={styles.subtitle}>We're thrilled you're here.</Text>
-          <Text style={styles.description}>
-            Let us curate your TruEXP experience...
+          <Text style={styles.title}>What's your vibe?</Text>
+          <Text style={styles.subtitle}>
+            Pick your Top 3 genres:
           </Text>
         </View>
 
-        {/* Options Section */}
-        <View style={styles.optionsSection}>
-          <Text style={styles.optionsTitle}>I'm a fan of these experiences:</Text>
-          
-          <View style={styles.optionsContainer}>
-            {renderOptionCard('music', '🎵', 'Music')}
-            {renderOptionCard('sports', '🏀', 'Sports')}
-          </View>
-          
+        {/* Options */}
+        <View style={styles.optionsContainer}>
+          {options.map(renderOption)}
+        </View>
+
+        {/* Selection Count */}
+        <View style={styles.selectionContainer}>
           <Text style={styles.selectionCount}>
-            {selectedOptions.length} selected
+            {selectedOptions.length}/3 selected
           </Text>
         </View>
 
@@ -123,72 +131,59 @@ const styles = StyleSheet.create({
     fontSize: 32,
   },
   header: {
-    marginBottom: 60,
+    marginBottom: 40,
   },
   title: {
     fontSize: 32,
     fontWeight: 'bold',
     color: '#FFFFFF',
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 18,
-    color: '#FFFFFF',
     marginBottom: 16,
   },
-  description: {
+  subtitle: {
     fontSize: 16,
     color: '#FFFFFF',
     opacity: 0.8,
-  },
-  optionsSection: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  optionsTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#FFFFFF',
-    marginBottom: 32,
     textAlign: 'center',
   },
   optionsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    gap: 16,
-    marginBottom: 24,
-  },
-  optionCard: {
     flex: 1,
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    borderRadius: 16,
-    padding: 24,
-    alignItems: 'center',
     justifyContent: 'center',
-    minHeight: 120,
-    borderWidth: 2,
+    gap: 16,
+  },
+  optionButton: {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    borderRadius: 12,
+    padding: 20,
+    alignItems: 'center',
+    borderWidth: 1,
     borderColor: 'transparent',
   },
-  optionCardSelected: {
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
-    borderColor: 'rgba(255, 255, 255, 0.3)',
+  optionButtonSelected: {
+    backgroundColor: 'rgba(64, 156, 255, 0.8)',
+    borderColor: 'rgba(64, 156, 255, 1)',
   },
-  optionIcon: {
-    fontSize: 32,
-    marginBottom: 12,
+  optionButtonDisabled: {
+    opacity: 0.5,
   },
-  optionLabel: {
+  optionText: {
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: '500',
     color: '#FFFFFF',
   },
-  optionLabelSelected: {
+  optionTextSelected: {
     color: '#FFFFFF',
+    fontWeight: '600',
+  },
+  optionTextDisabled: {
+    opacity: 0.5,
+  },
+  selectionContainer: {
+    alignItems: 'center',
+    marginBottom: 20,
   },
   selectionCount: {
     fontSize: 14,
     color: '#FFFFFF',
-    textAlign: 'center',
     opacity: 0.8,
   },
   buttonContainer: {
