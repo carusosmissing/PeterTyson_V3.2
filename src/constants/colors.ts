@@ -1,109 +1,113 @@
-// TruEXP Brand Colors - Extracted from reference materials
+// Color Palette - Based on provided design reference
 export const Colors = {
-  // Primary brand colors - Purple/Blue gradient theme
-  primary: '#8B5CF6', // Primary purple
-  primaryDark: '#7C3AED', // Darker purple
-  primaryLight: '#A78BFA', // Lighter purple
-  secondary: '#3B82F6', // Primary blue
-  secondaryDark: '#2563EB', // Darker blue
-  secondaryLight: '#60A5FA', // Lighter blue
+  // Primary brand colors - Based on the new palette
+  primary: '#091343', // Dark navy blue (main brand color)
+  primaryLight: '#5771FE', // Bright blue
+  primaryMedium: '#87ABCC', // Light blue
   
-  // Accent colors
-  accent: '#F59E0B', // Gold/Yellow accent
-  accentDark: '#D97706',
-  accentLight: '#FCD34D',
+  // Secondary colors from the palette
+  secondary: '#7DD3B9', // Mint green
+  accent: '#D59BF9', // Light purple
+  tertiary: '#FB9EB4', // Pink
+  quaternary: '#FADAAD', // Light yellow/cream
   
-  // Gradient definitions
+  // Light background colors from palette
+  lightBlue: '#D7F0FC', // Very light blue
+  lightPink: '#FDE8ED', // Very light pink  
+  lightGreen: '#F2F9DA', // Very light green
+  lightGray: '#ECECEC', // Light gray
+  
+  // Gradient definitions using new colors
   gradients: {
-    primary: ['#8B5CF6', '#3B82F6'], // Purple to blue
-    primaryReverse: ['#3B82F6', '#8B5CF6'], // Blue to purple
-    secondary: ['#7C3AED', '#2563EB'], // Darker gradient
-    accent: ['#F59E0B', '#EF4444'], // Gold to red
-    background: ['#1F2937', '#111827'], // Dark background gradient
-    card: ['rgba(139, 92, 246, 0.1)', 'rgba(59, 130, 246, 0.1)'], // Glassmorphism
+    primary: ['#091343', '#5771FE'], // Navy to bright blue
+    secondary: ['#7DD3B9', '#87ABCC'], // Mint to light blue
+    accent: ['#D59BF9', '#FB9EB4'], // Purple to pink
+    warm: ['#FADAAD', '#FDE8ED'], // Cream to light pink
+    background: ['#091343', '#87ABCC'], // Dark navy to light blue
+    card: ['rgba(9, 19, 67, 0.1)', 'rgba(135, 171, 204, 0.1)'], // Glassmorphism
   },
   
   // Background colors
   background: {
-    primary: '#0F172A', // Very dark blue-gray
-    secondary: '#1E293B', // Dark blue-gray
-    tertiary: '#334155', // Medium blue-gray
-    card: 'rgba(30, 41, 59, 0.8)', // Semi-transparent card background
-    modal: 'rgba(15, 23, 42, 0.95)', // Modal overlay
-    blur: 'rgba(139, 92, 246, 0.05)', // Subtle purple tint
+    primary: '#091343', // Dark navy blue
+    secondary: '#D7F0FC', // Very light blue
+    tertiary: '#ECECEC', // Light gray
+    card: 'rgba(9, 19, 67, 0.8)', // Semi-transparent navy
+    modal: 'rgba(9, 19, 67, 0.95)', // Modal overlay
+    blur: 'rgba(125, 211, 185, 0.05)', // Subtle mint tint
   },
   
   // Text colors
   text: {
-    primary: '#FFFFFF', // Pure white
-    secondary: '#E2E8F0', // Light gray
-    tertiary: '#94A3B8', // Medium gray
-    muted: '#64748B', // Darker gray
-    inverse: '#0F172A', // Dark text for light backgrounds
-    accent: '#8B5CF6', // Purple text
-    link: '#60A5FA', // Blue link color
+    primary: '#091343', // Dark navy for main text
+    secondary: '#87ABCC', // Light blue for secondary text
+    tertiary: '#7DD3B9', // Mint green for accents
+    muted: '#ECECEC', // Light gray for muted text
+    inverse: '#FFFFFF', // White text for dark backgrounds
+    accent: '#D59BF9', // Purple text for highlights
+    link: '#5771FE', // Bright blue for links
   },
   
   // UI state colors
   status: {
-    success: '#10B981', // Green
-    warning: '#F59E0B', // Amber
-    error: '#EF4444', // Red
-    info: '#3B82F6', // Blue
+    success: '#7DD3B9', // Mint green for success
+    warning: '#FADAAD', // Light yellow for warnings
+    error: '#FB9EB4', // Pink for errors
+    info: '#5771FE', // Bright blue for info
   },
   
   // Border and divider colors
   border: {
-    primary: '#334155', // Medium gray
-    secondary: '#475569', // Lighter gray
-    accent: '#8B5CF6', // Purple border
-    focus: '#60A5FA', // Blue focus border
-    error: '#EF4444', // Red error border
+    primary: '#87ABCC', // Light blue border
+    secondary: '#ECECEC', // Light gray border
+    accent: '#D59BF9', // Purple accent border
+    focus: '#5771FE', // Bright blue focus border
+    error: '#FB9EB4', // Pink error border
   },
   
   // Button colors
   button: {
-    primary: '#8B5CF6', // Purple button
-    primaryHover: '#7C3AED', // Darker on hover
-    secondary: '#334155', // Gray button
-    secondaryHover: '#475569', // Lighter on hover
+    primary: '#5771FE', // Bright blue button
+    primaryHover: '#091343', // Navy on hover
+    secondary: '#7DD3B9', // Mint green button
+    secondaryHover: '#87ABCC', // Light blue on hover
     ghost: 'transparent', // Transparent button
-    disabled: '#64748B', // Disabled state
+    disabled: '#ECECEC', // Light gray disabled state
   },
   
   // Input colors
   input: {
-    background: 'rgba(30, 41, 59, 0.8)', // Semi-transparent
-    border: '#475569', // Gray border
-    focus: '#8B5CF6', // Purple focus
-    placeholder: '#94A3B8', // Gray placeholder
-    error: '#EF4444', // Red error state
+    background: '#D7F0FC', // Very light blue background
+    border: '#87ABCC', // Light blue border
+    focus: '#5771FE', // Bright blue focus
+    placeholder: '#ECECEC', // Light gray placeholder
+    error: '#FB9EB4', // Pink error state
   },
   
   // Tab bar colors
   tabBar: {
-    background: 'rgba(15, 23, 42, 0.95)', // Dark with transparency
-    active: '#8B5CF6', // Purple active
-    inactive: '#94A3B8', // Gray inactive
-    border: '#334155', // Border color
+    background: 'rgba(9, 19, 67, 0.95)', // Navy with transparency
+    active: '#5771FE', // Bright blue active
+    inactive: '#87ABCC', // Light blue inactive
+    border: '#D7F0FC', // Very light blue border
   },
   
   // Notification colors
   notification: {
-    background: 'rgba(30, 41, 59, 0.95)',
-    border: '#475569',
-    success: '#10B981',
-    warning: '#F59E0B',
-    error: '#EF4444',
-    info: '#3B82F6',
+    background: 'rgba(215, 240, 252, 0.95)', // Light blue background
+    border: '#87ABCC', // Light blue border
+    success: '#7DD3B9', // Mint green
+    warning: '#FADAAD', // Light yellow
+    error: '#FB9EB4', // Pink
+    info: '#5771FE', // Bright blue
   },
   
   // Shadow colors
   shadow: {
-    light: 'rgba(0, 0, 0, 0.1)',
-    medium: 'rgba(0, 0, 0, 0.25)',
-    heavy: 'rgba(0, 0, 0, 0.5)',
-    colored: 'rgba(139, 92, 246, 0.3)', // Purple shadow
+    light: 'rgba(9, 19, 67, 0.1)', // Light navy shadow
+    medium: 'rgba(9, 19, 67, 0.25)', // Medium navy shadow
+    heavy: 'rgba(9, 19, 67, 0.5)', // Heavy navy shadow
+    colored: 'rgba(87, 113, 254, 0.3)', // Bright blue shadow
   },
 
 };

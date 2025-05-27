@@ -30,7 +30,6 @@ export type MainTabParamList = {
   TheShrine: undefined;
   Search: undefined;
   Messaging: NavigatorScreenParams<MessagingStackParamList>;
-  Profile: undefined;
 };
 
 // Messaging Stack Types

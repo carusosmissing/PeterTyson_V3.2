@@ -21,6 +21,11 @@ export const Colors = Object.assign(
     tabBarBackground: OriginalColors.tabBar.background,
     tabBarActive: OriginalColors.tabBar.active,
     tabBarInactive: OriginalColors.tabBar.inactive,
+    // Maintain backward compatibility with old property names
+    primaryDark: OriginalColors.primary, // Map old primaryDark to new primary
+    primaryLight: OriginalColors.primaryLight,
+    secondaryDark: OriginalColors.secondary, // Map old secondaryDark to new secondary
+    secondaryLight: OriginalColors.primaryMedium, // Map old secondaryLight to new primaryMedium
     inputRadius: 8,
     inputHeight: 48,
     buttonHeight: 48,

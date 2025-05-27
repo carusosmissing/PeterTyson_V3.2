@@ -1,42 +1,46 @@
 import React from 'react';
 import { Image } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { MainTabParamList } from '../types';
-import { Colors, Icons } from '../constants';
+import { Colors, Icons, Images } from '../constants';
 import { HomeScreen } from '../screens/main/home_screen';
 import { ThePitScreen } from '../screens/main/the_pit_screen';
 import { TheShrineScreen } from '../screens/main/the_shrine_screen';
 import { SearchScreen } from '../screens/main/search_screen';
 import { MessagingNavigator } from './messaging_navigator';
 import { ProfileScreen } from '../screens/main/profile_screen';
+import { NotiScreen } from '../screens/main/noti_screen';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
+const Stack = createNativeStackNavigator();
 
-export const MainNavigator: React.FC = () => {
+const TabNavigator: React.FC = () => {
   return (
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: Colors.tabBarBackground,
-          borderTopColor: Colors.border,
-          height: 80,
-          paddingBottom: 20,
-          paddingTop: 10,
+          backgroundColor: 'rgba(0, 0, 0, 0.8)',
+          borderTopWidth: 0,
+          height: 60,
+          paddingBottom: 8,
+          paddingTop: 8,
+          borderRadius: 30,
+          marginHorizontal: 20,
+          marginBottom: 20,
+          position: 'absolute',
         },
-        tabBarActiveTintColor: Colors.tabBarActive,
-        tabBarInactiveTintColor: Colors.tabBarInactive,
-        tabBarLabelStyle: {
-          fontSize: 12,
-          fontWeight: '500' as const,
-        },
+        tabBarActiveTintColor: Colors.primaryLight,
+        tabBarInactiveTintColor: 'rgba(255, 255, 255, 0.6)',
+        tabBarShowLabel: false,
       }}
     >
       <Tab.Screen 
         name="Home" 
         component={HomeScreen}
         options={{
-          tabBarLabel: 'TruTUB',
+          tabBarLabel: '',
           tabBarIcon: ({ focused, color, size }) => (
             <Image 
               source={Icons.home} 
@@ -50,61 +54,10 @@ export const MainNavigator: React.FC = () => {
         }}
       />
       <Tab.Screen 
-        name="ThePit" 
-        component={ThePitScreen}
-        options={{
-          tabBarLabel: 'The Pit',
-          tabBarIcon: ({ focused, color, size }) => (
-            <Image 
-              source={Icons.pit} 
-              style={{ 
-                width: size || 24, 
-                height: size || 24, 
-                tintColor: color 
-              }} 
-            />
-          ),
-        }}
-      />
-      <Tab.Screen 
-        name="TheShrine" 
-        component={TheShrineScreen}
-        options={{
-          tabBarLabel: 'The Shrine',
-          tabBarIcon: ({ focused, color, size }) => (
-            <Image 
-              source={Icons.shrine} 
-              style={{ 
-                width: size || 24, 
-                height: size || 24, 
-                tintColor: color 
-              }} 
-            />
-          ),
-        }}
-      />
-      <Tab.Screen 
-        name="Search" 
-        component={SearchScreen}
-        options={{
-          tabBarLabel: 'Search',
-          tabBarIcon: ({ focused, color, size }) => (
-            <Image 
-              source={Icons.search} 
-              style={{ 
-                width: size || 24, 
-                height: size || 24, 
-                tintColor: color 
-              }} 
-            />
-          ),
-        }}
-      />
-      <Tab.Screen 
         name="Messaging" 
         component={MessagingNavigator}
         options={{
-          tabBarLabel: 'Inbox',
+          tabBarLabel: '',
           tabBarIcon: ({ focused, color, size }) => (
             <Image 
               source={Icons.messages} 
@@ -118,13 +71,30 @@ export const MainNavigator: React.FC = () => {
         }}
       />
       <Tab.Screen 
-        name="Profile" 
-        component={ProfileScreen}
+        name="TheShrine" 
+        component={TheShrineScreen}
         options={{
-          tabBarLabel: 'Profile',
+          tabBarLabel: '',
           tabBarIcon: ({ focused, color, size }) => (
             <Image 
-              source={Icons.profile} 
+              source={Images.logo} 
+              style={{ 
+                width: size || 24, 
+                height: size || 24, 
+                resizeMode: 'contain'
+              }} 
+            />
+          ),
+        }}
+      />
+      <Tab.Screen 
+        name="ThePit" 
+        component={ThePitScreen}
+        options={{
+          tabBarLabel: '',
+          tabBarIcon: ({ focused, color, size }) => (
+            <Image 
+              source={Icons.trophy} 
               style={{ 
                 width: size || 24, 
                 height: size || 24, 
@@ -134,6 +104,38 @@ export const MainNavigator: React.FC = () => {
           ),
         }}
       />
-    </Tab.Navigator>
+      <Tab.Screen 
+        name="Search" 
+        component={SearchScreen}
+        options={{
+          tabBarLabel: '',
+          tabBarIcon: ({ focused, color, size }) => (
+            <Image 
+              source={Icons.search} 
+              style={{ 
+                width: size || 24, 
+                height: size || 24, 
+                tintColor: color 
+              }} 
+            />
+          ),
+        }}
+      />
+
+          </Tab.Navigator>
+    );
+};
+
+export const MainNavigator: React.FC = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="MainTabs" component={TabNavigator} />
+      <Stack.Screen name="Profile" component={ProfileScreen} />
+      <Stack.Screen name="NotiScreen" component={NotiScreen} />
+    </Stack.Navigator>
   );
 }; 

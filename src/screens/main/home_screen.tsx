@@ -1,9 +1,20 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
-import { Colors, Typography, Spacing, Images } from '../../constants';
+import { useNavigation } from '@react-navigation/native';
+import { Colors, Typography, Spacing, Images, Icons, Avatars } from '../../constants';
 import { Container } from '../../components';
 
 export const HomeScreen: React.FC = () => {
+  const navigation = useNavigation();
+
+  const handleProfilePress = () => {
+    navigation.navigate('Profile' as never);
+  };
+
+  const handleNotificationPress = () => {
+    navigation.navigate('NotiScreen' as never);
+  };
+
   const profileImages = [
     'https://via.placeholder.com/60x60/FFFFFF/000000?text=🐕',
     'https://via.placeholder.com/60x60/FFFFFF/000000?text=👨',
@@ -36,28 +47,30 @@ export const HomeScreen: React.FC = () => {
   ];
 
   return (
-    <Container variant="gradient" safeArea>
+    <Container variant="image" backgroundImage={Images.background2} safeArea>
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         {/* Header */}
         <View style={styles.header}>
           <View style={styles.headerLeft}>
-            <Text style={styles.logo}>🎯</Text>
-            <Text style={styles.menuIcon}>☰</Text>
+            <Image source={Images.logo} style={styles.logoImage} />
+            <TouchableOpacity>
+              <Image source={Icons.menu} style={styles.menuIcon} />
+            </TouchableOpacity>
           </View>
           <Text style={styles.headerTitle}>Homepage</Text>
           <View style={styles.headerRight}>
-            <View style={styles.profileContainer}>
+            <TouchableOpacity style={styles.profileContainer} onPress={handleProfilePress}>
               <Image 
-                source={{ uri: 'https://via.placeholder.com/40x40/FFFFFF/000000?text=K' }}
+                source={Avatars.pete}
                 style={styles.profileImage}
               />
-            </View>
-            <View style={styles.notificationContainer}>
-              <Text style={styles.notificationIcon}>🔔</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.notificationContainer} onPress={handleNotificationPress}>
+              <Image source={Icons.notification} style={styles.notificationIcon} />
               <View style={styles.notificationBadge}>
                 <Text style={styles.notificationCount}>2</Text>
               </View>
-            </View>
+            </TouchableOpacity>
           </View>
         </View>
 
@@ -140,20 +153,24 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingTop: 10,
+    paddingTop: 57,
     paddingBottom: 20,
   },
   headerLeft: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 15,
+    marginLeft: -10,
   },
-  logo: {
-    fontSize: 24,
+  logoImage: {
+    width: 32,
+    height: 32,
+    resizeMode: 'contain',
   },
   menuIcon: {
-    fontSize: 20,
-    color: '#FFFFFF',
+    width: 24,
+    height: 24,
+    tintColor: Colors.text.inverse,
   },
   headerTitle: {
     fontSize: 20,
@@ -164,6 +181,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 15,
+    marginRight: -10,
   },
   profileContainer: {
     position: 'relative',
@@ -177,13 +195,15 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   notificationIcon: {
-    fontSize: 20,
+    width: 24,
+    height: 24,
+    tintColor: Colors.text.inverse,
   },
   notificationBadge: {
     position: 'absolute',
     top: -5,
     right: -5,
-    backgroundColor: '#60A5FA',
+    backgroundColor: Colors.primaryLight,
     borderRadius: 10,
     width: 20,
     height: 20,
@@ -191,7 +211,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   notificationCount: {
-    color: '#FFFFFF',
+    color: Colors.text.inverse,
     fontSize: 12,
     fontWeight: '600',
   },
@@ -231,7 +251,7 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   challengesButton: {
-    backgroundColor: '#60A5FA',
+    backgroundColor: Colors.primaryLight,
     borderRadius: 25,
     paddingVertical: 16,
     alignItems: 'center',

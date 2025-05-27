@@ -30,4 +30,7 @@ export {
   SkeletonCard, 
   SkeletonList 
 } from './skeleton_loader';
-export type { SkeletonLoaderProps } from './skeleton_loader'; 
+export type { SkeletonLoaderProps } from './skeleton_loader';
+
+export { ColorPaletteShowcase } from './color_palette_showcase';
+export type { ColorPaletteShowcaseProps } from './color_palette_showcase'; 
