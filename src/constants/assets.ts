@@ -15,84 +15,94 @@ export interface AssetIcon {
   size?: number;
 }
 
-// App Icons - Navigation and UI
+// App Icons - Navigation and UI (using actual TruEXP assets)
 export const Icons = {
   // Navigation icons
-  home: require('../../assets/icons/home.png'),
-  search: require('../../assets/icons/search.png'),
-  profile: require('../../assets/icons/profile.png'),
-  messages: require('../../assets/icons/messages.png'),
-  events: require('../../assets/icons/events.png'),
-  shrine: require('../../assets/icons/shrine.png'),
+  home: require('../../assets/TruEXP_Assets/ui_icons/white/home-white.png'),
+  search: require('../../assets/TruEXP_Assets/ui_icons/white/search-white.png'),
+  profile: require('../../assets/TruEXP_Assets/ui_icons/white/person-white.png'),
+  messages: require('../../assets/TruEXP_Assets/ui_icons/white/message-white.png'),
+  events: require('../../assets/TruEXP_Assets/ui_icons/white/ticket-white.png'),
+  shrine: require('../../assets/TruEXP_Assets/ui_icons/white/star-white.png'),
   
   // Action icons
-  back: require('../../assets/icons/back.png'),
-  close: require('../../assets/icons/close.png'),
-  menu: require('../../assets/icons/menu.png'),
-  settings: require('../../assets/icons/settings.png'),
-  edit: require('../../assets/icons/edit.png'),
-  camera: require('../../assets/icons/camera.png'),
-  gallery: require('../../assets/icons/gallery.png'),
+  back: require('../../assets/TruEXP_Assets/ui_icons/white/arrow-left-white.png'),
+  close: require('../../assets/TruEXP_Assets/ui_icons/white/cross-white.png'),
+  menu: require('../../assets/TruEXP_Assets/ui_icons/white/menu-white.png'),
+  settings: require('../../assets/TruEXP_Assets/ui_icons/white/info-white.png'),
+  edit: require('../../assets/TruEXP_Assets/ui_icons/white/plus-white.png'),
+  camera: require('../../assets/TruEXP_Assets/ui_icons/white/eye-white.png'),
+  gallery: require('../../assets/TruEXP_Assets/ui_icons/white/upload-white.png'),
   
   // Social icons
-  like: require('../../assets/icons/like.png'),
-  share: require('../../assets/icons/share.png'),
-  comment: require('../../assets/icons/comment.png'),
-  follow: require('../../assets/icons/follow.png'),
+  like: require('../../assets/TruEXP_Assets/ui_icons/white/heart-white.png'),
+  share: require('../../assets/TruEXP_Assets/ui_icons/white/upload-white.png'),
+  comment: require('../../assets/TruEXP_Assets/ui_icons/white/message-white.png'),
+  follow: require('../../assets/TruEXP_Assets/ui_icons/white/plus-white.png'),
   
   // Status icons
-  verified: require('../../assets/icons/verified.png'),
-  star: require('../../assets/icons/star.png'),
-  crown: require('../../assets/icons/crown.png'),
-  fire: require('../../assets/icons/fire.png'),
+  verified: require('../../assets/TruEXP_Assets/ui_icons/white/checkmark-white.png'),
+  star: require('../../assets/TruEXP_Assets/ui_icons/white/star-white.png'),
+  crown: require('../../assets/TruEXP_Assets/ui_icons/white/prize-white.png'),
+  fire: require('../../assets/TruEXP_Assets/ui_icons/white/bolt-white.png'),
   
   // Music/Sports icons
-  music: require('../../assets/icons/music.png'),
-  sports: require('../../assets/icons/sports.png'),
-  microphone: require('../../assets/icons/microphone.png'),
-  trophy: require('../../assets/icons/trophy.png'),
+  music: require('../../assets/TruEXP_Assets/ui_icons/white/music-note-white.png'),
+  sports: require('../../assets/TruEXP_Assets/ui_icons/white/basketball-white.png'),
+  microphone: require('../../assets/TruEXP_Assets/ui_icons/white/speaker-white.png'),
+  trophy: require('../../assets/TruEXP_Assets/ui_icons/white/prize-white.png'),
+  
+  // Additional navigation icons for The Pit
+  pit: require('../../assets/TruEXP_Assets/ui_icons/white/bolt-white.png'),
+  notification: require('../../assets/TruEXP_Assets/ui_icons/white/notification-white.png'),
 };
 
-// App Images - Backgrounds and illustrations
+// App Images - Backgrounds and illustrations (using actual TruEXP assets)
 export const Images = {
   // Backgrounds
-  welcomeBackground: require('../../assets/images/welcome-bg.png'),
-  onboardingBackground: require('../../assets/images/onboarding-bg.png'),
-  homeBackground: require('../../assets/images/home-bg.png'),
-  
-  // Illustrations
-  musicIllustration: require('../../assets/images/music-illustration.png'),
-  sportsIllustration: require('../../assets/images/sports-illustration.png'),
-  emptyState: require('../../assets/images/empty-state.png'),
-  errorState: require('../../assets/images/error-state.png'),
+  welcomeBackground: require('../../assets/TruEXP_Assets/backgrounds/background-1.png'),
+  onboardingBackground: require('../../assets/TruEXP_Assets/backgrounds/background-2.png'),
+  homeBackground: require('../../assets/TruEXP_Assets/backgrounds/background-3.png'),
   
   // Logos
-  logo: require('../../assets/images/truexp-logo.png'),
-  logoWhite: require('../../assets/images/truexp-logo-white.png'),
-  logoIcon: require('../../assets/images/truexp-icon.png'),
+  logo: require('../../assets/TruEXP_Assets/logos/Logo-gradient.png'),
+  logoWhite: require('../../assets/TruEXP_Assets/logos/Logo-white.png'),
+  logoBlack: require('../../assets/TruEXP_Assets/logos/Logo-black.png'),
+  logoIcon: require('../../assets/TruEXP_Assets/logos/Logo-gradient.png'),
+  fullLogotypeWhite: require('../../assets/TruEXP_Assets/logos/full_logotype-white.png'),
+  fullLogotypeBlack: require('../../assets/TruEXP_Assets/logos/full_logotype-black.png'),
   
-  // Placeholders
-  avatarPlaceholder: require('../../assets/images/avatar-placeholder.png'),
-  imagePlaceholder: require('../../assets/images/image-placeholder.png'),
-  eventPlaceholder: require('../../assets/images/event-placeholder.png'),
+  // Placeholders (using the one that exists)
+  avatarPlaceholder: require('../../assets/images/placeholder.png'),
+  imagePlaceholder: require('../../assets/images/placeholder.png'),
+  eventPlaceholder: require('../../assets/images/placeholder.png'),
+  
+  // Additional backgrounds
+  background1: require('../../assets/TruEXP_Assets/backgrounds/background-1.png'),
+  background2: require('../../assets/TruEXP_Assets/backgrounds/background-2.png'),
+  background3: require('../../assets/TruEXP_Assets/backgrounds/background-3.png'),
 };
 
-// Avatar images for demo/testing
+// Avatar images for demo/testing (using actual TruEXP assets)
 export const Avatars = {
-  user1: require('../../assets/avatars/user1.png'),
-  user2: require('../../assets/avatars/user2.png'),
-  user3: require('../../assets/avatars/user3.png'),
-  user4: require('../../assets/avatars/user4.png'),
-  user5: require('../../assets/avatars/user5.png'),
+  user1: require('../../assets/TruEXP_Assets/pfp_examples/pfp1.png'),
+  user2: require('../../assets/TruEXP_Assets/pfp_examples/pfp2.png'),
+  user3: require('../../assets/TruEXP_Assets/pfp_examples/pfp3.png'),
+  user4: require('../../assets/TruEXP_Assets/pfp_examples/pfp4.png'),
+  user5: require('../../assets/TruEXP_Assets/pfp_examples/pfp5.png'),
+  pete: require('../../assets/TruEXP_Assets/pfp_examples/pete_pfp.png'),
 };
 
-// Event images for demo/testing
+// Event images for demo/testing (using actual TruEXP assets)
 export const EventImages = {
-  concert1: require('../../assets/events/concert1.jpg'),
-  concert2: require('../../assets/events/concert2.jpg'),
-  sports1: require('../../assets/events/sports1.jpg'),
-  sports2: require('../../assets/events/sports2.jpg'),
-  festival1: require('../../assets/events/festival1.jpg'),
+  gallery1: require('../../assets/TruEXP_Assets/gallery_images/gallery-1.jpg'),
+  gallery2: require('../../assets/TruEXP_Assets/gallery_images/gallery-2.jpg'),
+  // Aliases for backward compatibility
+  concert1: require('../../assets/TruEXP_Assets/gallery_images/gallery-1.jpg'),
+  concert2: require('../../assets/TruEXP_Assets/gallery_images/gallery-2.jpg'),
+  sports1: require('../../assets/TruEXP_Assets/gallery_images/gallery-1.jpg'),
+  sports2: require('../../assets/TruEXP_Assets/gallery_images/gallery-2.jpg'),
+  festival1: require('../../assets/TruEXP_Assets/gallery_images/gallery-1.jpg'),
 };
 
 // Asset utility functions

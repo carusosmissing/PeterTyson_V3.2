@@ -105,6 +105,7 @@ export const Colors = {
     heavy: 'rgba(0, 0, 0, 0.5)',
     colored: 'rgba(139, 92, 246, 0.3)', // Purple shadow
   },
+
 };
 
 // Utility functions for color manipulation

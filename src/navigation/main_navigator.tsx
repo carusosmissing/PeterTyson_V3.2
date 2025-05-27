@@ -1,7 +1,8 @@
 import React from 'react';
+import { Image } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MainTabParamList } from '../types';
-import { Colors } from '../constants';
+import { Colors, Icons } from '../constants';
 import { HomeScreen } from '../screens/main/home_screen';
 import { ThePitScreen } from '../screens/main/the_pit_screen';
 import { TheShrineScreen } from '../screens/main/the_shrine_screen';
@@ -36,7 +37,16 @@ export const MainNavigator: React.FC = () => {
         component={HomeScreen}
         options={{
           tabBarLabel: 'TruTUB',
-          tabBarIcon: () => null, // TODO: Add icons
+          tabBarIcon: ({ focused, color, size }) => (
+            <Image 
+              source={Icons.home} 
+              style={{ 
+                width: size || 24, 
+                height: size || 24, 
+                tintColor: color 
+              }} 
+            />
+          ),
         }}
       />
       <Tab.Screen 
@@ -44,7 +54,16 @@ export const MainNavigator: React.FC = () => {
         component={ThePitScreen}
         options={{
           tabBarLabel: 'The Pit',
-          tabBarIcon: () => null, // TODO: Add icons
+          tabBarIcon: ({ focused, color, size }) => (
+            <Image 
+              source={Icons.pit} 
+              style={{ 
+                width: size || 24, 
+                height: size || 24, 
+                tintColor: color 
+              }} 
+            />
+          ),
         }}
       />
       <Tab.Screen 
@@ -52,7 +71,16 @@ export const MainNavigator: React.FC = () => {
         component={TheShrineScreen}
         options={{
           tabBarLabel: 'The Shrine',
-          tabBarIcon: () => null, // TODO: Add icons
+          tabBarIcon: ({ focused, color, size }) => (
+            <Image 
+              source={Icons.shrine} 
+              style={{ 
+                width: size || 24, 
+                height: size || 24, 
+                tintColor: color 
+              }} 
+            />
+          ),
         }}
       />
       <Tab.Screen 
@@ -60,7 +88,16 @@ export const MainNavigator: React.FC = () => {
         component={SearchScreen}
         options={{
           tabBarLabel: 'Search',
-          tabBarIcon: () => null, // TODO: Add icons
+          tabBarIcon: ({ focused, color, size }) => (
+            <Image 
+              source={Icons.search} 
+              style={{ 
+                width: size || 24, 
+                height: size || 24, 
+                tintColor: color 
+              }} 
+            />
+          ),
         }}
       />
       <Tab.Screen 
@@ -68,7 +105,16 @@ export const MainNavigator: React.FC = () => {
         component={MessagingNavigator}
         options={{
           tabBarLabel: 'Inbox',
-          tabBarIcon: () => null, // TODO: Add icons
+          tabBarIcon: ({ focused, color, size }) => (
+            <Image 
+              source={Icons.messages} 
+              style={{ 
+                width: size || 24, 
+                height: size || 24, 
+                tintColor: color 
+              }} 
+            />
+          ),
         }}
       />
       <Tab.Screen 
@@ -76,7 +122,16 @@ export const MainNavigator: React.FC = () => {
         component={ProfileScreen}
         options={{
           tabBarLabel: 'Profile',
-          tabBarIcon: () => null, // TODO: Add icons
+          tabBarIcon: ({ focused, color, size }) => (
+            <Image 
+              source={Icons.profile} 
+              style={{ 
+                width: size || 24, 
+                height: size || 24, 
+                tintColor: color 
+              }} 
+            />
+          ),
         }}
       />
     </Tab.Navigator>
