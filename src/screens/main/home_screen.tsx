@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Colors, Typography, Spacing, Images, Icons, Avatars } from '../../constants';
+import { Colors, Typography, Spacing, Images, Icons, Avatars, Trustubs } from '../../constants';
 import { Container } from '../../components';
 
 export const HomeScreen: React.FC = () => {
@@ -16,33 +16,33 @@ export const HomeScreen: React.FC = () => {
   };
 
   const profileImages = [
-    'https://via.placeholder.com/60x60/FFFFFF/000000?text=🐕',
-    'https://via.placeholder.com/60x60/FFFFFF/000000?text=👨',
-    'https://via.placeholder.com/60x60/FFFFFF/000000?text=👩',
-    'https://via.placeholder.com/60x60/FFFFFF/000000?text=🧔',
-    'https://via.placeholder.com/60x60/FFFFFF/000000?text=👦',
+    Avatars.user1,
+    Avatars.user2,
+    Avatars.user3,
+    Avatars.user4,
+    Avatars.user5,
   ];
 
   const galleryItems = [
     {
       id: '#01230',
       artist: 'Kendrick Lamar',
-      image: 'https://via.placeholder.com/300x400/FF6B6B/FFFFFF?text=Kendrick',
+      image: Trustubs.trustub1,
     },
     {
       id: '#01240',
       artist: 'Lady Gaga',
-      image: 'https://via.placeholder.com/300x400/9B59B6/FFFFFF?text=Gaga',
+      image: Trustubs.trustub2,
     },
     {
       id: '#01241',
       artist: 'Fred Again',
-      image: 'https://via.placeholder.com/300x400/8E44AD/FFFFFF?text=Fred',
+      image: Trustubs.trustub3,
     },
     {
       id: '#01236',
       artist: 'Welcome to the Pit',
-      image: 'https://via.placeholder.com/300x400/3498DB/FFFFFF?text=Pit',
+      image: Trustubs.trustub4,
     },
   ];
 
@@ -87,7 +87,7 @@ export const HomeScreen: React.FC = () => {
         <View style={styles.profileRow}>
           {profileImages.map((image, index) => (
             <TouchableOpacity key={index} style={styles.profileCircle}>
-              <Image source={{ uri: image }} style={styles.profileCircleImage} />
+              <Image source={image} style={styles.profileCircleImage} />
             </TouchableOpacity>
           ))}
         </View>
@@ -104,7 +104,7 @@ export const HomeScreen: React.FC = () => {
           <View style={styles.galleryGrid}>
             <View style={styles.galleryRow}>
               <TouchableOpacity style={[styles.galleryItem, styles.galleryItemLarge]}>
-                <Image source={{ uri: galleryItems[0].image }} style={styles.galleryImage} />
+                <Image source={galleryItems[0].image} style={styles.galleryImage} />
                 <View style={styles.galleryOverlay}>
                   <Text style={styles.galleryId}>{galleryItems[0].id}</Text>
                   <Text style={styles.galleryArtist}>{galleryItems[0].artist}</Text>
@@ -112,7 +112,7 @@ export const HomeScreen: React.FC = () => {
               </TouchableOpacity>
               
               <TouchableOpacity style={[styles.galleryItem, styles.galleryItemLarge]}>
-                <Image source={{ uri: galleryItems[1].image }} style={styles.galleryImage} />
+                <Image source={galleryItems[1].image} style={styles.galleryImage} />
                 <View style={styles.galleryOverlay}>
                   <Text style={styles.galleryId}>{galleryItems[1].id}</Text>
                   <Text style={styles.galleryArtist}>{galleryItems[1].artist}</Text>
@@ -122,7 +122,7 @@ export const HomeScreen: React.FC = () => {
             
             <View style={styles.galleryRow}>
               <TouchableOpacity style={[styles.galleryItem, styles.galleryItemSmall]}>
-                <Image source={{ uri: galleryItems[2].image }} style={styles.galleryImage} />
+                <Image source={galleryItems[2].image} style={styles.galleryImage} />
                 <View style={styles.galleryOverlay}>
                   <Text style={styles.galleryId}>{galleryItems[2].id}</Text>
                   <Text style={styles.galleryArtist}>{galleryItems[2].artist}</Text>
@@ -130,7 +130,7 @@ export const HomeScreen: React.FC = () => {
               </TouchableOpacity>
               
               <TouchableOpacity style={[styles.galleryItem, styles.galleryItemSmall]}>
-                <Image source={{ uri: galleryItems[3].image }} style={styles.galleryImage} />
+                <Image source={galleryItems[3].image} style={styles.galleryImage} />
                 <View style={styles.galleryOverlay}>
                   <Text style={styles.galleryId}>{galleryItems[3].id}</Text>
                   <Text style={styles.galleryArtist}>{galleryItems[3].artist}</Text>
@@ -286,15 +286,16 @@ const styles = StyleSheet.create({
   },
   galleryItemLarge: {
     flex: 1,
-    height: 250,
+    height: 350,
   },
   galleryItemSmall: {
     flex: 1,
-    height: 120,
+    height: 200,
   },
   galleryImage: {
     width: '100%',
     height: '100%',
+    resizeMode: 'cover',
   },
   galleryOverlay: {
     position: 'absolute',

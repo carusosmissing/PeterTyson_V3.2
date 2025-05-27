@@ -105,6 +105,14 @@ export const EventImages = {
   festival1: require('../../assets/gallery_images/gallery-1.jpg'),
 };
 
+// Trustub images for gallery (using actual TruEXP assets)
+export const Trustubs = {
+  trustub1: require('../../assets/trustubs/trustub-1.png'),
+  trustub2: require('../../assets/trustubs/trustub-2.png'),
+  trustub3: require('../../assets/trustubs/trustub-3.png'),
+  trustub4: require('../../assets/trustubs/trustub-4.png'),
+};
+
 // Asset utility functions
 export const AssetUtils = {
   // Get icon with fallback
@@ -202,6 +210,7 @@ export const Assets = {
   Images,
   Avatars,
   EventImages,
+  Trustubs,
   Utils: AssetUtils,
   preload: preloadAssets,
 }; 

@@ -39,6 +39,7 @@ export { Typography, TypographyUtils } from './typography';
 export { Spacing, SpacingUtils } from './spacing';
 export { Design, DesignUtils } from './design';
 export { Assets, Icons, Images, Avatars, EventImages, AssetUtils } from './assets';
+export { Trustubs } from './assets';
 
 // Enhanced Layout object with all needed properties
 export const Layout = {
