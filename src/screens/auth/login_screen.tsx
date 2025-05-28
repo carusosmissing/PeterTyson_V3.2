@@ -90,7 +90,11 @@ export const LoginScreen: React.FC = () => {
               style={styles.signInButton}
               onPress={handleLogin}
             >
-              <Text style={styles.signInButtonText}>Sign In</Text>
+              <Image 
+                source={Icons.back}
+                style={styles.signInIcon}
+                resizeMode="contain"
+              />
             </TouchableOpacity>
             
             <View style={styles.signUpContainer}>
@@ -108,7 +112,11 @@ export const LoginScreen: React.FC = () => {
             style={styles.goBackButton}
             onPress={() => navigation.goBack()}
           >
-            <Text style={styles.goBackButtonText}>Go Back</Text>
+            <Image 
+              source={Icons.back}
+              style={styles.backIcon}
+              resizeMode="contain"
+            />
           </TouchableOpacity>
         </View>
       </View>
@@ -134,13 +142,13 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   logo: {
-    width: 40,
-    height: 40,
+    width: 39,
+    height: 39,
     marginRight: 12,
   },
   title: {
     fontSize: 32,
-    fontWeight: '600',
+    fontWeight: '700',
     color: '#fff',
   },
   content: {
@@ -196,11 +204,11 @@ const styles = StyleSheet.create({
   },
   forgotPasswordText: {
     fontSize: 16,
-    color: '#60A5FA',
+    color: '#D7F0FC',
     fontWeight: '500',
   },
   signInButton: {
-    backgroundColor: '#60A5FA',
+    backgroundColor: '#D7F0FC',
     borderRadius: 28,
     height: 56,
     justifyContent: 'center',
@@ -215,10 +223,11 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 3,
   },
-  signInButtonText: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#fff',
+  signInIcon: {
+    width: 24,
+    height: 24,
+    tintColor: '#1A365D',
+    transform: [{ rotate: '180deg' }],
   },
   signUpContainer: {
     flexDirection: 'row',
@@ -231,23 +240,25 @@ const styles = StyleSheet.create({
   },
   signUpLink: {
     fontSize: 16,
-    color: '#60A5FA',
+    color: '#D7F0FC',
     fontWeight: '600',
   },
   footer: {
     alignItems: 'center',
   },
   goBackButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: 'rgba(30, 41, 59, 0.8)',
-    borderRadius: 28,
+    borderRadius: 12,
     height: 56,
     width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
-  goBackButtonText: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#fff',
+  backIcon: {
+    width: 20,
+    height: 20,
+    tintColor: 'rgba(255, 255, 255, 0.8)',
+    marginRight: 8,
   },
 }); 

@@ -23,4 +23,10 @@ export * from './navigation';
 // export * from './form';
 
 // Export all content components (when created)
-// export * from './content'; 
+// export * from './content';
+
+// Export trustub carousel component
+export { TrustubCarousel } from './trustub_carousel';
+
+// Export app initializer component
+export { AppInitializer } from './app_initializer'; 

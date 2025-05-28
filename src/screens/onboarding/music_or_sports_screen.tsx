@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Colors, Typography, Spacing, Images } from '../../constants';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { setSelectedCategory } from '../../store';
 import { Container, Button } from '../../components';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 export const MusicOrSportsScreen: React.FC = () => {
   const navigation = useNavigation();
@@ -37,7 +39,7 @@ export const MusicOrSportsScreen: React.FC = () => {
     }
   };
 
-  const renderOptionCard = (type: 'music' | 'sports', icon: string, label: string) => {
+  const renderOptionCard = (type: 'music' | 'sports', label: string) => {
     const isSelected = selectedOptions.includes(type);
     
     return (
@@ -49,7 +51,11 @@ export const MusicOrSportsScreen: React.FC = () => {
         onPress={() => handleOptionToggle(type)}
         activeOpacity={0.8}
       >
-        <Text style={styles.optionIcon}>{icon}</Text>
+        {type === 'music' ? (
+          <MaterialIcons name="music-note" size={32} style={styles.optionIcon} />
+        ) : (
+          <Ionicons name="basketball" size={32} style={styles.optionIcon} />
+        )}
         <Text style={[
           styles.optionLabel,
           isSelected && styles.optionLabelSelected
@@ -63,18 +69,18 @@ export const MusicOrSportsScreen: React.FC = () => {
   return (
     <Container variant="image" backgroundImage={Images.onboardingBackground} safeArea>
       <View style={styles.content}>
-        {/* Logo */}
-        <View style={styles.logoContainer}>
-          <Text style={styles.logo}>🎯</Text>
-        </View>
-
-        {/* Header */}
-        <View style={styles.header}>
-          <Text style={styles.title}>Welcome, Wew!</Text>
-          <Text style={styles.subtitle}>We're thrilled you're here.</Text>
-          <Text style={styles.description}>
-            Let us curate your TruEXP experience...
-          </Text>
+        {/* Top Section with Logo and Header */}
+        <View style={styles.topSection}>
+          <View style={styles.logoContainer}>
+            <Image source={Images.logoIcon} style={styles.logo} resizeMode="contain" />
+          </View>
+          <View style={styles.header}>
+            <Text style={styles.title}>Welcome, Wew!</Text>
+            <Text style={styles.subtitle}>We're thrilled you're here.</Text>
+            <Text style={styles.description}>
+              Let us curate your TruEXP experience...
+            </Text>
+          </View>
         </View>
 
         {/* Options Section */}
@@ -82,27 +88,28 @@ export const MusicOrSportsScreen: React.FC = () => {
           <Text style={styles.optionsTitle}>I'm a fan of these experiences:</Text>
           
           <View style={styles.optionsContainer}>
-            {renderOptionCard('music', '🎵', 'Music')}
-            {renderOptionCard('sports', '🏀', 'Sports')}
+            {renderOptionCard('music', 'Music')}
+            {renderOptionCard('sports', 'Sports')}
           </View>
           
           <Text style={styles.selectionCount}>
             {selectedOptions.length} selected
           </Text>
         </View>
+      </View>
 
-        {/* Continue Button */}
-        <View style={styles.buttonContainer}>
-          <Button
-            title="Continue"
-            onPress={handleContinue}
-            variant="primary"
-            size="lg"
-            fullWidth
-            disabled={selectedOptions.length === 0}
-            gradient={true}
-          />
-        </View>
+      {/* Fixed Bottom Button */}
+      <View style={styles.fixedButtonContainer}>
+        <TouchableOpacity
+          style={[
+            styles.continueButton,
+            selectedOptions.length === 0 && styles.continueButtonDisabled
+          ]}
+          onPress={handleContinue}
+          disabled={selectedOptions.length === 0}
+        >
+          <Text style={styles.continueButtonText}>Continue</Text>
+        </TouchableOpacity>
       </View>
     </Container>
   );
@@ -111,42 +118,54 @@ export const MusicOrSportsScreen: React.FC = () => {
 const styles = StyleSheet.create({
   content: {
     flex: 1,
-    paddingHorizontal: Spacing.semantic.screenPadding,
+    paddingHorizontal: Spacing.semantic.screenPadding - 15,
     paddingTop: 60,
-    paddingBottom: 40,
+    paddingBottom: 120,
+  },
+  topSection: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    marginBottom: 60,
   },
   logoContainer: {
-    alignItems: 'flex-start',
-    marginBottom: 40,
+    marginRight: 16,
+    marginTop: 3,
   },
   logo: {
-    fontSize: 32,
+    width: 39,
+    height: 39,
   },
   header: {
-    marginBottom: 60,
+    flex: 1,
+    marginBottom: 20,
   },
   title: {
     fontSize: 32,
     fontWeight: 'bold',
     color: '#FFFFFF',
-    marginBottom: 8,
+    marginBottom: 24,
   },
   subtitle: {
     fontSize: 18,
+    fontWeight: 'bold',
     color: '#FFFFFF',
     marginBottom: 16,
+    textAlign: 'left',
   },
   description: {
     fontSize: 16,
+    fontWeight: 'bold',
     color: '#FFFFFF',
     opacity: 0.8,
+    textAlign: 'left',
   },
   optionsSection: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
+    marginTop: 40,
   },
   optionsTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: '600',
     color: '#FFFFFF',
     marginBottom: 32,
@@ -160,7 +179,7 @@ const styles = StyleSheet.create({
   },
   optionCard: {
     flex: 1,
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
     borderRadius: 16,
     padding: 24,
     alignItems: 'center',
@@ -170,12 +189,12 @@ const styles = StyleSheet.create({
     borderColor: 'transparent',
   },
   optionCardSelected: {
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: 'rgba(64, 156, 255, 0.8)',
     borderColor: 'rgba(255, 255, 255, 0.3)',
   },
   optionIcon: {
-    fontSize: 32,
     marginBottom: 12,
+    color: '#FFFFFF',
   },
   optionLabel: {
     fontSize: 16,
@@ -190,8 +209,28 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     textAlign: 'center',
     opacity: 0.8,
+    marginTop: 16,
+    marginBottom: 80,
   },
-  buttonContainer: {
-    marginTop: 'auto',
+  fixedButtonContainer: {
+    position: 'absolute',
+    bottom: 40,
+    left: Spacing.semantic.screenPadding - 15,
+    right: Spacing.semantic.screenPadding - 15,
+  },
+  continueButton: {
+    backgroundColor: Colors.button.primary,
+    height: 56,
+    borderRadius: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  continueButtonDisabled: {
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+  },
+  continueButtonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: '600',
   },
 }); 

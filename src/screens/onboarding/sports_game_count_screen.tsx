@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Colors, Typography, Spacing, Images } from '../../constants';
 import { useAppDispatch, useAppSelector } from '../../store';
@@ -63,36 +63,34 @@ export const SportsGameCountScreen: React.FC = () => {
   return (
     <Container variant="image" backgroundImage={Images.onboardingBackground} safeArea>
       <View style={styles.content}>
-        {/* Logo */}
-        <View style={styles.logoContainer}>
-          <Text style={styles.logo}>🎯</Text>
-        </View>
-
         {/* Header */}
         <View style={styles.header}>
+          <Image source={Images.logoIcon} style={styles.logo} resizeMode="contain" />
           <Text style={styles.title}>Your game count?</Text>
-          <Text style={styles.subtitle}>
-            How many sporting events do you attend a year?
-          </Text>
         </View>
+
+        <Text style={styles.subtitle}>
+          How many sporting events do you attend a year?
+        </Text>
 
         {/* Options */}
         <View style={styles.optionsContainer}>
           {options.map(renderOption)}
         </View>
+      </View>
 
-        {/* Continue Button */}
-        <View style={styles.buttonContainer}>
-          <Button
-            title="Continue"
-            onPress={handleContinue}
-            variant="primary"
-            size="lg"
-            fullWidth
-            disabled={!selectedOption}
-            gradient={true}
-          />
-        </View>
+      {/* Fixed Bottom Button */}
+      <View style={styles.fixedButtonContainer}>
+        <TouchableOpacity
+          style={[
+            styles.continueButton,
+            !selectedOption && styles.continueButtonDisabled
+          ]}
+          onPress={handleContinue}
+          disabled={!selectedOption}
+        >
+          <Text style={styles.continueButtonText}>Continue</Text>
+        </TouchableOpacity>
       </View>
     </Container>
   );
@@ -103,29 +101,32 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: Spacing.semantic.screenPadding,
     paddingTop: 60,
-    paddingBottom: 40,
-  },
-  logoContainer: {
-    alignItems: 'flex-start',
-    marginBottom: 40,
-  },
-  logo: {
-    fontSize: 32,
+    paddingBottom: 120,
   },
   header: {
+    flexDirection: 'row',
+    alignItems: 'center',
     marginBottom: 40,
+    marginLeft: -20,
+  },
+  logo: {
+    width: 39,
+    height: 39,
+    marginRight: 12,
   },
   title: {
     fontSize: 32,
-    fontWeight: 'bold',
+    fontWeight: '700',
     color: '#FFFFFF',
-    marginBottom: 16,
   },
   subtitle: {
     fontSize: 16,
     color: '#FFFFFF',
     opacity: 0.8,
+    marginBottom: 40,
+    marginTop: 20,
     textAlign: 'center',
+    fontWeight: '700',
   },
   optionsContainer: {
     flex: 1,
@@ -133,7 +134,7 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   optionButton: {
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',
     borderRadius: 12,
     padding: 20,
     alignItems: 'center',
@@ -153,7 +154,25 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontWeight: '600',
   },
-  buttonContainer: {
-    marginTop: 'auto',
+  fixedButtonContainer: {
+    position: 'absolute',
+    bottom: 40,
+    left: Spacing.semantic.screenPadding,
+    right: Spacing.semantic.screenPadding,
+  },
+  continueButton: {
+    backgroundColor: Colors.button.primary,
+    height: 56,
+    borderRadius: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  continueButtonDisabled: {
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+  },
+  continueButtonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: '600',
   },
 }); 

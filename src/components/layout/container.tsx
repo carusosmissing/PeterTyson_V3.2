@@ -116,6 +116,6 @@ const styles = StyleSheet.create({
   },
   safeArea: {
     flex: 1,
-    backgroundColor: Colors.background.primary,
+    backgroundColor: 'transparent', // Make SafeAreaView transparent for bottom nav
   },
 }); 

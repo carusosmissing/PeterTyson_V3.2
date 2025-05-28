@@ -1,11 +1,15 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, Animated } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Colors, Typography, Spacing, Images, Icons, Avatars, Trustubs } from '../../constants';
 import { Container } from '../../components';
+import { useAppSelector } from '../../store';
+import { getAvatarSource } from '../../utils/avatar_utils';
 
 export const HomeScreen: React.FC = () => {
   const navigation = useNavigation();
+  const userProfile = useAppSelector((state: any) => state.user.profile);
+  const pulseAnim = useRef(new Animated.Value(1)).current;
 
   const handleProfilePress = () => {
     navigation.navigate('Profile' as never);
@@ -15,13 +19,24 @@ export const HomeScreen: React.FC = () => {
     navigation.navigate('NotiScreen' as never);
   };
 
-  const profileImages = [
-    Avatars.user1,
-    Avatars.user2,
-    Avatars.user3,
-    Avatars.user4,
-    Avatars.user5,
-  ];
+  // Pulse animation effect
+  useEffect(() => {
+    const pulse = () => {
+      Animated.sequence([
+        Animated.timing(pulseAnim, {
+          toValue: 1.05,
+          duration: 1000,
+          useNativeDriver: true,
+        }),
+        Animated.timing(pulseAnim, {
+          toValue: 1,
+          duration: 1000,
+          useNativeDriver: true,
+        }),
+      ]).start(() => pulse());
+    };
+    pulse();
+  }, [pulseAnim]);
 
   const galleryItems = [
     {
@@ -41,14 +56,15 @@ export const HomeScreen: React.FC = () => {
     },
     {
       id: '#01236',
-      artist: 'Welcome to the Pit',
+      artist: 'TruEXP',
+      subtitle: 'Early Adopter',
       image: Trustubs.trustub4,
     },
   ];
 
   return (
-    <Container variant="image" backgroundImage={Images.background2} safeArea>
-      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+    <Container variant="image" backgroundImage={Images.background2} safeArea padding={false}>
+      <View style={styles.container}>
         {/* Header */}
         <View style={styles.header}>
           <View style={styles.headerLeft}>
@@ -61,7 +77,7 @@ export const HomeScreen: React.FC = () => {
           <View style={styles.headerRight}>
             <TouchableOpacity style={styles.profileContainer} onPress={handleProfilePress}>
               <Image 
-                source={Avatars.pete}
+                source={getAvatarSource(userProfile?.avatar || 'pete', userProfile?.avatarType || 'asset')}
                 style={styles.profileImage}
               />
             </TouchableOpacity>
@@ -74,36 +90,31 @@ export const HomeScreen: React.FC = () => {
           </View>
         </View>
 
-        {/* Welcome Section */}
-        <View style={styles.welcomeSection}>
-          <Text style={styles.welcomeTitle}>Welcome, Kevin!</Text>
-          <Text style={styles.streakText}>You're on a 2 day streak!</Text>
-        </View>
+        {/* Scrollable Content */}
+        <ScrollView style={styles.scrollContent} showsVerticalScrollIndicator={false}>
+          {/* Content with Padding */}
+          <View style={styles.paddedContent}>
+            {/* Welcome Section */}
+            <View style={styles.welcomeSection}>
+              <Text style={styles.welcomeTitle}>Welcome, {userProfile?.username || 'demo'}!</Text>
+              <Text style={styles.streakText}>You're on a 2 day streak!</Text>
+            </View>
 
-        {/* Sent Count */}
-        <Text style={styles.sentCount}>1667 Sent</Text>
+            {/* View Challenges Button */}
+            <Animated.View style={{ transform: [{ scale: pulseAnim }] }}>
+              <TouchableOpacity style={styles.challengesButton}>
+                <Text style={styles.challengesButtonText}>Daily Check In</Text>
+              </TouchableOpacity>
+            </Animated.View>
 
-        {/* Profile Row */}
-        <View style={styles.profileRow}>
-          {profileImages.map((image, index) => (
-            <TouchableOpacity key={index} style={styles.profileCircle}>
-              <Image source={image} style={styles.profileCircleImage} />
-            </TouchableOpacity>
-          ))}
-        </View>
+            {/* Gallery Title */}
+            <Text style={styles.galleryTitle}>The Gallery</Text>
+          </View>
 
-        {/* View Challenges Button */}
-        <TouchableOpacity style={styles.challengesButton}>
-          <Text style={styles.challengesButtonText}>View Challenges In The Pit</Text>
-        </TouchableOpacity>
-
-        {/* The Gallery Section */}
-        <View style={styles.gallerySection}>
-          <Text style={styles.galleryTitle}>The Gallery</Text>
-          
+          {/* Gallery Grid - Full Width */}
           <View style={styles.galleryGrid}>
             <View style={styles.galleryRow}>
-              <TouchableOpacity style={[styles.galleryItem, styles.galleryItemLarge]}>
+              <TouchableOpacity style={styles.galleryItem}>
                 <Image source={galleryItems[0].image} style={styles.galleryImage} />
                 <View style={styles.galleryOverlay}>
                   <Text style={styles.galleryId}>{galleryItems[0].id}</Text>
@@ -111,7 +122,7 @@ export const HomeScreen: React.FC = () => {
                 </View>
               </TouchableOpacity>
               
-              <TouchableOpacity style={[styles.galleryItem, styles.galleryItemLarge]}>
+              <TouchableOpacity style={styles.galleryItem}>
                 <Image source={galleryItems[1].image} style={styles.galleryImage} />
                 <View style={styles.galleryOverlay}>
                   <Text style={styles.galleryId}>{galleryItems[1].id}</Text>
@@ -120,8 +131,8 @@ export const HomeScreen: React.FC = () => {
               </TouchableOpacity>
             </View>
             
-            <View style={styles.galleryRow}>
-              <TouchableOpacity style={[styles.galleryItem, styles.galleryItemSmall]}>
+            <View style={[styles.galleryRow, styles.galleryRowSecond]}>
+              <TouchableOpacity style={styles.galleryItem}>
                 <Image source={galleryItems[2].image} style={styles.galleryImage} />
                 <View style={styles.galleryOverlay}>
                   <Text style={styles.galleryId}>{galleryItems[2].id}</Text>
@@ -129,17 +140,43 @@ export const HomeScreen: React.FC = () => {
                 </View>
               </TouchableOpacity>
               
-              <TouchableOpacity style={[styles.galleryItem, styles.galleryItemSmall]}>
+              <TouchableOpacity style={styles.galleryItem}>
                 <Image source={galleryItems[3].image} style={styles.galleryImage} />
                 <View style={styles.galleryOverlay}>
                   <Text style={styles.galleryId}>{galleryItems[3].id}</Text>
                   <Text style={styles.galleryArtist}>{galleryItems[3].artist}</Text>
+                  {galleryItems[3].subtitle && (
+                    <Text style={styles.gallerySubtitle}>{galleryItems[3].subtitle}</Text>
+                  )}
                 </View>
               </TouchableOpacity>
             </View>
           </View>
-        </View>
-      </ScrollView>
+
+          {/* Action Buttons with Padding */}
+          <View style={styles.paddedContent}>
+            <View style={styles.actionButtonsSection}>
+              {/* Stats Section */}
+              <View style={styles.statsContainer}>
+                <View style={styles.statItem}>
+                  <Text style={styles.statNumber}>4</Text>
+                  <Text style={styles.statLabel}>TruSTUBS</Text>
+                </View>
+                <View style={styles.statDivider} />
+                <View style={styles.statItem}>
+                  <Text style={styles.statNumber}>4</Text>
+                  <Text style={styles.statLabel}>Events</Text>
+                </View>
+                <View style={styles.statDivider} />
+                <View style={styles.statItem}>
+                  <Text style={styles.statNumber}>2</Text>
+                  <Text style={styles.statLabel}>Venues</Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </ScrollView>
+      </View>
     </Container>
   );
 };
@@ -147,7 +184,7 @@ export const HomeScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: Spacing.semantic.screenPadding,
+    paddingHorizontal: 0,
   },
   header: {
     flexDirection: 'row',
@@ -155,12 +192,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: 57,
     paddingBottom: 20,
+    paddingHorizontal: Spacing.semantic.screenPadding,
   },
   headerLeft: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 15,
-    marginLeft: -10,
+    marginLeft: 0,
   },
   logoImage: {
     width: 32,
@@ -173,7 +211,7 @@ const styles = StyleSheet.create({
     tintColor: Colors.text.inverse,
   },
   headerTitle: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: '600',
     color: '#FFFFFF',
   },
@@ -181,7 +219,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 15,
-    marginRight: -10,
+    marginRight: 5,
   },
   profileContainer: {
     position: 'relative',
@@ -195,8 +233,8 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   notificationIcon: {
-    width: 24,
-    height: 24,
+    width: 28,
+    height: 28,
     tintColor: Colors.text.inverse,
   },
   notificationBadge: {
@@ -211,106 +249,128 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   notificationCount: {
-    color: Colors.text.inverse,
+    color: '#FFFFFF',
     fontSize: 12,
     fontWeight: '600',
   },
   welcomeSection: {
-    marginBottom: 20,
+    marginBottom: 15,
   },
   welcomeTitle: {
-    fontSize: 32,
-    fontWeight: 'bold',
+    fontSize: 24,
+    fontWeight: '800',
     color: '#FFFFFF',
     marginBottom: 8,
   },
   streakText: {
-    fontSize: 16,
+    fontSize: 18,
+    fontWeight: '500',
     color: '#FFFFFF',
-    opacity: 0.8,
-  },
-  sentCount: {
-    fontSize: 16,
-    color: '#FFFFFF',
-    opacity: 0.8,
-    marginBottom: 20,
-  },
-  profileRow: {
-    flexDirection: 'row',
-    gap: 15,
-    marginBottom: 30,
-  },
-  profileCircle: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    overflow: 'hidden',
-  },
-  profileCircleImage: {
-    width: '100%',
-    height: '100%',
+    opacity: 0.9,
   },
   challengesButton: {
-    backgroundColor: Colors.primaryLight,
-    borderRadius: 25,
-    paddingVertical: 16,
+    backgroundColor: '#091343',
+    height: 56,
+    borderRadius: 12,
+    justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 40,
+    marginBottom: 15,
   },
   challengesButtonText: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '600',
     color: '#FFFFFF',
-  },
-  gallerySection: {
-    marginBottom: 40,
   },
   galleryTitle: {
     fontSize: 24,
     fontWeight: 'bold',
     color: '#FFFFFF',
-    marginBottom: 20,
+    marginBottom: 0,
   },
   galleryGrid: {
-    gap: 15,
+    marginTop: -20,
+    marginBottom: 5,
+    paddingHorizontal: Spacing.semantic.screenPadding,
   },
   galleryRow: {
     flexDirection: 'row',
-    gap: 15,
-    marginBottom: 15,
+    gap: 8,
+  },
+  galleryRowSecond: {
+    marginTop: -66,
   },
   galleryItem: {
-    borderRadius: 15,
+    flex: 1,
+    height: 380,
+    borderRadius: 20,
     overflow: 'hidden',
     position: 'relative',
-  },
-  galleryItemLarge: {
-    flex: 1,
-    height: 350,
-  },
-  galleryItemSmall: {
-    flex: 1,
-    height: 200,
   },
   galleryImage: {
     width: '100%',
     height: '100%',
-    resizeMode: 'cover',
+    resizeMode: 'contain',
   },
   galleryOverlay: {
     position: 'absolute',
-    top: 15,
-    left: 15,
+    top: 48,
+    left: 9,
   },
   galleryId: {
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: 'normal',
     color: '#FFFFFF',
-    marginBottom: 4,
+    marginBottom: 2,
   },
   galleryArtist: {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#FFFFFF',
+  },
+  gallerySubtitle: {
+    fontSize: 14,
+    fontWeight: 'normal',
+    color: '#FFFFFF',
+    marginTop: 2,
+  },
+  actionButtonsSection: {
+    gap: 15,
+    marginBottom: 100,
+  },
+  statsContainer: {
+    flexDirection: 'row',
+    backgroundColor: '#091343',
+    borderRadius: 20,
+    paddingVertical: 12,
+    paddingHorizontal: 15,
+    alignItems: 'center',
+  },
+  statItem: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  statDivider: {
+    width: 1,
+    height: 30,
+    backgroundColor: '#2D3748',
+    opacity: 0.3,
+  },
+  statNumber: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+    marginBottom: 2,
+  },
+  statLabel: {
+    fontSize: 12,
+    fontWeight: '500',
+    color: '#FFFFFF',
+    opacity: 0.8,
+  },
+  scrollContent: {
+    flex: 1,
+  },
+  paddedContent: {
+    paddingHorizontal: Spacing.semantic.screenPadding,
   },
 });

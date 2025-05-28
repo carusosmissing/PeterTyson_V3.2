@@ -33,6 +33,7 @@ export const Icons = {
   edit: require('../../assets/ui_icons/white/plus-white.png'),
   camera: require('../../assets/ui_icons/white/eye-white.png'),
   gallery: require('../../assets/ui_icons/white/upload-white.png'),
+  plusBlack: require('../../assets/ui_icons/black/plus-black.png'),
   
   // Social icons
   like: require('../../assets/ui_icons/white/heart-white.png'),
@@ -111,6 +112,11 @@ export const Trustubs = {
   trustub2: require('../../assets/trustubs/trustub-2.png'),
   trustub3: require('../../assets/trustubs/trustub-3.png'),
   trustub4: require('../../assets/trustubs/trustub-4.png'),
+};
+
+// Badge images
+export const Badges = {
+  dummyBadges: require('../../assets/badges/dummy_badges3.png'),
 };
 
 // Asset utility functions
@@ -211,6 +217,7 @@ export const Assets = {
   Avatars,
   EventImages,
   Trustubs,
+  Badges,
   Utils: AssetUtils,
   preload: preloadAssets,
 }; 

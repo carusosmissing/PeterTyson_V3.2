@@ -3,7 +3,15 @@ import { apiSlice } from '../api/api_slice';
 import type { UserState } from '../types';
 
 const initialState: UserState = {
-  profile: null,
+  profile: {
+    id: '1',
+    username: 'demo',
+    handle: '@demo',
+    avatar: 'pete', // This will reference Assets.Avatars.pete or custom URI
+    avatarType: 'asset', // 'asset' for preset avatars, 'custom' for uploaded images
+    displayName: 'demo',
+    email: 'demo@example.com',
+  },
   preferences: {
     category: null,
     notifications: true,
@@ -17,6 +25,20 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    // Update user profile
+    updateProfile: (state, action: PayloadAction<Partial<{
+      username: string;
+      handle: string;
+      avatar: string;
+      avatarType: 'asset' | 'custom';
+      displayName: string;
+      email: string;
+    }>>) => {
+      if (state.profile) {
+        state.profile = { ...state.profile, ...action.payload };
+      }
+    },
+
     // Update user preferences
     updatePreferences: (state, action: PayloadAction<Partial<UserState['preferences']>>) => {
       state.preferences = { ...state.preferences, ...action.payload };
@@ -107,6 +129,7 @@ const userSlice = createSlice({
 });
 
 export const {
+  updateProfile,
   updatePreferences,
   setCategory,
   toggleNotifications,

@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, Image, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Colors, Typography, Layout, Images, Icons } from '../../constants';
+import AntDesign from '@expo/vector-icons/AntDesign';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 const { width, height } = Dimensions.get('window');
 
@@ -34,23 +36,14 @@ export const SignupOptionsScreen: React.FC = () => {
       resizeMode="cover"
     >
       <View style={styles.container}>
-        {/* Back button */}
-        <TouchableOpacity 
-          style={styles.backButton}
-          onPress={() => navigation.goBack()}
-        >
+        {/* Header with logo and title */}
+        <View style={styles.header}>
           <Image 
-            source={Icons.back}
-            style={styles.backIcon}
+            source={Images.logo}
+            style={styles.logo}
             resizeMode="contain"
           />
-          <Text style={styles.backText}>Back</Text>
-        </TouchableOpacity>
-
-        {/* Header */}
-        <View style={styles.header}>
           <Text style={styles.title}>Create Account</Text>
-          <Text style={styles.subtitle}>Join the TruSTUB community</Text>
         </View>
         
         {/* Social login buttons */}
@@ -59,7 +52,7 @@ export const SignupOptionsScreen: React.FC = () => {
             style={styles.appleButton}
             onPress={handleAppleSignup}
           >
-            <Text style={styles.appleIcon}>🍎</Text>
+            <AntDesign name="apple1" size={20} color="#fff" style={styles.socialIcon} />
             <Text style={styles.appleButtonText}>Continue with Apple</Text>
           </TouchableOpacity>
           
@@ -67,7 +60,7 @@ export const SignupOptionsScreen: React.FC = () => {
             style={styles.facebookButton}
             onPress={handleFacebookSignup}
           >
-            <Text style={styles.facebookIcon}>f</Text>
+            <FontAwesome name="facebook" size={20} color="#fff" style={styles.socialIcon} />
             <Text style={styles.facebookButtonText}>Continue with Facebook</Text>
           </TouchableOpacity>
           
@@ -75,7 +68,7 @@ export const SignupOptionsScreen: React.FC = () => {
             style={styles.googleButton}
             onPress={handleGoogleSignup}
           >
-            <Text style={styles.googleIcon}>G</Text>
+            <AntDesign name="google" size={20} color="#fff" style={styles.socialIcon} />
             <Text style={styles.googleButtonText}>Continue with Google</Text>
           </TouchableOpacity>
         </View>
@@ -102,6 +95,20 @@ export const SignupOptionsScreen: React.FC = () => {
             <Text style={styles.termsLink}>Terms of Service</Text>
           </TouchableOpacity>
         </View>
+
+        {/* Footer with back button */}
+        <View style={styles.footer}>
+          <TouchableOpacity 
+            style={styles.backButton}
+            onPress={() => navigation.goBack()}
+          >
+            <Image 
+              source={Icons.back}
+              style={styles.backIcon}
+              resizeMode="contain"
+            />
+          </TouchableOpacity>
+        </View>
       </View>
     </ImageBackground>
   );
@@ -119,37 +126,24 @@ const styles = StyleSheet.create({
     paddingTop: 60,
     paddingBottom: 40,
   },
-  backButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 40,
-  },
-  backIcon: {
-    width: 20,
-    height: 20,
-    tintColor: 'rgba(255, 255, 255, 0.8)',
-    marginRight: 8,
-  },
-  backText: {
-    fontSize: 16,
-    color: 'rgba(255, 255, 255, 0.8)',
-    fontWeight: '500',
-  },
   header: {
+    flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 60,
   },
+  logo: {
+    width: 39,
+    height: 39,
+    marginRight: 12,
+  },
   title: {
-    fontSize: 36,
+    fontSize: 32,
     fontWeight: '700',
     color: '#fff',
-    textAlign: 'center',
-    marginBottom: 12,
   },
   subtitle: {
     fontSize: 18,
     color: 'rgba(255, 255, 255, 0.7)',
-    textAlign: 'center',
   },
   socialButtonsContainer: {
     marginBottom: 40,
@@ -170,11 +164,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
-  },
-  appleIcon: {
-    fontSize: 20,
-    color: '#fff',
-    marginRight: 12,
   },
   appleButtonText: {
     fontSize: 18,
@@ -197,12 +186,6 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 3,
   },
-  facebookIcon: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#fff',
-    marginRight: 12,
-  },
   facebookButtonText: {
     fontSize: 18,
     fontWeight: '600',
@@ -223,12 +206,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
-  },
-  googleIcon: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#fff',
-    marginRight: 12,
   },
   googleButtonText: {
     fontSize: 18,
@@ -252,7 +229,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   emailButton: {
-    backgroundColor: '#60A5FA',
+    backgroundColor: '#D7F0FC',
     borderRadius: 12,
     height: 56,
     justifyContent: 'center',
@@ -270,11 +247,12 @@ const styles = StyleSheet.create({
   emailButtonText: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#fff',
+    color: '#1A365D',
   },
   termsContainer: {
     alignItems: 'center',
     justifyContent: 'center',
+    marginBottom: 20,
   },
   termsText: {
     fontSize: 14,
@@ -288,5 +266,25 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     textDecorationLine: 'underline',
     textAlign: 'center',
+  },
+  footer: {
+    marginTop: 'auto',
+  },
+  backButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(30, 41, 59, 0.8)',
+    borderRadius: 12,
+    height: 56,
+  },
+  backIcon: {
+    width: 20,
+    height: 20,
+    tintColor: 'rgba(255, 255, 255, 0.8)',
+    marginRight: 8,
+  },
+  socialIcon: {
+    marginRight: 12,
   },
 }); 

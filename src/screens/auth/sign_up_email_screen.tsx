@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, ImageBackground, Image, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, ImageBackground, Image, Dimensions, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Colors, Typography, Layout, Images, Icons } from '../../constants';
 
@@ -41,7 +41,11 @@ export const SignUpScreen: React.FC = () => {
         </View>
         
         {/* Form content */}
-        <View style={styles.content}>
+        <ScrollView 
+          style={styles.content}
+          contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}
+        >
           <View style={styles.form}>
             <Text style={styles.label}>Full Name <Text style={styles.required}>*</Text></Text>
             <TextInput
@@ -127,7 +131,7 @@ export const SignUpScreen: React.FC = () => {
               keyboardType="phone-pad"
             />
           </View>
-        </View>
+        </ScrollView>
         
         {/* Buttons */}
         <View style={styles.footer}>
@@ -168,17 +172,20 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   logo: {
-    width: 40,
-    height: 40,
+    width: 39,
+    height: 39,
     marginRight: 12,
   },
   title: {
     fontSize: 32,
-    fontWeight: '600',
+    fontWeight: '700',
     color: '#fff',
   },
   content: {
     flex: 1,
+  },
+  scrollContent: {
+    paddingBottom: 20,
   },
   form: {
     width: '100%',
@@ -234,7 +241,7 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   signUpButton: {
-    backgroundColor: '#60A5FA',
+    backgroundColor: '#D7F0FC',
     borderRadius: 12,
     height: 56,
     justifyContent: 'center',

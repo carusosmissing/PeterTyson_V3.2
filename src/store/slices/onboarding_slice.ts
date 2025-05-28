@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { apiSlice } from '../api/api_slice';
 import type { OnboardingState } from '../types';
 
@@ -76,6 +77,10 @@ const onboardingSlice = createSlice({
     // Complete onboarding
     completeOnboarding: (state) => {
       state.hasCompletedOnboarding = true;
+      // Persist onboarding completion to AsyncStorage
+      AsyncStorage.setItem('hasCompletedOnboarding', 'true').catch(error => {
+        console.error('Failed to persist onboarding completion:', error);
+      });
     },
     
     // Reset onboarding
@@ -86,6 +91,10 @@ const onboardingSlice = createSlice({
       state.totalSteps = 0;
       state.answers = [];
       state.error = null;
+      // Clear persisted onboarding completion
+      AsyncStorage.removeItem('hasCompletedOnboarding').catch(error => {
+        console.error('Failed to clear onboarding completion:', error);
+      });
     },
     
     // Clear error

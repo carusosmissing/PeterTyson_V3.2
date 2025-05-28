@@ -14,8 +14,8 @@ export const WelcomeClaimRevealScreen: React.FC = () => {
     // Mark onboarding as complete
     dispatch(completeOnboarding());
     
-    // Navigate to main app
-    navigation.navigate('MainApp' as never);
+    // Navigate to main app (home screen)
+    navigation.navigate('Main' as never);
   };
 
   const handleViewInShrine = () => {

@@ -43,6 +43,9 @@ export type MessagingStackParamList = {
     chatId: string;
     chatName: string;
   };
+  DMEmily: undefined;
+  DMJiara: undefined;
+  DMLila: undefined;
 };
 
 // Events Stack Types

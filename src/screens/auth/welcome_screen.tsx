@@ -107,6 +107,6 @@ const styles = StyleSheet.create({
   signInButtonText: {
     fontSize: 18,
     fontWeight: '600',
-    color: Colors.text.primary,
+    color: '#fff',
   },
 }); 

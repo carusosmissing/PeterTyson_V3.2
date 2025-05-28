@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Colors, Typography, Spacing, Images } from '../../constants';
 import { useAppDispatch } from '../../store';
@@ -30,22 +30,20 @@ export const WelcomeClaimScreen: React.FC = () => {
           {/* Logo/Icon Container */}
           <View style={styles.logoContainer}>
             <View style={styles.logoBackground}>
-              <Text style={styles.logo}>🎯</Text>
+              <Image source={Images.logoIcon} style={styles.logo} resizeMode="contain" />
             </View>
           </View>
         </View>
+      </View>
 
-        {/* Bottom Action */}
-        <View style={styles.bottomContainer}>
-          <Button
-            title="Continue"
-            onPress={handleClaim}
-            variant="primary"
-            size="lg"
-            fullWidth
-            gradient={true}
-          />
-        </View>
+      {/* Fixed Bottom Button */}
+      <View style={styles.fixedButtonContainer}>
+        <TouchableOpacity
+          style={styles.continueButton}
+          onPress={handleClaim}
+        >
+          <Text style={styles.continueButtonText}>Continue</Text>
+        </TouchableOpacity>
       </View>
     </Container>
   );
@@ -93,9 +91,25 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(255, 255, 255, 0.2)',
   },
   logo: {
-    fontSize: 48,
+    width: 39,
+    height: 39,
   },
-  bottomContainer: {
-    paddingBottom: 40,
+  fixedButtonContainer: {
+    position: 'absolute',
+    bottom: 40,
+    left: Spacing.semantic.screenPadding,
+    right: Spacing.semantic.screenPadding,
+  },
+  continueButton: {
+    backgroundColor: Colors.button.primary,
+    height: 56,
+    borderRadius: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  continueButtonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: '600',
   },
 }); 

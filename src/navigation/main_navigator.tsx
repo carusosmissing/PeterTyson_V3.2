@@ -7,9 +7,10 @@ import { Colors, Icons, Images } from '../constants';
 import { HomeScreen } from '../screens/main/home_screen';
 import { ThePitScreen } from '../screens/main/the_pit_screen';
 import { TheShrineScreen } from '../screens/main/the_shrine_screen';
-import { SearchScreen } from '../screens/main/search_screen';
+import { GallerySearchScreen } from '../screens/main/gallery_search_screen';
 import { MessagingNavigator } from './messaging_navigator';
 import { ProfileScreen } from '../screens/main/profile_screen';
+import { EditProfileScreen } from '../screens/main/edit_profile_screen';
 import { NotiScreen } from '../screens/main/noti_screen';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
@@ -28,9 +29,13 @@ const TabNavigator: React.FC = () => {
           paddingTop: 8,
           borderRadius: 30,
           marginHorizontal: 20,
-          marginBottom: 20,
+          marginBottom: 25, // Back to 25 points
           position: 'absolute',
+          // Make the space around the tab bar completely transparent
+          elevation: 0,
+          shadowOpacity: 0,
         },
+        tabBarBackground: () => null, // Remove any default background
         tabBarActiveTintColor: Colors.primaryLight,
         tabBarInactiveTintColor: 'rgba(255, 255, 255, 0.6)',
         tabBarShowLabel: false,
@@ -106,7 +111,7 @@ const TabNavigator: React.FC = () => {
       />
       <Tab.Screen 
         name="Search" 
-        component={SearchScreen}
+        component={GallerySearchScreen}
         options={{
           tabBarLabel: '',
           tabBarIcon: ({ focused, color, size }) => (
@@ -135,6 +140,7 @@ export const MainNavigator: React.FC = () => {
     >
       <Stack.Screen name="MainTabs" component={TabNavigator} />
       <Stack.Screen name="Profile" component={ProfileScreen} />
+      <Stack.Screen name="EditProfile" component={EditProfileScreen} />
       <Stack.Screen name="NotiScreen" component={NotiScreen} />
     </Stack.Navigator>
   );

@@ -1,11 +1,14 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Colors, Typography, Spacing, Images, Icons, Avatars } from '../../constants';
-import { Container } from '../../components';
+import { Colors, Typography, Spacing, Images, Icons, Avatars, Trustubs } from '../../constants';
+import { Container, TrustubCarousel } from '../../components';
+import { useAppSelector } from '../../store';
+import { getAvatarSource } from '../../utils/avatar_utils';
 
 export const TheShrineScreen: React.FC = () => {
   const navigation = useNavigation();
+  const userProfile = useAppSelector((state: any) => state.user.profile);
 
   const handleProfilePress = () => {
     navigation.navigate('Profile' as never);
@@ -15,8 +18,43 @@ export const TheShrineScreen: React.FC = () => {
     navigation.navigate('NotiScreen' as never);
   };
 
+  const trustubsData = [
+    {
+      id: '1',
+      stubNumber: '#01236',
+      year: '2024',
+      artist: 'Kendrick Lamar',
+      venue: 'The Forum',
+      image: Trustubs.trustub1,
+    },
+    {
+      id: '2',
+      stubNumber: '#01640',
+      year: '2025',
+      artist: 'Lady Gaga',
+      venue: 'Hollywood Bowl',
+      image: Trustubs.trustub2,
+    },
+    {
+      id: '3',
+      stubNumber: '#01230',
+      year: '2024',
+      artist: 'Fred Again',
+      venue: 'Madison Square Garden',
+      image: Trustubs.trustub3,
+    },
+    {
+      id: '4',
+      stubNumber: '#01241',
+      year: '2024',
+      artist: 'TruEXP',
+      venue: 'Early Adopter',
+      image: Trustubs.trustub4,
+    },
+  ];
+
   return (
-    <Container variant="image" backgroundImage={Images.background2} safeArea>
+    <Container variant="image" backgroundImage={Images.background2} safeArea padding={false}>
       <View style={styles.container}>
         {/* Header */}
         <View style={styles.header}>
@@ -26,11 +64,11 @@ export const TheShrineScreen: React.FC = () => {
               <Image source={Icons.menu} style={styles.menuIcon} />
             </TouchableOpacity>
           </View>
-          <Text style={styles.headerTitle}>The Shrine</Text>
+          <Text style={styles.headerTitle}>My Shrine</Text>
           <View style={styles.headerRight}>
             <TouchableOpacity style={styles.profileContainer} onPress={handleProfilePress}>
               <Image 
-                source={Avatars.pete}
+                source={getAvatarSource(userProfile?.avatar || 'pete', userProfile?.avatarType || 'asset')}
                 style={styles.profileImage}
               />
             </TouchableOpacity>
@@ -43,10 +81,9 @@ export const TheShrineScreen: React.FC = () => {
           </View>
         </View>
 
-        {/* Content */}
-        <View style={styles.content}>
-          <Text style={styles.title}>The Shrine</Text>
-          <Text style={styles.subtitle}>Coming soon...</Text>
+        {/* Trustub Carousel */}
+        <View style={styles.carouselContainer}>
+          <TrustubCarousel trustubs={trustubsData} />
         </View>
       </View>
     </Container>
@@ -56,7 +93,7 @@ export const TheShrineScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: Spacing.semantic.screenPadding,
+    paddingHorizontal: 0, // Removed padding so trustubs can extend to screen edges
   },
   header: {
     flexDirection: 'row',
@@ -64,12 +101,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: 57,
     paddingBottom: 20,
+    paddingHorizontal: Spacing.semantic.screenPadding, // Add padding back to header only
   },
   headerLeft: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 15,
-    marginLeft: -10,
+    marginLeft: 0,
   },
   logoImage: {
     width: 32,
@@ -82,7 +120,7 @@ const styles = StyleSheet.create({
     tintColor: '#FFFFFF',
   },
   headerTitle: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: '600',
     color: '#FFFFFF',
   },
@@ -90,7 +128,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 15,
-    marginRight: -10,
+    marginRight: 5,
   },
   profileContainer: {
     position: 'relative',
@@ -104,8 +142,8 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   notificationIcon: {
-    width: 24,
-    height: 24,
+    width: 28,
+    height: 28,
     tintColor: '#FFFFFF',
   },
   notificationBadge: {
@@ -124,22 +162,9 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '600',
   },
-  content: {
+  carouselContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: '#FFFFFF',
-    textAlign: 'center',
-    marginBottom: 16,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#FFFFFF',
-    opacity: 0.8,
-    textAlign: 'center',
+    marginHorizontal: 0, // No margin needed since container has no padding
+    marginTop: 10, // Add top margin to prevent carousel from being cut off
   },
 });

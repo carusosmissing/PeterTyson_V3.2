@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { apiSlice } from '../api/api_slice';
 import type { AuthState } from '../types';
 
@@ -22,6 +23,10 @@ const authSlice = createSlice({
       state.refreshToken = null;
       state.isAuthenticated = false;
       state.error = null;
+      // Clear onboarding completion when logging out
+      AsyncStorage.removeItem('hasCompletedOnboarding').catch(error => {
+        console.error('Failed to clear onboarding completion on logout:', error);
+      });
     },
     
     // Clear auth error
