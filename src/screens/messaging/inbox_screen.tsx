@@ -59,6 +59,10 @@ export const InboxScreen: React.FC = () => {
     navigation.navigate('NotiScreen' as never);
   };
 
+  const handleNewMessagePress = () => {
+    navigation.navigate('NewMessage' as never);
+  };
+
   const handleMessagePress = (messageId: string, userId: string) => {
     // Navigate to specific DM screens based on user
     if (userId === 'emily_garcia') {
@@ -164,7 +168,7 @@ export const InboxScreen: React.FC = () => {
         </View>
 
         {/* Floating Action Button */}
-        <TouchableOpacity style={styles.fab}>
+        <TouchableOpacity style={styles.fab} onPress={handleNewMessagePress}>
           <Image source={Icons.plusBlack} style={styles.fabIcon} />
         </TouchableOpacity>
       </View>

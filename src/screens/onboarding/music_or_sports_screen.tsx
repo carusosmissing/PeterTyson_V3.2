@@ -67,7 +67,7 @@ export const MusicOrSportsScreen: React.FC = () => {
   };
 
   return (
-    <Container variant="image" backgroundImage={Images.onboardingBackground} safeArea>
+    <Container variant="image" backgroundImage={Images.background1} safeArea>
       <View style={styles.content}>
         {/* Top Section with Logo and Header */}
         <View style={styles.topSection}>

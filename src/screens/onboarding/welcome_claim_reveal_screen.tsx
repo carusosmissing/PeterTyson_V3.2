@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Colors, Typography, Spacing, Images } from '../../constants';
+import { Colors, Typography, Spacing, Images, Trustubs } from '../../constants';
 import { useAppDispatch } from '../../store';
 import { completeOnboarding } from '../../store';
 import { Container, Button } from '../../components';
@@ -22,44 +22,60 @@ export const WelcomeClaimRevealScreen: React.FC = () => {
     // Mark onboarding as complete
     dispatch(completeOnboarding());
     
-    // Navigate to shrine
-    navigation.navigate('Shrine' as never);
+    // Navigate directly to the shrine tab
+    navigation.reset({
+      index: 0,
+      routes: [
+        {
+          name: 'Main' as never,
+          state: {
+            routes: [
+              { name: 'Home' },
+              { name: 'Messaging' },
+              { name: 'TheShrine' },
+              { name: 'ThePit' },
+              { name: 'Search' },
+            ],
+            index: 2, // TheShrine is at index 2
+          },
+        },
+      ],
+    });
   };
 
   return (
-    <Container variant="image" backgroundImage={Images.background2} safeArea>
+    <Container variant="image" backgroundImage={Images.background1} safeArea>
       <View style={styles.content}>
         {/* Ticket Card */}
         <View style={styles.ticketCard}>
-          {/* Ticket Header */}
-          <View style={styles.ticketHeader}>
-            <Text style={styles.stubNumber}>Stub #01236</Text>
-            <Text style={styles.date}>8/10/2025</Text>
-          </View>
-
-          {/* Artist and Venue */}
-          <View style={styles.artistSection}>
-            <Text style={styles.artistName}>SZA</Text>
-            <Text style={styles.venueName}>Kaseya Center</Text>
-          </View>
-
-          {/* Heart Hands Silhouette */}
-          <View style={styles.imageSection}>
-            <View style={styles.heartHandsContainer}>
-              <Text style={styles.heartHands}>🤲</Text>
+          {/* Trustub Image - Full Background */}
+          <Image source={Trustubs.trustub4} style={styles.trustubImage} />
+          
+          {/* Overlay Content */}
+          <View style={styles.overlay}>
+            {/* Card Header */}
+            <View style={styles.cardHeader}>
+              <Text style={styles.stubNumber}>Stub #01241</Text>
+              <Text style={styles.year}>2024</Text>
             </View>
-            
-            {/* Bokeh lights effect */}
-            <View style={styles.bokehContainer}>
-              <View style={[styles.bokehLight, styles.bokeh1]} />
-              <View style={[styles.bokehLight, styles.bokeh2]} />
-              <View style={[styles.bokehLight, styles.bokeh3]} />
-              <View style={[styles.bokehLight, styles.bokeh4]} />
-              <View style={[styles.bokehLight, styles.bokeh5]} />
-              <View style={[styles.bokehLight, styles.bokeh6]} />
+
+            {/* Artist and Venue - Centered */}
+            <View style={styles.artistSection}>
+              <Text style={styles.artistName}>TruEXP</Text>
+              <Text style={styles.venueName}>Early Adopter</Text>
+            </View>
+
+            {/* Bottom section with gradient logo */}
+            <View style={styles.bottomSection}>
+              <View style={styles.logoContainer}>
+                <Image source={Images.logo} style={styles.gradientLogo} />
+              </View>
             </View>
           </View>
         </View>
+
+        {/* Spacer to push buttons to bottom */}
+        <View style={{ flex: 1 }} />
 
         {/* Action Buttons */}
         <View style={styles.buttonContainer}>
@@ -73,8 +89,6 @@ export const WelcomeClaimRevealScreen: React.FC = () => {
             </TouchableOpacity>
           </View>
         </View>
-
-
       </View>
     </Container>
   );
@@ -88,41 +102,60 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
   },
   ticketCard: {
-    flex: 1,
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    height: '75%',
     borderRadius: 20,
     marginBottom: 30,
+    marginTop: 60,
     overflow: 'hidden',
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.2)',
+    position: 'relative',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 8,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 12,
+    elevation: 15,
   },
-  ticketHeader: {
+  trustubImage: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    borderRadius: 20,
+  },
+  overlay: {
+    flex: 1,
+    padding: 20,
+    justifyContent: 'space-between',
+    backgroundColor: 'transparent',
+    borderRadius: 20,
+  },
+  cardHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingTop: 20,
-    paddingBottom: 10,
   },
   stubNumber: {
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: 'normal',
     color: '#FFFFFF',
-    opacity: 0.9,
   },
-  date: {
+  year: {
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: 'normal',
     color: '#FFFFFF',
-    opacity: 0.9,
   },
   artistSection: {
     alignItems: 'center',
-    paddingHorizontal: 20,
-    marginBottom: 40,
+    justifyContent: 'flex-start',
+    flex: 1,
+    marginTop: 40,
   },
   artistName: {
-    fontSize: 48,
+    fontSize: 32,
     fontWeight: 'bold',
     color: '#FFFFFF',
     textAlign: 'center',
@@ -132,76 +165,22 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '500',
     color: '#FFFFFF',
-    opacity: 0.9,
     textAlign: 'center',
   },
-  imageSection: {
-    flex: 1,
-    position: 'relative',
-    justifyContent: 'center',
-    alignItems: 'center',
+  bottomSection: {
+    height: 60,
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+    paddingBottom: -10,
+    paddingRight: 0,
   },
-  heartHandsContainer: {
-    zIndex: 2,
+  logoContainer: {
+    // Removed background styling to match shrine
   },
-  heartHands: {
-    fontSize: 120,
-    color: '#000000',
-  },
-  bokehContainer: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    zIndex: 1,
-  },
-  bokehLight: {
-    position: 'absolute',
-    borderRadius: 50,
-    opacity: 0.7,
-  },
-  bokeh1: {
-    width: 40,
-    height: 40,
-    backgroundColor: '#FF6B9D',
-    top: '20%',
-    left: '15%',
-  },
-  bokeh2: {
-    width: 30,
-    height: 30,
-    backgroundColor: '#4ECDC4',
-    top: '30%',
-    right: '20%',
-  },
-  bokeh3: {
-    width: 35,
-    height: 35,
-    backgroundColor: '#FFE66D',
-    bottom: '30%',
-    left: '25%',
-  },
-  bokeh4: {
-    width: 25,
-    height: 25,
-    backgroundColor: '#A8E6CF',
-    bottom: '40%',
-    right: '15%',
-  },
-  bokeh5: {
-    width: 45,
-    height: 45,
-    backgroundColor: '#FF8B94',
-    top: '50%',
-    left: '10%',
-  },
-  bokeh6: {
-    width: 20,
-    height: 20,
-    backgroundColor: '#B4A7D6',
-    bottom: '20%',
-    right: '30%',
+  gradientLogo: {
+    width: 28,
+    height: 28,
+    resizeMode: 'contain',
   },
   buttonContainer: {
     marginBottom: 40,

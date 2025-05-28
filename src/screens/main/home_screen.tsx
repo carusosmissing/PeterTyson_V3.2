@@ -96,8 +96,18 @@ export const HomeScreen: React.FC = () => {
           <View style={styles.paddedContent}>
             {/* Welcome Section */}
             <View style={styles.welcomeSection}>
-              <Text style={styles.welcomeTitle}>Welcome, {userProfile?.username || 'demo'}!</Text>
-              <Text style={styles.streakText}>You're on a 2 day streak!</Text>
+              <View style={styles.welcomeRow}>
+                <View style={styles.welcomeTextContainer}>
+                  <Text style={styles.welcomeTitle}>Welcome, {userProfile?.username || 'demo'}!</Text>
+                  <Text style={styles.streakText}>You're on a 2 day streak!</Text>
+                </View>
+                
+                {/* Prestige Points Bubble */}
+                <View style={styles.prestigeBubble}>
+                  <Text style={styles.prestigeBubbleLabel}>PRESTIGE</Text>
+                  <Text style={styles.prestigeBubblePoints}>162K</Text>
+                </View>
+              </View>
             </View>
 
             {/* View Challenges Button */}
@@ -256,6 +266,13 @@ const styles = StyleSheet.create({
   welcomeSection: {
     marginBottom: 15,
   },
+  welcomeRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  welcomeTextContainer: {
+    flex: 1,
+  },
   welcomeTitle: {
     fontSize: 24,
     fontWeight: '800',
@@ -372,5 +389,23 @@ const styles = StyleSheet.create({
   },
   paddedContent: {
     paddingHorizontal: Spacing.semantic.screenPadding,
+  },
+  prestigeBubble: {
+    backgroundColor: '#091343',
+    borderRadius: 12,
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+    alignItems: 'center',
+  },
+  prestigeBubbleLabel: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    opacity: 0.8,
+  },
+  prestigeBubblePoints: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
   },
 });

@@ -60,7 +60,7 @@ export const SportsFanFuelScreen: React.FC = () => {
   };
 
   return (
-    <Container variant="image" backgroundImage={Images.onboardingBackground} safeArea>
+    <Container variant="image" backgroundImage={Images.background1} safeArea>
       <View style={styles.content}>
         {/* Header */}
         <View style={styles.header}>

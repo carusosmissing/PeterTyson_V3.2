@@ -12,9 +12,9 @@ import {
   Alert,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import * as ImagePicker from 'expo-image-picker';
 import { Colors, Typography, Layout, Assets } from '../../constants';
 import { Avatar } from '../../components/ui/avatar';
-import { ImagePicker } from '../../components/ui/image_picker';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { updateProfile } from '../../store';
 import { getAvatarSource } from '../../utils/avatar_utils';
@@ -76,16 +76,75 @@ export const EditProfileScreen: React.FC = () => {
   };
 
   const handleImageSelected = (imageUri: string) => {
+    console.log('🎯 Image selected in profile screen:', imageUri);
     setSelectedAvatar(imageUri);
     setAvatarType('custom');
+    console.log('🎯 Avatar updated to custom type');
   };
 
   const handleImageError = (error: string) => {
+    console.log('❌ Image error:', error);
     Alert.alert('Error', `Failed to select image: ${error}`);
   };
 
+  const handleCameraPress = async () => {
+    console.log('📷 Camera button pressed');
+    try {
+      const { status } = await ImagePicker.requestCameraPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('Permission Required', 'Sorry, we need camera permissions to take photos!');
+        return;
+      }
+
+      const result = await ImagePicker.launchCameraAsync({
+        mediaTypes: 'images',
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 0.8,
+        exif: false,
+      });
+
+      if (!result.canceled && result.assets && result.assets[0]) {
+        console.log('📷 Image selected:', result.assets[0].uri);
+        handleImageSelected(result.assets[0].uri);
+      }
+    } catch (error) {
+      console.error('Camera error:', error);
+      handleImageError('Failed to take photo');
+    }
+  };
+
+  const handleGalleryPress = async () => {
+    console.log('🖼️ Gallery button pressed');
+    try {
+      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('Permission Required', 'Sorry, we need photo library permissions!');
+        return;
+      }
+
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: 'images',
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 0.8,
+        exif: false,
+      });
+
+      if (!result.canceled && result.assets && result.assets[0]) {
+        console.log('🖼️ Image selected:', result.assets[0].uri);
+        handleImageSelected(result.assets[0].uri);
+      }
+    } catch (error) {
+      console.error('Gallery error:', error);
+      handleImageError('Failed to select image');
+    }
+  };
+
   const getCurrentAvatarSource = () => {
-    return getAvatarSource(selectedAvatar, avatarType);
+    const source = getAvatarSource(selectedAvatar, avatarType);
+    console.log('🖼️ Current avatar source:', source, 'Type:', avatarType, 'Avatar:', selectedAvatar);
+    return source;
   };
 
   return (
@@ -132,18 +191,20 @@ export const EditProfileScreen: React.FC = () => {
             <Text style={styles.sectionTitle}>Profile Picture</Text>
             
             {/* Upload Custom Photo Button */}
-            <ImagePicker
-              onImageSelected={handleImageSelected}
-              onError={handleImageError}
-              maxWidth={512}
-              maxHeight={512}
-              quality={0.8}
+            <TouchableOpacity 
+              style={styles.uploadButton}
+              onPress={() => {
+                console.log('🔥 Upload button clicked directly');
+                Alert.alert('Select Image', 'Choose how you\'d like to add an image', [
+                  { text: 'Camera', onPress: () => handleCameraPress() },
+                  { text: 'Gallery', onPress: () => handleGalleryPress() },
+                  { text: 'Cancel', style: 'cancel' }
+                ]);
+              }}
             >
-              <TouchableOpacity style={styles.uploadButton}>
-                <Image source={Assets.Icons.camera} style={styles.uploadIcon} />
-                <Text style={styles.uploadButtonText}>Upload Custom Photo</Text>
-              </TouchableOpacity>
-            </ImagePicker>
+              <Image source={Assets.Icons.camera} style={styles.uploadIcon} />
+              <Text style={styles.uploadButtonText}>Upload Custom Photo</Text>
+            </TouchableOpacity>
 
             <Text style={styles.orText}>or choose from presets</Text>
 

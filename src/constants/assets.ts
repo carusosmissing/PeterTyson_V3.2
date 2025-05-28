@@ -112,6 +112,7 @@ export const Trustubs = {
   trustub2: require('../../assets/trustubs/trustub-2.png'),
   trustub3: require('../../assets/trustubs/trustub-3.png'),
   trustub4: require('../../assets/trustubs/trustub-4.png'),
+  claimPrerevealCover1: require('../../assets/trustub_covers/claim_prereveal_cover1.png'),
 };
 
 // Badge images

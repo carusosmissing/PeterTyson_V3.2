@@ -35,6 +35,7 @@ export type MainTabParamList = {
 // Messaging Stack Types
 export type MessagingStackParamList = {
   Inbox: undefined;
+  NewMessage: undefined;
   DirectMessage: {
     userId: string;
     userName: string;

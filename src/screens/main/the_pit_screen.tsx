@@ -67,11 +67,6 @@ export const ThePitScreen: React.FC = () => {
           </View>
         </View>
 
-        {/* TBD Section */}
-        <View style={styles.tbdSection}>
-          <Text style={styles.tbdText}>TBD</Text>
-        </View>
-
         {/* Weekly Calendar */}
         <View style={styles.calendarSection}>
           <View style={styles.calendarRow}>
@@ -198,15 +193,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '600',
   },
-  tbdSection: {
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  tbdText: {
-    fontSize: 18,
-    color: '#FFFFFF',
-    opacity: 0.8,
-  },
   calendarSection: {
     marginBottom: 30,
   },
@@ -301,7 +287,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: 'rgba(9, 19, 67, 0.8)',
+    backgroundColor: 'rgba(0, 0, 0, 0.25)',
     borderRadius: 16,
     padding: 20,
     borderWidth: 1,
