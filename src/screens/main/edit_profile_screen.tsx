@@ -28,6 +28,12 @@ export const EditProfileScreen: React.FC = () => {
   const [handle, setHandle] = useState(userProfile?.handle || '@demo');
   const [selectedAvatar, setSelectedAvatar] = useState(userProfile?.avatar || 'pete');
   const [avatarType, setAvatarType] = useState<'asset' | 'custom'>(userProfile?.avatarType || 'asset');
+  const [bio, setBio] = useState(userProfile?.bio || 'Your bio goes here! Share your hobbies, motivations, and fitness goals.');
+  const [selectedGenres, setSelectedGenres] = useState<string[]>(userProfile?.genres || []);
+  const [backgroundColor, setBackgroundColor] = useState(userProfile?.backgroundColor || '#000000');
+  const [bannerImage, setBannerImage] = useState(userProfile?.bannerImage || null);
+  const [bannerType, setBannerType] = useState<'default' | 'custom'>(userProfile?.bannerType || 'default');
+  const [selectedSports, setSelectedSports] = useState<string[]>(userProfile?.sports || []);
 
   // Available avatars from assets
   const availableAvatars = [
@@ -38,6 +44,109 @@ export const EditProfileScreen: React.FC = () => {
     { key: 'user4', source: Assets.Avatars.user4, name: 'Avatar 4' },
     { key: 'user5', source: Assets.Avatars.user5, name: 'Avatar 5' },
   ];
+
+  // Available music genres
+  const availableGenres = [
+    'Hip Hop', 'Pop', 'Rock', 'R&B', 'Jazz', 'Electronic', 'Country', 'Folk',
+    'Classical', 'Reggae', 'Blues', 'Funk', 'Soul', 'Alternative', 'Indie',
+    'Metal', 'Punk', 'Disco', 'House', 'Techno', 'Trap', 'Drill', 'Afrobeats'
+  ];
+
+  // Available sports
+  const availableSports = [
+    'Basketball', 'Football', 'Soccer', 'Baseball', 'Tennis', 'Golf', 'Boxing', 'MMA',
+    'Hockey', 'Swimming', 'Track & Field', 'Volleyball', 'Gymnastics', 'Wrestling',
+    'Cycling', 'Skiing', 'Surfing', 'Skateboarding', 'CrossFit', 'Yoga', 'Climbing', 'Rugby'
+  ];
+
+  // Background color options
+  const backgroundColors = [
+    { name: 'Black', color: '#000000' },
+    { name: 'Light Gray', color: '#ECECEC' },
+    { name: 'Light Blue', color: '#D7F0FC' },
+    { name: 'Dark Gray', color: '#2D3748' },
+    { name: 'Navy Blue', color: '#2B6CB0' },
+    { name: 'Lakers Purple', color: '#552583' },
+    { name: 'Forest Green', color: '#059669' },
+    { name: 'Teal', color: '#0891B2' },
+    { name: 'Pink', color: '#DB2777' },
+    { name: 'Indigo', color: '#4338CA' },
+  ];
+
+  const handleGenreSelect = (genre: string) => {
+    if (selectedGenres.includes(genre)) {
+      // Remove genre if already selected
+      setSelectedGenres(selectedGenres.filter(g => g !== genre));
+    } else if (selectedGenres.length < 3) {
+      // Add genre if less than 3 selected
+      setSelectedGenres([...selectedGenres, genre]);
+    }
+  };
+
+  const handleSportSelect = (sport: string) => {
+    if (selectedSports.includes(sport)) {
+      // Remove sport if already selected
+      setSelectedSports(selectedSports.filter(s => s !== sport));
+    } else if (selectedSports.length < 3) {
+      // Add sport if less than 3 selected
+      setSelectedSports([...selectedSports, sport]);
+    }
+  };
+
+  const handleBannerImageSelected = (imageUri: string) => {
+    setBannerImage(imageUri);
+    setBannerType('custom');
+  };
+
+  const handleBannerCameraPress = async () => {
+    try {
+      const { status } = await ImagePicker.requestCameraPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('Permission Required', 'Sorry, we need camera permissions to take photos!');
+        return;
+      }
+
+      const result = await ImagePicker.launchCameraAsync({
+        mediaTypes: 'images',
+        allowsEditing: true,
+        aspect: [16, 9],
+        quality: 0.8,
+        exif: false,
+      });
+
+      if (!result.canceled && result.assets && result.assets[0]) {
+        handleBannerImageSelected(result.assets[0].uri);
+      }
+    } catch (error) {
+      console.error('Banner camera error:', error);
+      Alert.alert('Error', 'Failed to take photo');
+    }
+  };
+
+  const handleBannerGalleryPress = async () => {
+    try {
+      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('Permission Required', 'Sorry, we need photo library permissions!');
+        return;
+      }
+
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: 'images',
+        allowsEditing: true,
+        aspect: [16, 9],
+        quality: 0.8,
+        exif: false,
+      });
+
+      if (!result.canceled && result.assets && result.assets[0]) {
+        handleBannerImageSelected(result.assets[0].uri);
+      }
+    } catch (error) {
+      console.error('Banner gallery error:', error);
+      Alert.alert('Error', 'Failed to select image');
+    }
+  };
 
   const handleSave = () => {
     // Validate inputs
@@ -57,6 +166,12 @@ export const EditProfileScreen: React.FC = () => {
       handle: handle.trim(),
       avatar: selectedAvatar,
       avatarType: avatarType,
+      bio: bio.trim(),
+      genres: selectedGenres,
+      sports: selectedSports,
+      bannerImage: bannerImage,
+      bannerType: bannerType,
+      backgroundColor: backgroundColor,
     }));
 
     // Navigate back to profile screen
@@ -267,6 +382,177 @@ export const EditProfileScreen: React.FC = () => {
               />
             </View>
           </View>
+
+          {/* Bio Input */}
+          <View style={styles.formSection}>
+            <Text style={styles.sectionTitle}>Bio</Text>
+            <View style={[styles.inputContainer, styles.bioInputContainer]}>
+              <TextInput
+                style={[styles.textInput, styles.bioTextInput]}
+                value={bio}
+                onChangeText={setBio}
+                placeholder="Tell people about yourself..."
+                placeholderTextColor="rgba(255, 255, 255, 0.5)"
+                maxLength={150}
+                multiline
+                numberOfLines={4}
+                textAlignVertical="top"
+              />
+            </View>
+            <Text style={styles.characterCount}>{bio.length}/150</Text>
+          </View>
+
+          {/* Top 3 Genres */}
+          <View style={styles.formSection}>
+            <Text style={styles.sectionTitle}>Top 3 Genres ({selectedGenres.length}/3)</Text>
+            
+            {/* Selected Genres */}
+            {selectedGenres.length > 0 && (
+              <View style={styles.selectedGenresContainer}>
+                {selectedGenres.map((genre, index) => (
+                  <TouchableOpacity
+                    key={genre}
+                    style={styles.selectedGenreTag}
+                    onPress={() => handleGenreSelect(genre)}
+                  >
+                    <Text style={styles.selectedGenreText}>{genre}</Text>
+                    <Image source={Assets.Icons.close} style={styles.removeGenreIcon} />
+                  </TouchableOpacity>
+                ))}
+              </View>
+            )}
+
+            {/* Available Genres */}
+            <View style={styles.genresContainer}>
+              {availableGenres.map((genre) => (
+                <TouchableOpacity
+                  key={genre}
+                  style={[
+                    styles.genreTag,
+                    selectedGenres.includes(genre) && styles.selectedGenreTagFaded,
+                    selectedGenres.length >= 3 && !selectedGenres.includes(genre) && styles.disabledGenreTag
+                  ]}
+                  onPress={() => handleGenreSelect(genre)}
+                  disabled={selectedGenres.length >= 3 && !selectedGenres.includes(genre)}
+                >
+                  <Text style={[
+                    styles.genreText,
+                    selectedGenres.includes(genre) && styles.selectedGenreTextFaded,
+                    selectedGenres.length >= 3 && !selectedGenres.includes(genre) && styles.disabledGenreText
+                  ]}>
+                    {genre}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+          </View>
+
+          {/* Top 3 Sports */}
+          <View style={styles.formSection}>
+            <Text style={styles.sectionTitle}>Top 3 Sports ({selectedSports.length}/3)</Text>
+            
+            {/* Selected Sports */}
+            {selectedSports.length > 0 && (
+              <View style={styles.selectedSportsContainer}>
+                {selectedSports.map((sport, index) => (
+                  <TouchableOpacity
+                    key={sport}
+                    style={styles.selectedSportTag}
+                    onPress={() => handleSportSelect(sport)}
+                  >
+                    <Text style={styles.selectedSportText}>{sport}</Text>
+                    <Image source={Assets.Icons.close} style={styles.removeSportIcon} />
+                  </TouchableOpacity>
+                ))}
+              </View>
+            )}
+
+            {/* Available Sports */}
+            <View style={styles.sportsContainer}>
+              {availableSports.map((sport) => (
+                <TouchableOpacity
+                  key={sport}
+                  style={[
+                    styles.sportTag,
+                    selectedSports.includes(sport) && styles.selectedSportTagFaded,
+                    selectedSports.length >= 3 && !selectedSports.includes(sport) && styles.disabledSportTag
+                  ]}
+                  onPress={() => handleSportSelect(sport)}
+                  disabled={selectedSports.length >= 3 && !selectedSports.includes(sport)}
+                >
+                  <Text style={[
+                    styles.sportText,
+                    selectedSports.includes(sport) && styles.selectedSportTextFaded,
+                    selectedSports.length >= 3 && !selectedSports.includes(sport) && styles.disabledSportText
+                  ]}>
+                    {sport}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+          </View>
+
+          {/* Banner Image Selection */}
+          <View style={styles.formSection}>
+            <Text style={styles.sectionTitle}>Banner Image</Text>
+            
+            {/* Current Banner Preview */}
+            {bannerImage ? (
+              <View style={styles.bannerPreviewContainer}>
+                <Image source={{ uri: bannerImage }} style={styles.bannerPreview} />
+                <TouchableOpacity 
+                  style={styles.removeBannerButton}
+                  onPress={() => {
+                    setBannerImage(null);
+                    setBannerType('default');
+                  }}
+                >
+                  <Image source={Assets.Icons.close} style={styles.removeBannerIcon} />
+                </TouchableOpacity>
+              </View>
+            ) : (
+              <Image source={Assets.Images.background3} style={[styles.bannerPreview, styles.defaultBannerPreview]} />
+            )}
+
+            {/* Upload Banner Button */}
+            <TouchableOpacity 
+              style={styles.uploadBannerButton}
+              onPress={() => {
+                Alert.alert('Select Banner Image', 'Choose how you\'d like to add a banner image', [
+                  { text: 'Camera', onPress: () => handleBannerCameraPress() },
+                  { text: 'Gallery', onPress: () => handleBannerGalleryPress() },
+                  { text: 'Cancel', style: 'cancel' }
+                ]);
+              }}
+            >
+              <Image source={Assets.Icons.camera} style={styles.uploadIcon} />
+              <Text style={styles.uploadBannerButtonText}>
+                {bannerImage ? 'Change Banner Image' : 'Upload Banner Image'}
+              </Text>
+            </TouchableOpacity>
+          </View>
+
+          {/* Background Color Selection */}
+          <View style={styles.formSection}>
+            <Text style={styles.sectionTitle}>Background Color</Text>
+            <View style={styles.colorOptionsContainer}>
+              {backgroundColors.map((colorOption) => (
+                <TouchableOpacity
+                  key={colorOption.name}
+                  style={[
+                    styles.colorOption,
+                    { backgroundColor: colorOption.color },
+                    backgroundColor === colorOption.color && styles.selectedColorOption
+                  ]}
+                  onPress={() => setBackgroundColor(colorOption.color)}
+                >
+                  {backgroundColor === colorOption.color && (
+                    <Image source={Assets.Icons.verified} style={styles.colorSelectedIcon} />
+                  )}
+                </TouchableOpacity>
+              ))}
+            </View>
+          </View>
         </View>
 
         {/* Action Buttons */}
@@ -445,5 +731,189 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '500',
     color: 'white',
+  },
+  bioInputContainer: {
+    height: 120,
+  },
+  bioTextInput: {
+    height: '100%',
+  },
+  characterCount: {
+    fontSize: 12,
+    color: 'rgba(255, 255, 255, 0.5)',
+    textAlign: 'right',
+    marginTop: 4,
+  },
+  selectedGenresContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginBottom: 16,
+  },
+  selectedGenreTag: {
+    backgroundColor: '#5771FE',
+    borderRadius: 12,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    marginRight: 8,
+    marginBottom: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  selectedGenreText: {
+    fontSize: 12,
+    color: 'white',
+    fontWeight: '500',
+  },
+  removeGenreIcon: {
+    width: 12,
+    height: 12,
+    tintColor: 'white',
+    marginLeft: 6,
+  },
+  genresContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  genreTag: {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    borderRadius: 12,
+    padding: 8,
+    marginRight: 8,
+    marginBottom: 8,
+  },
+  selectedGenreTagFaded: {
+    backgroundColor: 'rgba(87, 113, 254, 0.3)',
+  },
+  disabledGenreTag: {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+  },
+  genreText: {
+    fontSize: 12,
+    color: 'white',
+    fontWeight: '500',
+  },
+  selectedGenreTextFaded: {
+    color: 'rgba(255, 255, 255, 0.5)',
+  },
+  disabledGenreText: {
+    color: 'rgba(255, 255, 255, 0.5)',
+  },
+  colorOptionsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  colorOption: {
+    width: '18%',
+    height: 60,
+    borderRadius: 12,
+    marginRight: '2%',
+    marginBottom: 12,
+    borderWidth: 3,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  selectedColorOption: {
+    borderColor: '#5771FE',
+    borderWidth: 3,
+  },
+  colorSelectedIcon: {
+    width: 20,
+    height: 20,
+    tintColor: 'white',
+  },
+  bannerPreviewContainer: {
+    position: 'relative',
+    marginBottom: 16,
+  },
+  bannerPreview: {
+    width: '100%',
+    height: 150,
+    borderRadius: 12,
+  },
+  removeBannerButton: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
+    padding: 8,
+  },
+  removeBannerIcon: {
+    width: 24,
+    height: 24,
+    tintColor: 'white',
+  },
+  defaultBannerPreview: {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+  },
+  uploadBannerButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(87, 113, 254, 0.2)',
+    borderWidth: 2,
+    borderColor: '#5771FE',
+    borderStyle: 'dashed',
+    borderRadius: 12,
+    padding: 20,
+    marginBottom: 16,
+  },
+  uploadBannerButtonText: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: 'white',
+  },
+  selectedSportsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginBottom: 16,
+  },
+  selectedSportTag: {
+    backgroundColor: '#5771FE',
+    borderRadius: 12,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    marginRight: 8,
+    marginBottom: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  selectedSportText: {
+    fontSize: 12,
+    color: 'white',
+    fontWeight: '500',
+  },
+  removeSportIcon: {
+    width: 12,
+    height: 12,
+    tintColor: 'white',
+    marginLeft: 6,
+  },
+  sportsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  sportTag: {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    borderRadius: 12,
+    padding: 8,
+    marginRight: 8,
+    marginBottom: 8,
+  },
+  selectedSportTagFaded: {
+    backgroundColor: 'rgba(87, 113, 254, 0.3)',
+  },
+  disabledSportTag: {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+  },
+  sportText: {
+    fontSize: 12,
+    color: 'white',
+    fontWeight: '500',
+  },
+  selectedSportTextFaded: {
+    color: 'rgba(255, 255, 255, 0.5)',
+  },
+  disabledSportText: {
+    color: 'rgba(255, 255, 255, 0.5)',
   },
 }); 

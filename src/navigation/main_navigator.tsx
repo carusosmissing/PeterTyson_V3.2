@@ -11,6 +11,7 @@ import { GallerySearchScreen } from '../screens/main/gallery_search_screen';
 import { MessagingNavigator } from './messaging_navigator';
 import { ProfileScreen } from '../screens/main/profile_screen';
 import { EditProfileScreen } from '../screens/main/edit_profile_screen';
+import { SettingsScreen } from '../screens/main/settings_screen';
 import { NotiScreen } from '../screens/main/noti_screen';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
@@ -141,6 +142,7 @@ export const MainNavigator: React.FC = () => {
       <Stack.Screen name="MainTabs" component={TabNavigator} />
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="EditProfile" component={EditProfileScreen} />
+      <Stack.Screen name="Settings" component={SettingsScreen} />
       <Stack.Screen name="NotiScreen" component={NotiScreen} />
     </Stack.Navigator>
   );

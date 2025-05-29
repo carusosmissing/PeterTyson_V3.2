@@ -19,6 +19,10 @@ export const HomeScreen: React.FC = () => {
     navigation.navigate('NotiScreen' as never);
   };
 
+  const handleMenuToggle = () => {
+    navigation.navigate('Settings' as never);
+  };
+
   // Pulse animation effect
   useEffect(() => {
     const pulse = () => {
@@ -69,11 +73,11 @@ export const HomeScreen: React.FC = () => {
         <View style={styles.header}>
           <View style={styles.headerLeft}>
             <Image source={Images.logo} style={styles.logoImage} />
-            <TouchableOpacity>
+            <TouchableOpacity onPress={handleMenuToggle}>
               <Image source={Icons.menu} style={styles.menuIcon} />
             </TouchableOpacity>
           </View>
-          <Text style={styles.headerTitle}>Homepage</Text>
+          <Text style={styles.headerTitle}></Text>
           <View style={styles.headerRight}>
             <TouchableOpacity style={styles.profileContainer} onPress={handleProfilePress}>
               <Image 

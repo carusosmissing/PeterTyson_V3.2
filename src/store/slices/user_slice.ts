@@ -5,12 +5,18 @@ import type { UserState } from '../types';
 const initialState: UserState = {
   profile: {
     id: '1',
-    username: 'demo',
-    handle: '@demo',
+    username: 'Pete',
+    handle: '@petertyson',
     avatar: 'pete', // This will reference Assets.Avatars.pete or custom URI
     avatarType: 'asset', // 'asset' for preset avatars, 'custom' for uploaded images
-    displayName: 'demo',
+    displayName: 'Pete',
     email: 'demo@example.com',
+    bio: 'All I need is 3 mothafuckas...',
+    genres: [], // Top 3 favorite genres
+    sports: [], // Top 3 favorite sports
+    bannerImage: null, // Custom banner image URI or null for default
+    bannerType: 'default', // 'default' or 'custom'
+    backgroundColor: '#000000', // Default background color
   },
   preferences: {
     category: null,
@@ -33,6 +39,12 @@ const userSlice = createSlice({
       avatarType: 'asset' | 'custom';
       displayName: string;
       email: string;
+      bio: string;
+      genres: string[];
+      sports: string[];
+      bannerImage: string | null;
+      bannerType: 'default' | 'custom';
+      backgroundColor: string;
     }>>) => {
       if (state.profile) {
         state.profile = { ...state.profile, ...action.payload };

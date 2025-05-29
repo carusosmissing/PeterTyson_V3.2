@@ -18,6 +18,10 @@ export const TheShrineScreen: React.FC = () => {
     navigation.navigate('NotiScreen' as never);
   };
 
+  const handleMenuToggle = () => {
+    navigation.navigate('Settings' as never);
+  };
+
   const trustubsData = [
     {
       id: '1',
@@ -60,7 +64,7 @@ export const TheShrineScreen: React.FC = () => {
         <View style={styles.header}>
           <View style={styles.headerLeft}>
             <Image source={Images.logo} style={styles.logoImage} />
-            <TouchableOpacity>
+            <TouchableOpacity onPress={handleMenuToggle}>
               <Image source={Icons.menu} style={styles.menuIcon} />
             </TouchableOpacity>
           </View>

@@ -59,6 +59,10 @@ export const InboxScreen: React.FC = () => {
     navigation.navigate('NotiScreen' as never);
   };
 
+  const handleMenuToggle = () => {
+    navigation.navigate('Settings' as never);
+  };
+
   const handleNewMessagePress = () => {
     navigation.navigate('NewMessage' as never);
   };
@@ -105,7 +109,7 @@ export const InboxScreen: React.FC = () => {
         <View style={styles.header}>
           <View style={styles.headerLeft}>
             <Image source={Images.logo} style={styles.logoImage} />
-            <TouchableOpacity>
+            <TouchableOpacity onPress={handleMenuToggle}>
               <Image source={Icons.menu} style={styles.menuIcon} />
             </TouchableOpacity>
           </View>

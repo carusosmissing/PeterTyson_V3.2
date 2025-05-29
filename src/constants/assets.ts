@@ -117,7 +117,12 @@ export const Trustubs = {
 
 // Badge images
 export const Badges = {
-  dummyBadges: require('../../assets/badges/dummy_badges3.png'),
+  builder: require('../../assets/badges/Builder V2.png'),
+  plugged: require('../../assets/badges/Plugged V2.png'),
+  streaker: require('../../assets/badges/Streaker V2.png'),
+  fullSend: require('../../assets/badges/Full Send V2.png'),
+  thinkTank: require('../../assets/badges/Think Tank V2.png'),
+  storyteller: require('../../assets/badges/Storyteller V2.png'),
 };
 
 // Asset utility functions

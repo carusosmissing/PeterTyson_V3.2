@@ -18,6 +18,10 @@ export const ThePitScreen: React.FC = () => {
     navigation.navigate('NotiScreen' as never);
   };
 
+  const handleMenuToggle = () => {
+    navigation.navigate('Settings' as never);
+  };
+
   // Weekly calendar data
   const weekDays = [
     { day: 'Sun', completed: true },
@@ -46,7 +50,7 @@ export const ThePitScreen: React.FC = () => {
         <View style={styles.header}>
           <View style={styles.headerLeft}>
             <Image source={Images.logo} style={styles.logoImage} />
-            <TouchableOpacity>
+            <TouchableOpacity onPress={handleMenuToggle}>
               <Image source={Icons.menu} style={styles.menuIcon} />
             </TouchableOpacity>
           </View>
