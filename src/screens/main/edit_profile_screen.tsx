@@ -31,8 +31,8 @@ export const EditProfileScreen: React.FC = () => {
   const [bio, setBio] = useState(userProfile?.bio || 'Your bio goes here! Share your hobbies, motivations, and fitness goals.');
   const [selectedGenres, setSelectedGenres] = useState<string[]>(userProfile?.genres || []);
   const [backgroundColor, setBackgroundColor] = useState(userProfile?.backgroundColor || '#000000');
-  const [bannerImage, setBannerImage] = useState(userProfile?.bannerImage || null);
-  const [bannerType, setBannerType] = useState<'default' | 'custom'>(userProfile?.bannerType || 'default');
+  const [backgroundImage, setBackgroundImage] = useState(userProfile?.backgroundImage || null);
+  const [backgroundType, setBackgroundType] = useState<'color' | 'image'>(userProfile?.backgroundType || 'color');
   const [selectedSports, setSelectedSports] = useState<string[]>(userProfile?.sports || []);
 
   // Available avatars from assets
@@ -73,6 +73,13 @@ export const EditProfileScreen: React.FC = () => {
     { name: 'Indigo', color: '#4338CA' },
   ];
 
+  // Available background images
+  const backgroundImages = [
+    { name: 'Background 1', source: Assets.Images.background1, key: 'background1' },
+    { name: 'Background 2', source: Assets.Images.background2, key: 'background2' },
+    { name: 'Background 3', source: Assets.Images.background3, key: 'background3' },
+  ];
+
   const handleGenreSelect = (genre: string) => {
     if (selectedGenres.includes(genre)) {
       // Remove genre if already selected
@@ -90,61 +97,6 @@ export const EditProfileScreen: React.FC = () => {
     } else if (selectedSports.length < 3) {
       // Add sport if less than 3 selected
       setSelectedSports([...selectedSports, sport]);
-    }
-  };
-
-  const handleBannerImageSelected = (imageUri: string) => {
-    setBannerImage(imageUri);
-    setBannerType('custom');
-  };
-
-  const handleBannerCameraPress = async () => {
-    try {
-      const { status } = await ImagePicker.requestCameraPermissionsAsync();
-      if (status !== 'granted') {
-        Alert.alert('Permission Required', 'Sorry, we need camera permissions to take photos!');
-        return;
-      }
-
-      const result = await ImagePicker.launchCameraAsync({
-        mediaTypes: 'images',
-        allowsEditing: true,
-        aspect: [16, 9],
-        quality: 0.8,
-        exif: false,
-      });
-
-      if (!result.canceled && result.assets && result.assets[0]) {
-        handleBannerImageSelected(result.assets[0].uri);
-      }
-    } catch (error) {
-      console.error('Banner camera error:', error);
-      Alert.alert('Error', 'Failed to take photo');
-    }
-  };
-
-  const handleBannerGalleryPress = async () => {
-    try {
-      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-      if (status !== 'granted') {
-        Alert.alert('Permission Required', 'Sorry, we need photo library permissions!');
-        return;
-      }
-
-      const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: 'images',
-        allowsEditing: true,
-        aspect: [16, 9],
-        quality: 0.8,
-        exif: false,
-      });
-
-      if (!result.canceled && result.assets && result.assets[0]) {
-        handleBannerImageSelected(result.assets[0].uri);
-      }
-    } catch (error) {
-      console.error('Banner gallery error:', error);
-      Alert.alert('Error', 'Failed to select image');
     }
   };
 
@@ -169,9 +121,9 @@ export const EditProfileScreen: React.FC = () => {
       bio: bio.trim(),
       genres: selectedGenres,
       sports: selectedSports,
-      bannerImage: bannerImage,
-      bannerType: bannerType,
       backgroundColor: backgroundColor,
+      backgroundImage: backgroundImage,
+      backgroundType: backgroundType,
     }));
 
     // Navigate back to profile screen
@@ -492,66 +444,92 @@ export const EditProfileScreen: React.FC = () => {
             </View>
           </View>
 
-          {/* Banner Image Selection */}
-          <View style={styles.formSection}>
-            <Text style={styles.sectionTitle}>Banner Image</Text>
-            
-            {/* Current Banner Preview */}
-            {bannerImage ? (
-              <View style={styles.bannerPreviewContainer}>
-                <Image source={{ uri: bannerImage }} style={styles.bannerPreview} />
-                <TouchableOpacity 
-                  style={styles.removeBannerButton}
-                  onPress={() => {
-                    setBannerImage(null);
-                    setBannerType('default');
-                  }}
-                >
-                  <Image source={Assets.Icons.close} style={styles.removeBannerIcon} />
-                </TouchableOpacity>
-              </View>
-            ) : (
-              <Image source={Assets.Images.background3} style={[styles.bannerPreview, styles.defaultBannerPreview]} />
-            )}
-
-            {/* Upload Banner Button */}
-            <TouchableOpacity 
-              style={styles.uploadBannerButton}
-              onPress={() => {
-                Alert.alert('Select Banner Image', 'Choose how you\'d like to add a banner image', [
-                  { text: 'Camera', onPress: () => handleBannerCameraPress() },
-                  { text: 'Gallery', onPress: () => handleBannerGalleryPress() },
-                  { text: 'Cancel', style: 'cancel' }
-                ]);
-              }}
-            >
-              <Image source={Assets.Icons.camera} style={styles.uploadIcon} />
-              <Text style={styles.uploadBannerButtonText}>
-                {bannerImage ? 'Change Banner Image' : 'Upload Banner Image'}
-              </Text>
-            </TouchableOpacity>
-          </View>
-
           {/* Background Color Selection */}
           <View style={styles.formSection}>
-            <Text style={styles.sectionTitle}>Background Color</Text>
-            <View style={styles.colorOptionsContainer}>
-              {backgroundColors.map((colorOption) => (
-                <TouchableOpacity
-                  key={colorOption.name}
-                  style={[
-                    styles.colorOption,
-                    { backgroundColor: colorOption.color },
-                    backgroundColor === colorOption.color && styles.selectedColorOption
-                  ]}
-                  onPress={() => setBackgroundColor(colorOption.color)}
-                >
-                  {backgroundColor === colorOption.color && (
-                    <Image source={Assets.Icons.verified} style={styles.colorSelectedIcon} />
-                  )}
-                </TouchableOpacity>
-              ))}
+            <Text style={styles.sectionTitle}>Background</Text>
+            
+            {/* Background Type Toggle */}
+            <View style={styles.backgroundTypeContainer}>
+              <TouchableOpacity
+                style={[
+                  styles.backgroundTypeButton,
+                  backgroundType === 'color' && styles.selectedBackgroundTypeButton
+                ]}
+                onPress={() => setBackgroundType('color')}
+              >
+                <Text style={[
+                  styles.backgroundTypeText,
+                  backgroundType === 'color' && styles.selectedBackgroundTypeText
+                ]}>
+                  Colors
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  styles.backgroundTypeButton,
+                  backgroundType === 'image' && styles.selectedBackgroundTypeButton
+                ]}
+                onPress={() => setBackgroundType('image')}
+              >
+                <Text style={[
+                  styles.backgroundTypeText,
+                  backgroundType === 'image' && styles.selectedBackgroundTypeText
+                ]}>
+                  Images
+                </Text>
+              </TouchableOpacity>
             </View>
+
+            {/* Background Colors */}
+            {backgroundType === 'color' && (
+              <View style={styles.colorOptionsContainer}>
+                {backgroundColors.map((colorOption) => (
+                  <TouchableOpacity
+                    key={colorOption.name}
+                    style={[
+                      styles.colorOption,
+                      { backgroundColor: colorOption.color },
+                      backgroundColor === colorOption.color && backgroundType === 'color' && styles.selectedColorOption
+                    ]}
+                    onPress={() => {
+                      setBackgroundColor(colorOption.color);
+                      setBackgroundType('color');
+                    }}
+                  >
+                    {backgroundColor === colorOption.color && backgroundType === 'color' && (
+                      <Image source={Assets.Icons.verified} style={styles.colorSelectedIcon} />
+                    )}
+                  </TouchableOpacity>
+                ))}
+              </View>
+            )}
+
+            {/* Background Images */}
+            {backgroundType === 'image' && (
+              <View style={styles.imageOptionsContainer}>
+                {backgroundImages.map((imageOption) => (
+                  <TouchableOpacity
+                    key={imageOption.key}
+                    style={[
+                      styles.imageOption,
+                      backgroundImage === imageOption.key && styles.selectedImageOption
+                    ]}
+                    onPress={() => {
+                      setBackgroundImage(imageOption.key);
+                      setBackgroundType('image');
+                    }}
+                  >
+                    <Image source={imageOption.source} style={styles.imageOptionPreview} />
+                    {backgroundImage === imageOption.key && (
+                      <View style={styles.imageSelectedOverlay}>
+                        <Image source={Assets.Icons.verified} style={styles.imageSelectedIcon} />
+                      </View>
+                    )}
+                    <Text style={styles.imageOptionText}>{imageOption.name}</Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+            )}
           </View>
         </View>
 
@@ -822,46 +800,6 @@ const styles = StyleSheet.create({
     height: 20,
     tintColor: 'white',
   },
-  bannerPreviewContainer: {
-    position: 'relative',
-    marginBottom: 16,
-  },
-  bannerPreview: {
-    width: '100%',
-    height: 150,
-    borderRadius: 12,
-  },
-  removeBannerButton: {
-    position: 'absolute',
-    top: 8,
-    right: 8,
-    padding: 8,
-  },
-  removeBannerIcon: {
-    width: 24,
-    height: 24,
-    tintColor: 'white',
-  },
-  defaultBannerPreview: {
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-  },
-  uploadBannerButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'rgba(87, 113, 254, 0.2)',
-    borderWidth: 2,
-    borderColor: '#5771FE',
-    borderStyle: 'dashed',
-    borderRadius: 12,
-    padding: 20,
-    marginBottom: 16,
-  },
-  uploadBannerButtonText: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: 'white',
-  },
   selectedSportsContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -915,5 +853,70 @@ const styles = StyleSheet.create({
   },
   disabledSportText: {
     color: 'rgba(255, 255, 255, 0.5)',
+  },
+  backgroundTypeContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  backgroundTypeButton: {
+    padding: 12,
+    borderWidth: 2,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+    borderRadius: 12,
+    marginRight: 8,
+  },
+  selectedBackgroundTypeButton: {
+    borderColor: '#5771FE',
+  },
+  backgroundTypeText: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: 'white',
+  },
+  selectedBackgroundTypeText: {
+    color: '#5771FE',
+  },
+  imageOptionsContainer: {
+    marginBottom: 16,
+  },
+  imageOption: {
+    alignItems: 'center',
+    padding: 12,
+    borderWidth: 2,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+    borderRadius: 12,
+    marginRight: 8,
+    marginBottom: 8,
+  },
+  imageOptionPreview: {
+    width: 80,
+    height: 80,
+    borderRadius: 12,
+  },
+  imageSelectedOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    borderRadius: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  imageSelectedIcon: {
+    width: 24,
+    height: 24,
+    tintColor: 'white',
+  },
+  imageOptionText: {
+    fontSize: 12,
+    color: 'white',
+    fontWeight: '500',
+    marginTop: 8,
+  },
+  selectedImageOption: {
+    borderColor: '#5771FE',
   },
 }); 

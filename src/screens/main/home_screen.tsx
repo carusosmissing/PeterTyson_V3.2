@@ -360,7 +360,7 @@ const styles = StyleSheet.create({
   },
   statsContainer: {
     flexDirection: 'row',
-    backgroundColor: '#091343',
+    backgroundColor: 'transparent',
     borderRadius: 20,
     paddingVertical: 12,
     paddingHorizontal: 15,

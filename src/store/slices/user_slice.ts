@@ -17,6 +17,8 @@ const initialState: UserState = {
     bannerImage: null, // Custom banner image URI or null for default
     bannerType: 'default', // 'default' or 'custom'
     backgroundColor: '#000000', // Default background color
+    backgroundImage: null, // Selected background image key
+    backgroundType: 'color', // 'color' or 'image'
   },
   preferences: {
     category: null,
@@ -45,6 +47,8 @@ const userSlice = createSlice({
       bannerImage: string | null;
       bannerType: 'default' | 'custom';
       backgroundColor: string;
+      backgroundImage: string | null;
+      backgroundType: 'color' | 'image';
     }>>) => {
       if (state.profile) {
         state.profile = { ...state.profile, ...action.payload };

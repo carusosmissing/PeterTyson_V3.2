@@ -21,6 +21,20 @@ export const ProfileScreen: React.FC = () => {
   const dispatch = useAppDispatch();
   const userProfile = useAppSelector((state: any) => state.user.profile);
 
+  // Function to get background source for images
+  const getBackgroundImageSource = (backgroundKey: string) => {
+    switch (backgroundKey) {
+      case 'background1':
+        return Assets.Images.background1;
+      case 'background2':
+        return Assets.Images.background2;
+      case 'background3':
+        return Assets.Images.background3;
+      default:
+        return null;
+    }
+  };
+
   const galleryItems = [
     {
       id: '#01230',
@@ -57,8 +71,13 @@ export const ProfileScreen: React.FC = () => {
     navigation.navigate('Settings' as never);
   };
 
-  return (
-    <View style={[styles.container, { backgroundColor: userProfile?.backgroundColor || '#000000' }]}>
+  // Check if user has selected a background image (when types are updated)
+  const backgroundImageKey = userProfile?.backgroundImage || null;
+  const backgroundType = userProfile?.backgroundType || 'color';
+  const backgroundImageSource = (backgroundType === 'image' && backgroundImageKey) ? getBackgroundImageSource(backgroundImageKey) : null;
+
+  const renderContent = () => (
+    <>
       <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
       
       {/* Header */}
@@ -76,23 +95,16 @@ export const ProfileScreen: React.FC = () => {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        {/* Banner Section */}
-        <View style={styles.bannerContainer}>
-          {userProfile?.bannerImage && userProfile?.bannerType === 'custom' ? (
-            <ImageBackground 
-              source={{ uri: userProfile.bannerImage }} 
-              style={styles.banner}
-              resizeMode="cover"
-            />
-          ) : (
-            <ImageBackground 
-              source={Assets.Images.background3} 
-              style={styles.banner}
-              resizeMode="cover"
-            />
-          )}
-          
-          {/* Profile Picture overlapping banner */}
+        {/* Background Bubble Container - Only for core profile info */}
+        <View style={styles.backgroundBubble}>
+          {/* Edit button in top right */}
+          <View style={styles.editButtonContainer}>
+            <TouchableOpacity style={styles.editButton} onPress={handleEditProfile}>
+              <Text style={styles.editButtonText}>EDIT</Text>
+            </TouchableOpacity>
+          </View>
+
+          {/* Profile Picture */}
           <View style={styles.profilePictureContainer}>
             <Avatar
               source={getAvatarSource(userProfile?.avatar || 'pete', userProfile?.avatarType || 'asset')}
@@ -101,81 +113,109 @@ export const ProfileScreen: React.FC = () => {
               style={styles.profilePicture}
             />
           </View>
-        </View>
 
-        {/* Profile Info Section */}
-        <View style={styles.profileInfoSection}>
-          <View style={styles.nameAndEditContainer}>
+          {/* Username and Handle centered */}
+          <View style={styles.userInfoContainer}>
             <Text style={styles.userName}>{userProfile?.username || 'Swickie F'}</Text>
-            <TouchableOpacity style={styles.editButton} onPress={handleEditProfile}>
-              <Text style={styles.editButtonText}>EDIT</Text>
-            </TouchableOpacity>
-          </View>
-          
-          {/* Join date */}
-          <View style={styles.joinDateContainer}>
-            <Text style={styles.joinDate}>Jun 2024</Text>
+            <Text style={styles.userHandle}>{userProfile?.handle || '@demo'}</Text>
           </View>
 
-          {/* Bio Section */}
-          <View style={styles.bioSection}>
-            <Text style={styles.bioText}>{userProfile?.bio || 'Add your bio in edit profile to share more about yourself!'}</Text>
-          </View>
-
-          {/* Top Genres Section */}
-          {userProfile?.genres && userProfile.genres.length > 0 && (
-            <View style={styles.genresSection}>
-              <Text style={styles.genresSectionTitle}>Top Genres</Text>
-              <View style={styles.genresDisplayContainer}>
-                {userProfile.genres.map((genre: string, index: number) => (
-                  <View key={genre} style={styles.genreDisplayTag}>
-                    <Text style={styles.genreDisplayText}>{genre}</Text>
-                  </View>
-                ))}
-              </View>
-            </View>
-          )}
-
-          {/* Top Sports Section */}
-          {userProfile?.sports && userProfile.sports.length > 0 && (
-            <View style={styles.sportsSection}>
-              <Text style={styles.sportsSectionTitle}>Top Sports</Text>
-              <View style={styles.sportsDisplayContainer}>
-                {userProfile.sports.map((sport: string, index: number) => (
-                  <View key={sport} style={styles.sportDisplayTag}>
-                    <Text style={styles.sportDisplayText}>{sport}</Text>
-                  </View>
-                ))}
-              </View>
-            </View>
-          )}
-
-          {/* Badges Section */}
-          <View style={styles.badgesSection}>
-            <View style={styles.badgesGrid}>
-              <Image source={Assets.Badges.builder} style={styles.badgeImage} />
-              <Image source={Assets.Badges.plugged} style={styles.badgeImage} />
-              <Image source={Assets.Badges.streaker} style={styles.badgeImage} />
-              <Image source={Assets.Badges.fullSend} style={styles.badgeImage} />
-              <Image source={Assets.Badges.thinkTank} style={styles.badgeImage} />
-            </View>
-          </View>
-
-          {/* Stats Card */}
+          {/* Stats inside bubble */}
           <View style={styles.statsContainer}>
             <View style={styles.statItem}>
-              <Text style={styles.statNumber}>4</Text>
-              <Text style={styles.statLabel}>TruSTUBS</Text>
+              <Text style={styles.statNumber}>132</Text>
+              <Text style={styles.statLabel}>Following</Text>
             </View>
             <View style={styles.statDivider} />
             <View style={styles.statItem}>
-              <Text style={styles.statNumber}>4</Text>
-              <Text style={styles.statLabel}>Events</Text>
+              <Text style={styles.statNumber}>5410</Text>
+              <Text style={styles.statLabel}>Followers</Text>
             </View>
             <View style={styles.statDivider} />
             <View style={styles.statItem}>
-              <Text style={styles.statNumber}>2</Text>
-              <Text style={styles.statLabel}>Venues</Text>
+              <Text style={styles.statNumber}>9445</Text>
+              <Text style={styles.statLabel}>Likes</Text>
+            </View>
+          </View>
+
+          {/* Follow and Message buttons */}
+          <View style={styles.actionButtonsContainer}>
+            <TouchableOpacity style={styles.followButton}>
+              <Text style={styles.followButtonText}>Follow</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.messageButton}>
+              <Text style={styles.messageButtonText}>Message</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        {/* Profile Info Section - Content outside bubble */}
+        <View style={styles.profileInfoSection}>
+          {/* Second Background Bubble for Bio and Top Sections */}
+          <View style={styles.secondaryBubble}>
+            {/* Bio Section */}
+            <View style={styles.bioSection}>
+              <Text style={styles.bioText}>{userProfile?.bio || 'Add your bio in edit profile to share more about yourself!'}</Text>
+            </View>
+
+            {/* Top Genres Section */}
+            {userProfile?.genres && userProfile.genres.length > 0 && (
+              <View style={styles.genresSection}>
+                <Text style={styles.genresSectionTitle}>Top Genres</Text>
+                <View style={styles.genresDisplayContainer}>
+                  {userProfile.genres.map((genre: string, index: number) => (
+                    <View key={genre} style={styles.genreDisplayTag}>
+                      <Text style={styles.genreDisplayText}>{genre}</Text>
+                    </View>
+                  ))}
+                </View>
+              </View>
+            )}
+
+            {/* Top Sports Section */}
+            {userProfile?.sports && userProfile.sports.length > 0 && (
+              <View style={styles.sportsSection}>
+                <Text style={styles.sportsSectionTitle}>Top Sports</Text>
+                <View style={styles.sportsDisplayContainer}>
+                  {userProfile.sports.map((sport: string, index: number) => (
+                    <View key={sport} style={styles.sportDisplayTag}>
+                      <Text style={styles.sportDisplayText}>{sport}</Text>
+                    </View>
+                  ))}
+                </View>
+              </View>
+            )}
+          </View>
+
+          {/* Third Background Bubble for Badges and Stats */}
+          <View style={styles.thirdBubble}>
+            {/* Badges Section */}
+            <View style={styles.badgesSection}>
+              <View style={styles.badgesGrid}>
+                <Image source={Assets.Badges.builder} style={styles.badgeImage} />
+                <Image source={Assets.Badges.plugged} style={styles.badgeImage} />
+                <Image source={Assets.Badges.streaker} style={styles.badgeImage} />
+                <Image source={Assets.Badges.fullSend} style={styles.badgeImage} />
+                <Image source={Assets.Badges.thinkTank} style={styles.badgeImage} />
+              </View>
+            </View>
+
+            {/* TruSTUBS/Events/Venues Stats */}
+            <View style={styles.profileStatsContainer}>
+              <View style={styles.statItem}>
+                <Text style={styles.statNumber}>4</Text>
+                <Text style={styles.statLabel}>TruSTUBS</Text>
+              </View>
+              <View style={styles.statDivider} />
+              <View style={styles.statItem}>
+                <Text style={styles.statNumber}>4</Text>
+                <Text style={styles.statLabel}>Events</Text>
+              </View>
+              <View style={styles.statDivider} />
+              <View style={styles.statItem}>
+                <Text style={styles.statNumber}>2</Text>
+                <Text style={styles.statLabel}>Venues</Text>
+              </View>
             </View>
           </View>
 
@@ -225,6 +265,20 @@ export const ProfileScreen: React.FC = () => {
           </View>
         </View>
       </ScrollView>
+    </>
+  );
+
+  return backgroundImageSource ? (
+    <ImageBackground 
+      source={backgroundImageSource} 
+      style={styles.container}
+      resizeMode="cover"
+    >
+      {renderContent()}
+    </ImageBackground>
+  ) : (
+    <View style={[styles.container, { backgroundColor: userProfile?.backgroundColor || '#000000' }]}>
+      {renderContent()}
     </View>
   );
 };
@@ -268,59 +322,53 @@ const styles = StyleSheet.create({
   scrollContent: {
     paddingBottom: 40,
   },
-  bannerContainer: {
-    height: 200,
-    position: 'relative',
+  backgroundBubble: {
+    marginHorizontal: 20,
+    marginTop: 140,
+    paddingTop: 20,
+    paddingBottom: 20,
+    paddingHorizontal: 20,
+    borderRadius: 25,
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    marginBottom: 20,
   },
-  banner: {
-    height: 160,
-    // Adding a gradient-like effect with shadow
-    shadowColor: '#667eea',
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.3,
-    shadowRadius: 20,
+  profileInfoSection: {
+    paddingHorizontal: 20,
+    paddingTop: 0,
   },
   profilePictureContainer: {
-    position: 'absolute',
-    left: -25,
-    top: 70,
+    marginBottom: -10,
+    alignItems: 'center',
+    marginTop: -110,
   },
   profilePicture: {
     width: 180,
     height: 180,
+    marginTop: 5,
   },
-  profileInfoSection: {
-    paddingHorizontal: 20,
-    paddingTop: 20,
-  },
-  nameAndEditContainer: {
-    flexDirection: 'row',
+  userInfoContainer: {
+    flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 8,
+    justifyContent: 'center',
+    marginBottom: 20,
   },
   userName: {
     fontSize: 28,
     fontWeight: 'bold',
     color: 'white',
+    textAlign: 'center',
+    marginTop: -25,
+    marginBottom: 4,
   },
-  joinDateContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  joinDate: {
+  userHandle: {
     fontSize: 16,
     color: 'rgba(255, 255, 255, 0.7)',
+    textAlign: 'center',
   },
-  bioSection: {
-    marginBottom: 30,
-  },
-  bioText: {
-    fontSize: 16,
-    color: 'rgba(255, 255, 255, 0.7)',
-    marginBottom: 12,
-    fontStyle: 'italic',
+  editButtonContainer: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
   },
   editButton: {
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
@@ -333,14 +381,23 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '600',
   },
+  bioSection: {
+    marginBottom: 20,
+  },
+  bioText: {
+    fontSize: 16,
+    color: 'rgba(255, 255, 255, 0.7)',
+    marginBottom: 12,
+    fontStyle: 'italic',
+  },
   statsContainer: {
     flexDirection: 'row',
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    backgroundColor: 'transparent',
     borderRadius: 20,
     paddingVertical: 12,
     paddingHorizontal: 15,
     alignItems: 'center',
-    marginBottom: 40,
+    marginBottom: 20,
   },
   statItem: {
     flex: 1,
@@ -369,15 +426,16 @@ const styles = StyleSheet.create({
   },
   badgesGrid: {
     flexDirection: 'row',
-    gap: 5,
+    gap: 2,
+    justifyContent: 'center',
   },
   badgeImage: {
-    width: 60,
-    height: 60,
+    width: 66,
+    height: 66,
     resizeMode: 'contain',
   },
   genresSection: {
-    marginBottom: 30,
+    marginBottom: 20,
   },
   genresSectionTitle: {
     fontSize: 20,
@@ -402,7 +460,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   sportsSection: {
-    marginBottom: 30,
+    marginBottom: 0,
   },
   sportsSectionTitle: {
     fontSize: 20,
@@ -476,5 +534,58 @@ const styles = StyleSheet.create({
     fontWeight: 'normal',
     color: '#FFFFFF',
     marginTop: 2,
+  },
+  actionButtonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 0,
+    gap: 10,
+  },
+  followButton: {
+    backgroundColor: '#5771FE',
+    borderRadius: 12,
+    paddingVertical: 12,
+    paddingHorizontal: 30,
+    flex: 1,
+    alignItems: 'center',
+  },
+  followButtonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  messageButton: {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    borderRadius: 12,
+    paddingVertical: 12,
+    paddingHorizontal: 30,
+    flex: 1,
+    alignItems: 'center',
+  },
+  messageButtonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  secondaryBubble: {
+    marginBottom: 20,
+    padding: 20,
+    borderRadius: 25,
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+  },
+  profileStatsContainer: {
+    flexDirection: 'row',
+    backgroundColor: 'transparent',
+    borderRadius: 20,
+    paddingVertical: 12,
+    paddingHorizontal: 15,
+    alignItems: 'center',
+    marginBottom: 0,
+  },
+  thirdBubble: {
+    marginBottom: 20,
+    padding: 20,
+    borderRadius: 25,
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
   },
 });
