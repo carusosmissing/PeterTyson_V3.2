@@ -12,14 +12,24 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { Colors, Typography, Layout, Assets, Icons, Trustubs } from '../../constants';
 import { Avatar } from '../../components/ui/avatar';
-import { useAppDispatch, useAppSelector } from '../../store';
-import { logout } from '../../store';
 import { getAvatarSource } from '../../utils/avatar_utils';
 
-export const ProfileScreen: React.FC = () => {
+export const ProfileUser5Screen: React.FC = () => {
   const navigation = useNavigation();
-  const dispatch = useAppDispatch();
-  const userProfile = useAppSelector((state: any) => state.user.profile);
+
+  // Dummy profile data for user5
+  const userProfile = {
+    username: 'Jordan Smith',
+    handle: '@jordan_stage',
+    avatar: 'user5',
+    avatarType: 'asset' as 'asset' | 'custom',
+    bio: 'Stage performer & community builder 🎭🎤 Bringing people together through music and art. Life is a stage, let\'s make it unforgettable! ✨',
+    genres: ['Pop', 'Musical Theatre', 'Soul'],
+    sports: ['Dance', 'Volleyball', 'Gymnastics'],
+    backgroundColor: '#DB2777',
+    backgroundType: 'color',
+    backgroundImage: null,
+  };
 
   // Function to get background source for images
   const getBackgroundImageSource = (backgroundKey: string) => {
@@ -37,31 +47,27 @@ export const ProfileScreen: React.FC = () => {
 
   const galleryItems = [
     {
-      id: '#01230',
-      artist: 'Kendrick Lamar',
+      id: '#06551',
+      artist: 'Beyoncé',
       image: Trustubs.trustub1,
     },
     {
-      id: '#01240',
-      artist: 'Lady Gaga',
+      id: '#06552',
+      artist: 'Bruno Mars',
       image: Trustubs.trustub2,
     },
     {
-      id: '#01241',
-      artist: 'Fred Again',
+      id: '#06553',
+      artist: 'Adele',
       image: Trustubs.trustub3,
     },
     {
-      id: '#01236',
-      artist: 'TruEXP',
-      subtitle: 'Early Adopter',
+      id: '#06554',
+      artist: 'The Weeknd',
+      subtitle: 'Opening Night',
       image: Trustubs.trustub4,
     },
   ];
-
-  const handleEditProfile = () => {
-    navigation.navigate('EditProfile' as never);
-  };
 
   const handleBackPress = () => {
     navigation.goBack();
@@ -97,17 +103,10 @@ export const ProfileScreen: React.FC = () => {
       >
         {/* Background Bubble Container - Only for core profile info */}
         <View style={styles.backgroundBubble}>
-          {/* Edit button in top right */}
-          <View style={styles.editButtonContainer}>
-            <TouchableOpacity style={styles.editButton} onPress={handleEditProfile}>
-              <Text style={styles.editButtonText}>EDIT</Text>
-            </TouchableOpacity>
-          </View>
-
           {/* Profile Picture */}
           <View style={styles.profilePictureContainer}>
             <Avatar
-              source={getAvatarSource(userProfile?.avatar || 'pete', userProfile?.avatarType || 'asset')}
+              source={getAvatarSource(userProfile?.avatar || 'user5', userProfile?.avatarType || 'asset')}
               size="3xl"
               variant="circle"
               style={styles.profilePicture}
@@ -116,24 +115,24 @@ export const ProfileScreen: React.FC = () => {
 
           {/* Username and Handle centered */}
           <View style={styles.userInfoContainer}>
-            <Text style={styles.userName}>{userProfile?.username || 'Swickie F'}</Text>
-            <Text style={styles.userHandle}>{userProfile?.handle || '@demo'}</Text>
+            <Text style={styles.userName}>{userProfile?.username || 'User 5'}</Text>
+            <Text style={styles.userHandle}>{userProfile?.handle || '@user5'}</Text>
           </View>
 
           {/* Stats inside bubble */}
           <View style={styles.statsContainer}>
             <View style={styles.statItem}>
-              <Text style={styles.statNumber}>132</Text>
+              <Text style={styles.statNumber}>423</Text>
               <Text style={styles.statLabel}>Following</Text>
             </View>
             <View style={styles.statDivider} />
             <View style={styles.statItem}>
-              <Text style={styles.statNumber}>5410</Text>
+              <Text style={styles.statNumber}>6,789</Text>
               <Text style={styles.statLabel}>Followers</Text>
             </View>
             <View style={styles.statDivider} />
             <View style={styles.statItem}>
-              <Text style={styles.statNumber}>9445</Text>
+              <Text style={styles.statNumber}>11,234</Text>
               <Text style={styles.statLabel}>Likes</Text>
             </View>
           </View>
@@ -195,32 +194,30 @@ export const ProfileScreen: React.FC = () => {
                 <Image source={Assets.Badges.builder} style={styles.badgeImage} />
                 <Image source={Assets.Badges.plugged} style={styles.badgeImage} />
                 <Image source={Assets.Badges.streaker} style={styles.badgeImage} />
-                <Image source={Assets.Badges.fullSend} style={styles.badgeImage} />
-                <Image source={Assets.Badges.thinkTank} style={styles.badgeImage} />
               </View>
             </View>
 
             {/* TruSTUBS/Events/Venues Stats */}
             <View style={styles.profileStatsContainer}>
               <View style={styles.statItem}>
-                <Text style={styles.statNumber}>4</Text>
+                <Text style={styles.statNumber}>12</Text>
                 <Text style={styles.statLabel}>TruSTUBS</Text>
               </View>
               <View style={styles.statDivider} />
               <View style={styles.statItem}>
-                <Text style={styles.statNumber}>4</Text>
+                <Text style={styles.statNumber}>18</Text>
                 <Text style={styles.statLabel}>Events</Text>
               </View>
               <View style={styles.statDivider} />
               <View style={styles.statItem}>
-                <Text style={styles.statNumber}>2</Text>
+                <Text style={styles.statNumber}>9</Text>
                 <Text style={styles.statLabel}>Venues</Text>
               </View>
             </View>
           </View>
 
           {/* Gallery Title */}
-          <Text style={styles.galleryTitle}>{userProfile?.username || 'Demo'}'s Favorite Stubs</Text>
+          <Text style={styles.galleryTitle}>{userProfile?.username || 'Jordan'}'s Favorite Stubs</Text>
 
           {/* Gallery Grid */}
           <View style={styles.galleryGrid}>
@@ -289,7 +286,7 @@ export const ProfileScreen: React.FC = () => {
       {renderContent()}
     </ImageBackground>
   ) : (
-    <View style={[styles.container, { backgroundColor: userProfile?.backgroundColor || '#000000' }]}>
+    <View style={[styles.container, { backgroundColor: userProfile?.backgroundColor || '#DB2777' }]}>
       {renderContent()}
     </View>
   );
@@ -376,22 +373,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'rgba(255, 255, 255, 0.7)',
     textAlign: 'center',
-  },
-  editButtonContainer: {
-    position: 'absolute',
-    top: 10,
-    right: 10,
-  },
-  editButton: {
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    borderRadius: 12,
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-  },
-  editButtonText: {
-    color: 'white',
-    fontSize: 12,
-    fontWeight: '600',
   },
   bioSection: {
     marginBottom: 20,
@@ -611,4 +592,4 @@ const styles = StyleSheet.create({
     height: 15,
     resizeMode: 'contain',
   },
-});
+}); 

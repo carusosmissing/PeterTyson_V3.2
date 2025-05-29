@@ -67,6 +67,29 @@ export const InboxScreen: React.FC = () => {
     navigation.navigate('NewMessage' as never);
   };
 
+  const handleProfileCirclePress = (index: number) => {
+    // Navigate to the corresponding user profile screen
+    switch (index) {
+      case 0:
+        navigation.navigate('ProfileUser1' as never);
+        break;
+      case 1:
+        navigation.navigate('ProfileUser2' as never);
+        break;
+      case 2:
+        navigation.navigate('ProfileUser3' as never);
+        break;
+      case 3:
+        navigation.navigate('ProfileUser4' as never);
+        break;
+      case 4:
+        navigation.navigate('ProfileUser5' as never);
+        break;
+      default:
+        console.log('Invalid profile index:', index);
+    }
+  };
+
   const handleMessagePress = (messageId: string, userId: string) => {
     // Navigate to specific DM screens based on user
     if (userId === 'emily_garcia') {
@@ -81,12 +104,27 @@ export const InboxScreen: React.FC = () => {
     }
   };
 
+  const handleMessageProfilePress = (userId: string) => {
+    // Navigate to specific profile screens based on user
+    if (userId === 'emily_garcia') {
+      navigation.navigate('ProfileUser3' as never);
+    } else if (userId === 'jiara_martins') {
+      navigation.navigate('ProfileUser1' as never);
+    } else if (userId === 'lila_jane') {
+      navigation.navigate('ProfileUser2' as never);
+    } else {
+      console.log('Profile pressed for unknown user:', userId);
+    }
+  };
+
   const renderMessageItem = ({ item }: { item: any }) => (
     <TouchableOpacity 
       style={styles.messageItem} 
       onPress={() => handleMessagePress(item.id, item.userId)}
     >
-      <Image source={item.avatar} style={styles.messageAvatar} />
+      <TouchableOpacity onPress={() => handleMessageProfilePress(item.userId)}>
+        <Image source={item.avatar} style={styles.messageAvatar} />
+      </TouchableOpacity>
       <View style={styles.messageContent}>
         <View style={styles.messageHeader}>
           <Text style={styles.messageName}>{item.name}</Text>
@@ -153,7 +191,7 @@ export const InboxScreen: React.FC = () => {
         <View style={styles.profileRowContainer}>
           <View style={styles.profileRow}>
             {profileImages.map((image, index) => (
-              <TouchableOpacity key={index} style={styles.profileCircle}>
+              <TouchableOpacity key={index} style={styles.profileCircle} onPress={() => handleProfileCirclePress(index)}>
                 <Image source={image} style={styles.profileCircleImage} />
               </TouchableOpacity>
             ))}

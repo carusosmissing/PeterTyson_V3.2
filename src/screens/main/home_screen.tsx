@@ -72,7 +72,6 @@ export const HomeScreen: React.FC = () => {
         {/* Header */}
         <View style={styles.header}>
           <View style={styles.headerLeft}>
-            <Image source={Images.logo} style={styles.logoImage} />
             <TouchableOpacity onPress={handleMenuToggle}>
               <Image source={Icons.menu} style={styles.menuIcon} />
             </TouchableOpacity>
@@ -134,6 +133,9 @@ export const HomeScreen: React.FC = () => {
                   <Text style={styles.galleryId}>{galleryItems[0].id}</Text>
                   <Text style={styles.galleryArtist}>{galleryItems[0].artist}</Text>
                 </View>
+                <View style={styles.logoOverlay}>
+                  <Image source={Images.logo} style={styles.logoImage} />
+                </View>
               </TouchableOpacity>
               
               <TouchableOpacity style={styles.galleryItem}>
@@ -141,6 +143,9 @@ export const HomeScreen: React.FC = () => {
                 <View style={styles.galleryOverlay}>
                   <Text style={styles.galleryId}>{galleryItems[1].id}</Text>
                   <Text style={styles.galleryArtist}>{galleryItems[1].artist}</Text>
+                </View>
+                <View style={styles.logoOverlay}>
+                  <Image source={Images.logo} style={styles.logoImage} />
                 </View>
               </TouchableOpacity>
             </View>
@@ -152,6 +157,9 @@ export const HomeScreen: React.FC = () => {
                   <Text style={styles.galleryId}>{galleryItems[2].id}</Text>
                   <Text style={styles.galleryArtist}>{galleryItems[2].artist}</Text>
                 </View>
+                <View style={styles.logoOverlay}>
+                  <Image source={Images.logo} style={styles.logoImage} />
+                </View>
               </TouchableOpacity>
               
               <TouchableOpacity style={styles.galleryItem}>
@@ -162,6 +170,9 @@ export const HomeScreen: React.FC = () => {
                   {galleryItems[3].subtitle && (
                     <Text style={styles.gallerySubtitle}>{galleryItems[3].subtitle}</Text>
                   )}
+                </View>
+                <View style={styles.logoOverlay}>
+                  <Image source={Images.logo} style={styles.logoImage} />
                 </View>
               </TouchableOpacity>
             </View>
@@ -215,8 +226,8 @@ const styles = StyleSheet.create({
     marginLeft: 0,
   },
   logoImage: {
-    width: 32,
-    height: 32,
+    width: 15,
+    height: 15,
     resizeMode: 'contain',
   },
   menuIcon: {
@@ -411,5 +422,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     color: '#FFFFFF',
+  },
+  logoOverlay: {
+    position: 'absolute',
+    bottom: 45,
+    right: 7,
+    zIndex: 10,
   },
 });

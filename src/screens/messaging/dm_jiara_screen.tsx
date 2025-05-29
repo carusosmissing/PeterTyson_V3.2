@@ -64,6 +64,10 @@ export const DMJiaraScreen: React.FC = () => {
     navigation.navigate('Profile' as never);
   };
 
+  const handleContactProfilePress = () => {
+    navigation.navigate('ProfileUser1' as never);
+  };
+
   const handleNotificationPress = () => {
     navigation.navigate('NotiScreen' as never);
   };
@@ -114,7 +118,9 @@ export const DMJiaraScreen: React.FC = () => {
           </TouchableOpacity>
           
           <View style={styles.contactInfo}>
-            <Image source={contactAvatar} style={styles.contactAvatar} />
+            <TouchableOpacity onPress={handleContactProfilePress}>
+              <Image source={contactAvatar} style={styles.contactAvatar} />
+            </TouchableOpacity>
             <View style={styles.contactDetails}>
               <Text style={styles.contactName}>{contactName}</Text>
               {isOnline && (

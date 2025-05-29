@@ -13,6 +13,11 @@ import { ProfileScreen } from '../screens/main/profile_screen';
 import { EditProfileScreen } from '../screens/main/edit_profile_screen';
 import { SettingsScreen } from '../screens/main/settings_screen';
 import { NotiScreen } from '../screens/main/noti_screen';
+import { ProfileUser1Screen } from '../screens/main/profile_user1_screen';
+import { ProfileUser2Screen } from '../screens/main/profile_user2_screen';
+import { ProfileUser3Screen } from '../screens/main/profile_user3_screen';
+import { ProfileUser4Screen } from '../screens/main/profile_user4_screen';
+import { ProfileUser5Screen } from '../screens/main/profile_user5_screen';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 const Stack = createNativeStackNavigator();
@@ -144,6 +149,11 @@ export const MainNavigator: React.FC = () => {
       <Stack.Screen name="EditProfile" component={EditProfileScreen} />
       <Stack.Screen name="Settings" component={SettingsScreen} />
       <Stack.Screen name="NotiScreen" component={NotiScreen} />
+      <Stack.Screen name="ProfileUser1" component={ProfileUser1Screen} />
+      <Stack.Screen name="ProfileUser2" component={ProfileUser2Screen} />
+      <Stack.Screen name="ProfileUser3" component={ProfileUser3Screen} />
+      <Stack.Screen name="ProfileUser4" component={ProfileUser4Screen} />
+      <Stack.Screen name="ProfileUser5" component={ProfileUser5Screen} />
     </Stack.Navigator>
   );
 }; 
