@@ -16,7 +16,7 @@ export const WelcomeScreen: React.FC = () => {
 
   return (
     <ImageBackground 
-      source={Images.background1}
+      source={Images.welcomeBackground}
       style={styles.backgroundImage}
       resizeMode="cover"
     >
@@ -24,7 +24,7 @@ export const WelcomeScreen: React.FC = () => {
         {/* Logo Section */}
         <View style={styles.logoSection}>
           <Image 
-            source={Images.fullLogotypeWhite}
+            source={Images.fullLogotypeGradient}
             style={styles.logoImage}
             resizeMode="contain"
           />
@@ -65,11 +65,12 @@ const styles = StyleSheet.create({
   },
   logoSection: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
+    paddingTop: 120,
   },
   logoImage: {
-    width: 280,
+    width: 330,
     height: 80,
   },
   buttonSection: {
