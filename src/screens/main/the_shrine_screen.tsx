@@ -34,9 +34,9 @@ export const TheShrineScreen: React.FC = () => {
     {
       id: '2',
       stubNumber: '#01640',
-      year: '2025',
-      artist: 'Lady Gaga',
-      venue: 'Hollywood Bowl',
+      year: '2024',
+      artist: 'Halsey',
+      venue: 'Huntington Bank Pavilion',
       image: Trustubs.trustub2,
     },
     {
