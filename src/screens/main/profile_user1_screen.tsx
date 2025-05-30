@@ -26,7 +26,7 @@ export const ProfileUser1Screen: React.FC = () => {
     bio: 'VIP Exclusive Lounge Host 🎵 Music curator by day, party host by night. Always looking for the next big sound!',
     genres: ['Electronic', 'House', 'Techno'],
     sports: ['Tennis', 'Yoga'],
-    backgroundColor: '#2B6CB0',
+    backgroundColor: '#5771FE',
     backgroundType: 'color',
     backgroundImage: null,
   };

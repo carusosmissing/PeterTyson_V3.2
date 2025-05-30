@@ -62,15 +62,20 @@ export const EditProfileScreen: React.FC = () => {
   // Background color options
   const backgroundColors = [
     { name: 'Black', color: '#000000' },
-    { name: 'Light Gray', color: '#ECECEC' },
-    { name: 'Light Blue', color: '#D7F0FC' },
-    { name: 'Dark Gray', color: '#2D3748' },
-    { name: 'Navy Blue', color: '#2B6CB0' },
     { name: 'Lakers Purple', color: '#552583' },
-    { name: 'Forest Green', color: '#059669' },
-    { name: 'Teal', color: '#0891B2' },
-    { name: 'Pink', color: '#DB2777' },
-    { name: 'Indigo', color: '#4338CA' },
+    { name: 'Lakers Gold', color: '#FDB927' },
+    { name: 'Forum Blue', color: '#1D428A' },
+    { name: 'Navy', color: '#091343' },
+    { name: 'Mint', color: '#7DD3B9' },
+    { name: 'Sky Blue', color: '#87ABCC' },
+    { name: 'Royal Blue', color: '#5771FE' },
+    { name: 'Lavender', color: '#D59BF9' },
+    { name: 'Coral', color: '#FB9EB4' },
+    { name: 'Peach', color: '#FADAAD' },
+    { name: 'Ice Blue', color: '#D7F0FC' },
+    { name: 'Soft Pink', color: '#FDE8ED' },
+    { name: 'Pale Yellow', color: '#F2F9DA' },
+    { name: 'Light Gray', color: '#ECECEC' }
   ];
 
   // Available background images

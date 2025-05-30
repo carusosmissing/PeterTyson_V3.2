@@ -26,7 +26,7 @@ export const ProfileUser3Screen: React.FC = () => {
     bio: "First place finisher 🏆 Competitive spirit meets music passion. Training hard and partying harder! Let's chase those wins together! 💪",
     genres: ['Hip Hop', 'Trap', 'R&B'],
     sports: ['Basketball', 'CrossFit', 'Track & Field'],
-    backgroundColor: '#059669',
+    backgroundColor: '#7DD3B9',
     backgroundType: 'color',
     backgroundImage: null,
   };
@@ -285,7 +285,7 @@ export const ProfileUser3Screen: React.FC = () => {
       {renderContent()}
     </ImageBackground>
   ) : (
-    <View style={[styles.container, { backgroundColor: userProfile?.backgroundColor || '#059669' }]}>
+    <View style={[styles.container, { backgroundColor: userProfile?.backgroundColor || '#7DD3B9' }]}>
       {renderContent()}
     </View>
   );

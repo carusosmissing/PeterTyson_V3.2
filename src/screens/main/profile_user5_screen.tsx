@@ -26,7 +26,7 @@ export const ProfileUser5Screen: React.FC = () => {
     bio: 'Stage performer & community builder 🎭🎤 Bringing people together through music and art. Life is a stage, let\'s make it unforgettable! ✨',
     genres: ['Pop', 'Musical Theatre', 'Soul'],
     sports: ['Dance', 'Volleyball', 'Gymnastics'],
-    backgroundColor: '#DB2777',
+    backgroundColor: '#FB9EB4',
     backgroundType: 'color',
     backgroundImage: null,
   };

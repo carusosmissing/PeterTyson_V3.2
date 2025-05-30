@@ -26,7 +26,7 @@ export const ProfileUser4Screen: React.FC = () => {
     bio: 'Chill vibes only 🌊 Producer by night, coffee enthusiast by day. Making beats that hit different. Always down to collaborate! ☕🎧',
     genres: ['Lo-fi', 'Jazz', 'Chillhop'],
     sports: ['Golf', 'Swimming'],
-    backgroundColor: '#0891B2',
+    backgroundColor: '#87ABCC',
     backgroundType: 'color',
     backgroundImage: null,
   };
@@ -288,7 +288,7 @@ export const ProfileUser4Screen: React.FC = () => {
       {renderContent()}
     </ImageBackground>
   ) : (
-    <View style={[styles.container, { backgroundColor: userProfile?.backgroundColor || '#0891B2' }]}>
+    <View style={[styles.container, { backgroundColor: userProfile?.backgroundColor || '#87ABCC' }]}>
       {renderContent()}
     </View>
   );

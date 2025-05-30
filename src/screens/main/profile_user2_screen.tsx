@@ -26,7 +26,7 @@ export const ProfileUser2Screen: React.FC = () => {
     bio: 'Concert photographer & music lover 📸✨ Capturing memories at live shows since 2019. Always ready for the next adventure!',
     genres: ['Indie', 'Alternative', 'Folk'],
     sports: ['Skateboarding', 'Surfing'],
-    backgroundColor: '#552583',
+    backgroundColor: '#D59BF9',
     backgroundType: 'color',
     backgroundImage: null,
   };
