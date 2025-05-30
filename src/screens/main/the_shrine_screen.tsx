@@ -42,9 +42,9 @@ export const TheShrineScreen: React.FC = () => {
     {
       id: '3',
       stubNumber: '#01230',
-      year: '2024',
-      artist: 'Fred Again',
-      venue: 'Madison Square Garden',
+      year: '2025',
+      artist: 'Under the Glow',
+      venue: 'The Palladium',
       image: Trustubs.trustub3,
     },
     {

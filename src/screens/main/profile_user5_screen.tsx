@@ -23,7 +23,7 @@ export const ProfileUser5Screen: React.FC = () => {
     handle: '@jordan_stage',
     avatar: 'user5',
     avatarType: 'asset' as 'asset' | 'custom',
-    bio: 'Stage performer & community builder 🎭🎤 Bringing people together through music and art. Life is a stage, let\'s make it unforgettable! ✨',
+    bio: 'Stage performer & community builder 🎭🎤 I ONLY perform songs about Pete now and my audience is CONFUSED but I DON\'T CARE. I wrote a 47-act musical about Pete\'s daily routine. Life is a stage and PETE IS THE MAIN CHARACTER ✨ I legally changed my middle name to Pete. PETE PETE PETE 🎪💫',
     genres: ['Pop', 'Musical Theatre', 'Soul'],
     sports: ['Dance', 'Volleyball', 'Gymnastics'],
     backgroundColor: '#FB9EB4',

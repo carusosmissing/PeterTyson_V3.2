@@ -23,7 +23,7 @@ export const ProfileUser4Screen: React.FC = () => {
     handle: '@alex_vibes',
     avatar: 'user4',
     avatarType: 'asset' as 'asset' | 'custom',
-    bio: 'Chill vibes only 🌊 Producer by night, coffee enthusiast by day. Making beats that hit different. Always down to collaborate! ☕🎧',
+    bio: 'Chill vibes only 🌊 JK I\'m FERAL about lo-fi beats and I WILL fight you if you say my drops aren\'t perfect ☕🎧 I drink 17 cups of coffee daily and my neighbors call the cops about my 3AM production sessions but ART NEVER SLEEPS 🔊 My therapist says I have "boundary issues" with my music 🎵💀',
     genres: ['Lo-fi', 'Jazz', 'Chillhop'],
     sports: ['Golf', 'Swimming'],
     backgroundColor: '#87ABCC',

@@ -109,8 +109,8 @@ export const ThePitScreen: React.FC = () => {
   // Task data
   const tasks = [
     { id: 1, title: 'Daily Check In', points: 15, completed: true, icon: Icons.verified },
-    { id: 2, title: 'Spotify: Listen to Abracadabra by Lady Gaga', points: 5, completed: true, icon: Icons.music },
-    { id: 3, title: 'Rate It! Abracadabra by Lady Gaga', points: 5, completed: false, icon: Icons.star },
+    { id: 2, title: 'Spotify: Listen to Abracadabra by Halsey', points: 5, completed: true, icon: Icons.music },
+    { id: 3, title: 'Rate It! Abracadabra by Halsey', points: 5, completed: false, icon: Icons.star },
     { id: 4, title: 'Quiz: What\'s Your Listening Style?', points: 25, completed: false, icon: Icons.settings },
     { id: 5, title: 'Stub: React to 3 Stubs', points: 15, completed: true, icon: Icons.verified },
     { id: 6, title: 'Refer A Friend', points: 15, completed: true, icon: Icons.verified },

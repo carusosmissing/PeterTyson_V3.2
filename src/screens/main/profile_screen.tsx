@@ -43,12 +43,12 @@ export const ProfileScreen: React.FC = () => {
     },
     {
       id: '#01240',
-      artist: 'Lady Gaga',
+      artist: 'Halsey',
       image: Trustubs.trustub2,
     },
     {
       id: '#01241',
-      artist: 'Fred Again',
+      artist: 'Under the Glow',
       image: Trustubs.trustub3,
     },
     {

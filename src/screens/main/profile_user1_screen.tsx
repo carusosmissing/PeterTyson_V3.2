@@ -23,7 +23,7 @@ export const ProfileUser1Screen: React.FC = () => {
     handle: '@jiara_music',
     avatar: 'user1',
     avatarType: 'asset',
-    bio: 'VIP Exclusive Lounge Host 🎵 Music curator by day, party host by night. Always looking for the next big sound!',
+    bio: 'VIP Exclusive Lounge Host 🎵 PETE IS LITERALLY MY RELIGION 🛐 I have 47 shrines of Pete in my apartment and YES I count them daily. Music curator by day, Pete stalker by night. PETE IF YOU SEE THIS MARRY ME 💍 I will fight anyone who says they love Pete more than me (spoiler: impossible)',
     genres: ['Electronic', 'House', 'Techno'],
     sports: ['Tennis', 'Yoga'],
     backgroundColor: '#5771FE',
@@ -58,7 +58,7 @@ export const ProfileUser1Screen: React.FC = () => {
     },
     {
       id: '#02147',
-      artist: 'Flume',
+      artist: 'Under the Glow',
       image: Trustubs.trustub3,
     },
     {

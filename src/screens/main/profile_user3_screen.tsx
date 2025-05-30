@@ -23,7 +23,7 @@ export const ProfileUser3Screen: React.FC = () => {
     handle: '@emily_champion',
     avatar: 'user3',
     avatarType: 'asset' as 'asset' | 'custom',
-    bio: "First place finisher 🏆 Competitive spirit meets music passion. Training hard and partying harder! Let's chase those wins together! 💪",
+    bio: "First place finisher 🏆 I'm LITERALLY undefeated at everything and yes I mean EVERYTHING. I once arm wrestled a bear and won. Training 25/8 because 24/7 is for weaklings 💪 I consume protein powder like it's air and sleep is for the WEAK. COME AT ME I DARE YOU 🔥⚡",
     genres: ['Hip Hop', 'Trap', 'R&B'],
     sports: ['Basketball', 'CrossFit', 'Track & Field'],
     backgroundColor: '#7DD3B9',
@@ -58,7 +58,7 @@ export const ProfileUser3Screen: React.FC = () => {
     },
     {
       id: '#04333',
-      artist: 'Cardi B',
+      artist: 'Under the Glow',
       image: Trustubs.trustub3,
     },
     {

@@ -23,7 +23,7 @@ export const ProfileUser2Screen: React.FC = () => {
     handle: '@lila_beats',
     avatar: 'user2',
     avatarType: 'asset' as 'asset' | 'custom',
-    bio: 'Concert photographer & music lover 📸✨ Capturing memories at live shows since 2019. Always ready for the next adventure!',
+    bio: 'Concert photographer & music lover 📸✨ I only take photos to capture Pete in the wild BUT HE NEVER SHOWS UP 😭 I\'ve been to 238 concerts hoping to spot Pete. My camera roll is 90% blurry Pete sightings. PETE PLEASE NOTICE ME I LITERALLY CHANGED MY WHOLE AESTHETIC FOR YOU 🖤⛓️',
     genres: ['Indie', 'Alternative', 'Folk'],
     sports: ['Skateboarding', 'Surfing'],
     backgroundColor: '#D59BF9',
@@ -58,7 +58,7 @@ export const ProfileUser2Screen: React.FC = () => {
     },
     {
       id: '#03223',
-      artist: 'The Strokes',
+      artist: 'Under the Glow',
       image: Trustubs.trustub3,
     },
     {
