@@ -1,10 +1,83 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import Svg, { Circle } from 'react-native-svg';
 import { Colors, Typography, Spacing, Images, Icons, Avatars, Badges } from '../../constants';
 import { Container } from '../../components';
 import { useAppSelector } from '../../store';
 import { getAvatarSource } from '../../utils/avatar_utils';
+
+// Tier data
+const tiers = {
+  bronze: { min: 0, max: 100000, color: '#CD7F32' },
+  silver: { min: 100000, max: 250000, color: '#C0C0C0' },
+  gold: { min: 250000, max: 500000, color: '#FFD700' },
+  platinum: { min: 500000, max: 1000000, color: '#E5E4E2' },
+  diamond: { min: 1000000, max: 2000000, color: '#B9F2FF' },
+};
+
+const getCurrentTier = (points: number) => {
+  for (const [tier, range] of Object.entries(tiers)) {
+    if (points >= range.min && points < range.max) {
+      // For silver tier (162k points), we want to show 66% progress
+      if (tier === 'silver') {
+        return {
+          name: 'Platinum',
+          color: range.color,
+          progress: 66,
+          pointsToNext: 88000,
+        };
+      }
+      return {
+        name: tier,
+        color: range.color,
+        progress: ((points - range.min) / (range.max - range.min)) * 100,
+        pointsToNext: range.max - points,
+      };
+    }
+  }
+  return {
+    name: 'diamond',
+    color: tiers.diamond.color,
+    progress: 100,
+    pointsToNext: 0,
+  };
+};
+
+const CircularProgressIndicator = ({ progress, color }: { progress: number; color: string }) => {
+  const size = 100;
+  const strokeWidth = 10;
+  const center = size / 2;
+  const radius = size / 2 - strokeWidth / 2;
+  const circumference = 2 * Math.PI * radius;
+  const progressOffset = circumference - (progress / 100) * circumference;
+
+  return (
+    <Svg width={size} height={size}>
+      <Circle
+        stroke="rgba(255, 255, 255, 0.2)"
+        fill="none"
+        cx={center}
+        cy={center}
+        r={radius}
+        strokeWidth={strokeWidth}
+        transform={`rotate(-90 ${center} ${center})`}
+      />
+      <Circle
+        stroke={color}
+        fill="none"
+        cx={center}
+        cy={center}
+        r={radius}
+        strokeWidth={strokeWidth}
+        strokeDasharray={circumference}
+        strokeDashoffset={progressOffset}
+        strokeLinecap="round"
+        transform={`rotate(-90 ${center} ${center})`}
+      />
+    </Svg>
+  );
+};
 
 export const ThePitScreen: React.FC = () => {
   const navigation = useNavigation();
@@ -43,8 +116,40 @@ export const ThePitScreen: React.FC = () => {
     { id: 6, title: 'Refer A Friend', points: 15, completed: true, icon: Icons.verified },
   ];
 
+  // Profile images array
+  const profileImages = [
+    Avatars.user1,
+    Avatars.user2,
+    Avatars.user3,
+    Avatars.user4,
+    Avatars.user5,
+  ];
+
+  const handleProfileCirclePress = (index: number) => {
+    // Navigate to the corresponding user profile screen
+    switch (index) {
+      case 0:
+        navigation.navigate('ProfileUser1' as never);
+        break;
+      case 1:
+        navigation.navigate('ProfileUser2' as never);
+        break;
+      case 2:
+        navigation.navigate('ProfileUser3' as never);
+        break;
+      case 3:
+        navigation.navigate('ProfileUser4' as never);
+        break;
+      case 4:
+        navigation.navigate('ProfileUser5' as never);
+        break;
+      default:
+        console.log('Invalid profile index:', index);
+    }
+  };
+
   return (
-    <Container variant="image" backgroundImage={Images.background2} safeArea>
+    <Container variant="image" backgroundImage={Images.bg7Background} safeArea>
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         {/* Header */}
         <View style={styles.header}>
@@ -87,15 +192,50 @@ export const ThePitScreen: React.FC = () => {
 
         {/* Prestige Points Section */}
         <View style={styles.prestigeSection}>
-          <View style={styles.prestigeRow}>
-            <View style={styles.prestigeContent}>
-              <Text style={styles.prestigePoints}>162,000</Text>
-              <Text style={styles.prestigeLabel}>Prestige Points</Text>
+          <View style={styles.prestigeContent}>
+            <View style={styles.prestigeRow}>
+              <View style={styles.prestigeRingContainer}>
+                <View style={styles.prestigeProgressContainer}>
+                  <CircularProgressIndicator
+                    progress={getCurrentTier(162000).progress}
+                    color={getCurrentTier(162000).color}
+                  />
+                  <View style={styles.prestigeInnerContent}>
+                    <Text style={styles.prestigePoints}>162k</Text>
+                    <Text style={styles.prestigeLabel}>Points</Text>
+                  </View>
+                </View>
+              </View>
+              <View style={styles.tierInfo}>
+                <Text style={styles.tierName}>
+                  {getCurrentTier(162000).name.toUpperCase()}
+                </Text>
+                <Text style={styles.tierProgress}>
+                  {getCurrentTier(162000).pointsToNext.toLocaleString()} points to next tier
+                </Text>
+              </View>
             </View>
-            
-            {/* Badges */}
-            <View style={styles.badgesContainer}>
-              <Image source={Badges.dummyBadges} style={styles.badgesImage} />
+          </View>
+          
+          {/* Badges */}
+          <View style={styles.badgesContainer}>
+            <View style={styles.badgesRow}>
+              <Image source={Badges.builder} style={styles.badgeImage} />
+              <Image source={Badges.plugged} style={styles.badgeImage} />
+              <Image source={Badges.streaker} style={styles.badgeImage} />
+              <Image source={Badges.fullSend} style={styles.badgeImage} />
+              <Image source={Badges.thinkTank} style={styles.badgeImage} />
+            </View>
+          </View>
+
+          {/* Profile Row */}
+          <View style={styles.profileRowContainer}>
+            <View style={styles.profileRow}>
+              {profileImages.map((image, index) => (
+                <TouchableOpacity key={index} style={styles.profileCircle} onPress={() => handleProfileCirclePress(index)}>
+                  <Image source={image} style={styles.profileCircleImage} />
+                </TouchableOpacity>
+              ))}
             </View>
           </View>
         </View>
@@ -235,53 +375,83 @@ const styles = StyleSheet.create({
   prestigeSection: {
     marginBottom: 30,
   },
+  prestigeContent: {
+    alignItems: 'center',
+    marginBottom: 20,
+  },
   prestigeRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingLeft: 0,
-    paddingRight: 0,
+    gap: 20,
   },
-  badgesContainer: {
+  prestigeRingContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    transform: [{ translateX: -20 }],
+  },
+  prestigeProgressContainer: {
     position: 'relative',
-    marginLeft: -30,
-    marginTop: -15,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  badgesImage: {
-    width: 200,
-    height: 50,
-    resizeMode: 'contain',
-  },
-  prestigeContent: {
-    alignItems: 'flex-start',
-    flex: 1,
+  prestigeInnerContent: {
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 100,
+    height: 100,
   },
   prestigePoints: {
-    fontSize: 36,
+    fontSize: 28,
     fontWeight: 'bold',
     color: '#FFFFFF',
-    marginBottom: 2,
+    marginBottom: -4,
   },
   prestigeLabel: {
+    fontSize: 12,
+    color: '#FFFFFF',
+    opacity: 0.8,
+  },
+  tierInfo: {
+    alignItems: 'flex-start',
+  },
+  tierName: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+    marginBottom: 4,
+  },
+  tierProgress: {
     fontSize: 14,
     color: '#FFFFFF',
     opacity: 0.8,
   },
-  badgeNotification: {
-    position: 'absolute',
-    top: -5,
-    right: -5,
-    backgroundColor: Colors.primaryLight,
-    borderRadius: 10,
-    width: 20,
-    height: 20,
-    justifyContent: 'center',
+  badgesContainer: {
     alignItems: 'center',
+    backgroundColor: 'rgba(9, 19, 67, 0.75)',
+    borderRadius: 16,
+    padding: 2,
+    marginTop: 10,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.15)',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
-  badgeNotificationText: {
-    color: '#FFFFFF',
-    fontSize: 12,
-    fontWeight: '600',
+  badgesRow: {
+    flexDirection: 'row',
+    gap: 0,
+    justifyContent: 'center',
+  },
+  badgeImage: {
+    width: 66,
+    height: 66,
+    resizeMode: 'contain',
   },
   tasksSection: {
     gap: 8,
@@ -336,5 +506,29 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#FFFFFF',
     opacity: 0.6,
+  },
+  profileRowContainer: {
+    paddingHorizontal: 0,
+    paddingTop: 20,
+    paddingBottom: 0,
+  },
+  profileRow: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    paddingHorizontal: 0,
+    marginBottom: -10,
+    marginLeft: 5,
+    gap: 8,
+  },
+  profileCircle: {
+    width: 61,
+    height: 61,
+    borderRadius: 30.5,
+    overflow: 'hidden',
+  },
+  profileCircleImage: {
+    width: '100%',
+    height: '100%',
   },
 });

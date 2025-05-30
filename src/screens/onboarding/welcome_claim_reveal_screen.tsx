@@ -44,7 +44,7 @@ export const WelcomeClaimRevealScreen: React.FC = () => {
   };
 
   return (
-    <Container variant="image" backgroundImage={Images.background1} safeArea>
+    <Container variant="image" backgroundImage={Images.onboardingBackground} safeArea>
       <View style={styles.content}>
         {/* Ticket Card */}
         <View style={styles.ticketCard}>

@@ -36,24 +36,32 @@ export const SignupOptionsScreen: React.FC = () => {
       resizeMode="cover"
     >
       <View style={styles.container}>
-        {/* Header with logo and title */}
+        {/* Header with logo */}
         <View style={styles.header}>
           <Image 
             source={Images.logo}
             style={styles.logo}
             resizeMode="contain"
           />
+        </View>
+
+        {/* Title */}
+        <View style={styles.titleContainer}>
           <Text style={styles.title}>Create Account</Text>
         </View>
         
         {/* Social login buttons */}
         <View style={styles.socialButtonsContainer}>
           <TouchableOpacity 
-            style={styles.appleButton}
-            onPress={handleAppleSignup}
+            style={styles.googleButton}
+            onPress={handleGoogleSignup}
           >
-            <AntDesign name="apple1" size={20} color="#fff" style={styles.socialIcon} />
-            <Text style={styles.appleButtonText}>Continue with Apple</Text>
+            <Image 
+              source={Images.googleLogo}
+              style={styles.googleIcon}
+              resizeMode="contain"
+            />
+            <Text style={styles.googleButtonText}>Continue with Google</Text>
           </TouchableOpacity>
           
           <TouchableOpacity 
@@ -65,11 +73,11 @@ export const SignupOptionsScreen: React.FC = () => {
           </TouchableOpacity>
           
           <TouchableOpacity 
-            style={styles.googleButton}
-            onPress={handleGoogleSignup}
+            style={styles.appleButton}
+            onPress={handleAppleSignup}
           >
-            <AntDesign name="google" size={20} color="#fff" style={styles.socialIcon} />
-            <Text style={styles.googleButtonText}>Continue with Google</Text>
+            <AntDesign name="apple1" size={20} color="#fff" style={styles.socialIcon} />
+            <Text style={styles.appleButtonText}>Continue with Apple</Text>
           </TouchableOpacity>
         </View>
 
@@ -127,14 +135,15 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
   },
   header: {
-    flexDirection: 'row',
+    marginBottom: 80,
+  },
+  titleContainer: {
     alignItems: 'center',
-    marginBottom: 60,
+    marginBottom: 40,
   },
   logo: {
     width: 39,
     height: 39,
-    marginRight: 12,
   },
   title: {
     fontSize: 32,
@@ -171,7 +180,7 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   facebookButton: {
-    backgroundColor: '#1877F2',
+    backgroundColor: '#5771FE',
     borderRadius: 12,
     height: 56,
     flexDirection: 'row',
@@ -192,7 +201,7 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   googleButton: {
-    backgroundColor: '#DB4437',
+    backgroundColor: '#D7F0FC',
     borderRadius: 12,
     height: 56,
     flexDirection: 'row',
@@ -210,7 +219,7 @@ const styles = StyleSheet.create({
   googleButtonText: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#fff',
+    color: '#1A365D',
   },
   dividerContainer: {
     flexDirection: 'row',
@@ -286,5 +295,10 @@ const styles = StyleSheet.create({
   },
   socialIcon: {
     marginRight: 12,
+  },
+  googleIcon: {
+    width: 48,
+    height: 48,
+    marginRight: 0,
   },
 }); 

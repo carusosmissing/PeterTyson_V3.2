@@ -67,25 +67,26 @@ export const MusicOrSportsScreen: React.FC = () => {
   };
 
   return (
-    <Container variant="image" backgroundImage={Images.background1} safeArea>
+    <Container variant="image" backgroundImage={Images.bg6Background} safeArea>
       <View style={styles.content}>
         {/* Top Section with Logo and Header */}
         <View style={styles.topSection}>
           <View style={styles.logoContainer}>
-            <Image source={Images.logoIcon} style={styles.logo} resizeMode="contain" />
+            <Image source={Images.logoWhite} style={styles.logo} resizeMode="contain" />
           </View>
           <View style={styles.header}>
-            <Text style={styles.title}>Welcome, Wew!</Text>
-            <Text style={styles.subtitle}>We're thrilled you're here.</Text>
-            <Text style={styles.description}>
-              Let us curate your TruEXP experience...
-            </Text>
+            <View>
+              <Text style={styles.subtitle}>We're thrilled you're here.</Text>
+              <Text style={styles.description}>
+                Let us curate your TruEXP{'\n'}experience...
+              </Text>
+            </View>
           </View>
         </View>
 
         {/* Options Section */}
         <View style={styles.optionsSection}>
-          <Text style={styles.optionsTitle}>I'm a fan of these experiences:</Text>
+          <Text style={styles.optionsTitle}>I'm a fan of...</Text>
           
           <View style={styles.optionsContainer}>
             {renderOptionCard('music', 'Music')}
@@ -119,7 +120,7 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     paddingHorizontal: Spacing.semantic.screenPadding - 15,
-    paddingTop: 60,
+    paddingTop: 20,
     paddingBottom: 120,
   },
   topSection: {
@@ -130,6 +131,7 @@ const styles = StyleSheet.create({
   logoContainer: {
     marginRight: 16,
     marginTop: 3,
+    position: 'absolute',
   },
   logo: {
     width: 39,
@@ -137,27 +139,21 @@ const styles = StyleSheet.create({
   },
   header: {
     flex: 1,
-    marginBottom: 20,
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: '#FFFFFF',
-    marginBottom: 24,
+    marginTop: 140,
+    alignItems: 'center',
   },
   subtitle: {
-    fontSize: 18,
+    fontSize: 26,
     fontWeight: 'bold',
     color: '#FFFFFF',
     marginBottom: 16,
-    textAlign: 'left',
+    textAlign: 'center',
   },
   description: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#FFFFFF',
-    opacity: 0.8,
-    textAlign: 'left',
+    textAlign: 'center',
   },
   optionsSection: {
     flex: 1,
@@ -165,7 +161,7 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   optionsTitle: {
-    fontSize: 20,
+    fontSize: 26,
     fontWeight: '600',
     color: '#FFFFFF',
     marginBottom: 32,

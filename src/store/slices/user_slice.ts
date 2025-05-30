@@ -17,8 +17,8 @@ const initialState: UserState = {
     bannerImage: null, // Custom banner image URI or null for default
     bannerType: 'default', // 'default' or 'custom'
     backgroundColor: '#000000', // Default background color
-    backgroundImage: null, // Selected background image key
-    backgroundType: 'color', // 'color' or 'image'
+    backgroundImage: 'background1', // Selected background image key (bg-4)
+    backgroundType: 'image', // 'color' or 'image'
   },
   preferences: {
     category: null,

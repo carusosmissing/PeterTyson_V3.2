@@ -16,7 +16,7 @@ export const WelcomeScreen: React.FC = () => {
 
   return (
     <ImageBackground 
-      source={Images.welcomeBackground}
+      source={Images.welcomeScreenBackground}
       style={styles.backgroundImage}
       resizeMode="cover"
     >
@@ -67,11 +67,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    paddingTop: 120,
+    paddingTop: 170,
   },
   logoImage: {
-    width: 330,
-    height: 80,
+    width: 350,
+    height: 100,
   },
   buttonSection: {
     gap: 16,

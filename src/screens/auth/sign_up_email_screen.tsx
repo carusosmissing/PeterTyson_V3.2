@@ -30,13 +30,17 @@ export const SignUpScreen: React.FC = () => {
       resizeMode="cover"
     >
       <View style={styles.container}>
-        {/* Header with logo and title */}
+        {/* Header with logo */}
         <View style={styles.header}>
           <Image 
             source={Images.logo}
             style={styles.logo}
             resizeMode="contain"
           />
+        </View>
+
+        {/* Title */}
+        <View style={styles.titleContainer}>
           <Text style={styles.title}>Create Account</Text>
         </View>
         
@@ -167,14 +171,15 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
   },
   header: {
-    flexDirection: 'row',
+    marginBottom: 20,
+  },
+  titleContainer: {
     alignItems: 'center',
     marginBottom: 30,
   },
   logo: {
     width: 39,
     height: 39,
-    marginRight: 12,
   },
   title: {
     fontSize: 32,

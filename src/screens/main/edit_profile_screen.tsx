@@ -75,9 +75,9 @@ export const EditProfileScreen: React.FC = () => {
 
   // Available background images
   const backgroundImages = [
-    { name: 'Background 1', source: Assets.Images.background1, key: 'background1' },
-    { name: 'Background 2', source: Assets.Images.background2, key: 'background2' },
-    { name: 'Background 3', source: Assets.Images.background3, key: 'background3' },
+    { name: 'Neon Glow', source: Assets.Images.background1, key: 'background1' },
+    { name: 'Purple Haze', source: Assets.Images.background2, key: 'background2' },
+    { name: 'Electric Dreams', source: Assets.Images.background3, key: 'background3' },
   ];
 
   const handleGenreSelect = (genre: string) => {
@@ -216,7 +216,7 @@ export const EditProfileScreen: React.FC = () => {
 
   return (
     <ImageBackground 
-      source={Assets.Images.background2} 
+      source={Assets.Images.welcomeBackground} 
       style={styles.container}
       resizeMode="cover"
     >

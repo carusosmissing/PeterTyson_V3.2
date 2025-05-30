@@ -75,7 +75,7 @@ export const SettingsScreen: React.FC = () => {
   );
 
   return (
-    <Container variant="image" backgroundImage={Images.background2} safeArea>
+    <Container variant="image" backgroundImage={Images.welcomeBackground} safeArea>
       <View style={styles.container}>
         {/* Header */}
         <View style={styles.header}>

@@ -72,12 +72,16 @@ export const MusicVibeScreen: React.FC = () => {
   };
 
   return (
-    <Container variant="image" backgroundImage={Images.background1} safeArea>
+    <Container variant="image" backgroundImage={Images.onboardingBackground} safeArea>
       <View style={styles.content}>
         {/* Logo and Header */}
         <View style={styles.header}>
-          <Image source={Images.logoIcon} style={styles.logo} resizeMode="contain" />
-          <Text style={styles.title}>What's your vibe?</Text>
+          <View style={styles.logoContainer}>
+            <Image source={Images.logoIcon} style={styles.logo} resizeMode="contain" />
+          </View>
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>What's your vibe?</Text>
+          </View>
         </View>
 
         <Text style={styles.subtitle}>
@@ -122,10 +126,19 @@ const styles = StyleSheet.create({
     paddingBottom: 120,
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
     marginBottom: 40,
     marginLeft: -20,
+  },
+  logoContainer: {
+    position: 'absolute',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  titleContainer: {
+    marginTop: 60,
+    alignItems: 'center',
+    width: '100%',
+    marginLeft: 20,
   },
   logo: {
     width: 39,
@@ -136,13 +149,14 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: '700',
     color: '#FFFFFF',
+    textAlign: 'center',
   },
   subtitle: {
     fontSize: 16,
     color: '#FFFFFF',
     opacity: 0.8,
     marginBottom: 40,
-    marginTop: 20,
+    marginTop: -35,
     textAlign: 'center',
     fontWeight: '700',
   },
@@ -160,8 +174,8 @@ const styles = StyleSheet.create({
     borderColor: 'transparent',
   },
   optionButtonSelected: {
-    backgroundColor: 'rgba(64, 156, 255, 0.8)',
-    borderColor: 'rgba(64, 156, 255, 1)',
+    backgroundColor: '#5771FE',
+    borderColor: '#5771FE',
   },
   optionButtonDisabled: {
     opacity: 0.5,
@@ -186,7 +200,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#FFFFFF',
     opacity: 0.8,
-    marginTop: 16,
+    marginTop: 66,
   },
   fixedButtonContainer: {
     position: 'absolute',

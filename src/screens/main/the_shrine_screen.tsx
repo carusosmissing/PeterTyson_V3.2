@@ -58,7 +58,7 @@ export const TheShrineScreen: React.FC = () => {
   ];
 
   return (
-    <Container variant="image" backgroundImage={Images.background2} safeArea padding={false}>
+    <Container variant="image" backgroundImage={Images.welcomeBackground} safeArea padding={false}>
       <View style={styles.container}>
         {/* Header */}
         <View style={styles.header}>
@@ -121,7 +121,6 @@ const styles = StyleSheet.create({
   menuIcon: {
     width: 24,
     height: 24,
-    tintColor: '#FFFFFF',
   },
   headerTitle: {
     fontSize: 24,
@@ -148,7 +147,6 @@ const styles = StyleSheet.create({
   notificationIcon: {
     width: 28,
     height: 28,
-    tintColor: '#FFFFFF',
   },
   notificationBadge: {
     position: 'absolute',

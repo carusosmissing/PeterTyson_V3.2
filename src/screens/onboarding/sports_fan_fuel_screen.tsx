@@ -60,12 +60,16 @@ export const SportsFanFuelScreen: React.FC = () => {
   };
 
   return (
-    <Container variant="image" backgroundImage={Images.background1} safeArea>
+    <Container variant="image" backgroundImage={Images.onboardingBackground} safeArea>
       <View style={styles.content}>
         {/* Header */}
         <View style={styles.header}>
-          <Image source={Images.logoIcon} style={styles.logo} resizeMode="contain" />
-          <Text style={styles.title}>Your fan fuel?</Text>
+          <View style={styles.logoContainer}>
+            <Image source={Images.logoIcon} style={styles.logo} resizeMode="contain" />
+          </View>
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>Your fan fuel?</Text>
+          </View>
         </View>
 
         <Text style={styles.subtitle}>
@@ -103,10 +107,19 @@ const styles = StyleSheet.create({
     paddingBottom: 120,
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
     marginBottom: 40,
     marginLeft: -20,
+  },
+  logoContainer: {
+    position: 'absolute',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  titleContainer: {
+    marginTop: 90,
+    alignItems: 'center',
+    width: '100%',
+    marginLeft: 20,
   },
   logo: {
     width: 39,
@@ -117,6 +130,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: '700',
     color: '#FFFFFF',
+    textAlign: 'center',
   },
   subtitle: {
     fontSize: 16,
@@ -141,8 +155,8 @@ const styles = StyleSheet.create({
     borderColor: 'transparent',
   },
   optionButtonSelected: {
-    backgroundColor: 'rgba(64, 156, 255, 0.8)',
-    borderColor: 'rgba(64, 156, 255, 1)',
+    backgroundColor: '#5771FE',
+    borderColor: '#5771FE',
   },
   optionText: {
     fontSize: 16,

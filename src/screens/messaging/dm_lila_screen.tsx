@@ -112,7 +112,7 @@ export const DMLilaScreen: React.FC = () => {
   );
 
   return (
-    <Container variant="image" backgroundImage={Images.background2} safeArea>
+    <Container variant="image" backgroundImage={Images.welcomeBackground} safeArea>
       <KeyboardAvoidingView 
         style={styles.container} 
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -262,7 +262,6 @@ const styles = StyleSheet.create({
   notificationIcon: {
     width: 28,
     height: 28,
-    tintColor: '#FFFFFF',
   },
   notificationBadge: {
     position: 'absolute',

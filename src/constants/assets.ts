@@ -61,9 +61,13 @@ export const Icons = {
 // App Images - Backgrounds and illustrations (using actual TruEXP assets)
 export const Images = {
   // Backgrounds
-  welcomeBackground: require('../../assets/backgrounds/bg-8.png'),
-  onboardingBackground: require('../../assets/backgrounds/background-2.png'),
+  welcomeBackground: require('../../assets/backgrounds/bg-4.png'),
+  welcomeScreenBackground: require('../../assets/backgrounds/bg-8.png'),
+  onboardingBackground: require('../../assets/backgrounds/bg-4.png'),
+  musicOrSportsBackground: require('../../assets/backgrounds/bg-8.png'),
   homeBackground: require('../../assets/backgrounds/background-3.png'),
+  bg6Background: require('../../assets/backgrounds/bg-6.png'),
+  bg7Background: require('../../assets/backgrounds/bg-7.png'),
   
   // Logos
   logo: require('../../assets/logos/Logo-gradient.png'),
@@ -73,6 +77,7 @@ export const Images = {
   fullLogotypeWhite: require('../../assets/logos/full_logotype-white.png'),
   fullLogotypeBlack: require('../../assets/logos/full_logotype-black.png'),
   fullLogotypeGradient: require('../../assets/logos/full_logotype_gradient.png'),
+  googleLogo: require('../../assets/logos/google_logo_rainbow.png'),
   
   // Placeholders (using the one that exists)
   avatarPlaceholder: require('../../assets/avatars/pfp1.png'),
@@ -80,10 +85,9 @@ export const Images = {
   eventPlaceholder: require('../../assets/gallery_images/gallery-1.jpg'),
   
   // Additional backgrounds
-  background1: require('../../assets/backgrounds/background-1.png'),
-  background2: require('../../assets/backgrounds/background-2.png'),
-  background3: require('../../assets/backgrounds/background-3.png'),
-  background8: require('../../assets/backgrounds/bg-8.png'),
+  background1: require('../../assets/backgrounds/bg-4.png'),
+  background2: require('../../assets/backgrounds/bg-6.png'),
+  background3: require('../../assets/backgrounds/bg-7.png'),
 };
 
 // Avatar images for demo/testing (using actual TruEXP assets)

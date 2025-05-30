@@ -1,10 +1,48 @@
 import React, { useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, Animated } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import Svg, { Circle } from 'react-native-svg';
+import LinearGradient from 'react-native-linear-gradient';
 import { Colors, Typography, Spacing, Images, Icons, Avatars, Trustubs } from '../../constants';
 import { Container } from '../../components';
 import { useAppSelector } from '../../store';
 import { getAvatarSource } from '../../utils/avatar_utils';
+
+// Small version of CircularProgressIndicator for home screen
+const SmallCircularProgressIndicator = ({ progress, color }: { progress: number; color: string }) => {
+  const size = 60;
+  const strokeWidth = 6;
+  const center = size / 2;
+  const radius = size / 2 - strokeWidth / 2;
+  const circumference = 2 * Math.PI * radius;
+  const progressOffset = circumference - (progress / 100) * circumference;
+
+  return (
+    <Svg width={size} height={size}>
+      <Circle
+        stroke="rgba(255, 255, 255, 0.2)"
+        fill="none"
+        cx={center}
+        cy={center}
+        r={radius}
+        strokeWidth={strokeWidth}
+        transform={`rotate(-90 ${center} ${center})`}
+      />
+      <Circle
+        stroke={color}
+        fill="none"
+        cx={center}
+        cy={center}
+        r={radius}
+        strokeWidth={strokeWidth}
+        strokeDasharray={circumference}
+        strokeDashoffset={progressOffset}
+        strokeLinecap="round"
+        transform={`rotate(-90 ${center} ${center})`}
+      />
+    </Svg>
+  );
+};
 
 export const HomeScreen: React.FC = () => {
   const navigation = useNavigation();
@@ -67,11 +105,12 @@ export const HomeScreen: React.FC = () => {
   ];
 
   return (
-    <Container variant="image" backgroundImage={Images.background2} safeArea padding={false}>
+    <Container variant="image" backgroundImage={Images.bg6Background} safeArea padding={false}>
       <View style={styles.container}>
         {/* Header */}
         <View style={styles.header}>
           <View style={styles.headerLeft}>
+            <Image source={Images.logo} style={styles.logoImage} />
             <TouchableOpacity onPress={handleMenuToggle}>
               <Image source={Icons.menu} style={styles.menuIcon} />
             </TouchableOpacity>
@@ -105,18 +144,27 @@ export const HomeScreen: React.FC = () => {
                   <Text style={styles.streakText}>You're on a 2 day streak!</Text>
                 </View>
                 
-                {/* Prestige Points Bubble */}
-                <View style={styles.prestigeBubble}>
-                  <Text style={styles.prestigeBubbleLabel}>PRESTIGE</Text>
-                  <Text style={styles.prestigeBubblePoints}>162K</Text>
+                {/* Prestige Progress Ring */}
+                <View style={styles.prestigeRingContainer}>
+                  <View style={styles.prestigeProgressContainer}>
+                    <SmallCircularProgressIndicator
+                      progress={66}
+                      color="#C0C0C0"
+                    />
+                    <View style={styles.prestigeInnerContent}>
+                      <Text style={styles.prestigePoints}>162k</Text>
+                      <Text style={styles.prestigeLabel}>Points</Text>
+                    </View>
+                  </View>
                 </View>
               </View>
             </View>
 
             {/* View Challenges Button */}
-            <Animated.View style={{ transform: [{ scale: pulseAnim }] }}>
+            <Animated.View style={[{ transform: [{ scale: pulseAnim }] }, styles.buttonContainer]}>
               <TouchableOpacity style={styles.challengesButton}>
                 <Text style={styles.challengesButtonText}>Daily Check In</Text>
+                <View style={styles.buttonGlow} />
               </TouchableOpacity>
             </Animated.View>
 
@@ -134,7 +182,7 @@ export const HomeScreen: React.FC = () => {
                   <Text style={styles.galleryArtist}>{galleryItems[0].artist}</Text>
                 </View>
                 <View style={styles.logoOverlay}>
-                  <Image source={Images.logo} style={styles.logoImage} />
+                  <Image source={Images.logo} style={styles.galleryLogoImage} />
                 </View>
               </TouchableOpacity>
               
@@ -145,7 +193,7 @@ export const HomeScreen: React.FC = () => {
                   <Text style={styles.galleryArtist}>{galleryItems[1].artist}</Text>
                 </View>
                 <View style={styles.logoOverlay}>
-                  <Image source={Images.logo} style={styles.logoImage} />
+                  <Image source={Images.logo} style={styles.galleryLogoImage} />
                 </View>
               </TouchableOpacity>
             </View>
@@ -158,7 +206,7 @@ export const HomeScreen: React.FC = () => {
                   <Text style={styles.galleryArtist}>{galleryItems[2].artist}</Text>
                 </View>
                 <View style={styles.logoOverlay}>
-                  <Image source={Images.logo} style={styles.logoImage} />
+                  <Image source={Images.logo} style={styles.galleryLogoImage} />
                 </View>
               </TouchableOpacity>
               
@@ -172,7 +220,7 @@ export const HomeScreen: React.FC = () => {
                   )}
                 </View>
                 <View style={styles.logoOverlay}>
-                  <Image source={Images.logo} style={styles.logoImage} />
+                  <Image source={Images.logo} style={styles.galleryLogoImage} />
                 </View>
               </TouchableOpacity>
             </View>
@@ -226,8 +274,8 @@ const styles = StyleSheet.create({
     marginLeft: 0,
   },
   logoImage: {
-    width: 15,
-    height: 15,
+    width: 32,
+    height: 32,
     resizeMode: 'contain',
   },
   menuIcon: {
@@ -284,6 +332,7 @@ const styles = StyleSheet.create({
   welcomeRow: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
   welcomeTextContainer: {
     flex: 1,
@@ -300,18 +349,42 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     opacity: 0.9,
   },
+  buttonContainer: {
+    shadowColor: '#4C6FFF',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 10,
+    elevation: 8,
+    marginBottom: 15,
+  },
   challengesButton: {
-    backgroundColor: '#091343',
     height: 56,
     borderRadius: 12,
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 15,
+    paddingHorizontal: 20,
+    backgroundColor: '#4C6FFF',  // Primary color
+    borderWidth: 1,
+    borderColor: '#6B4CFF',  // Secondary color for gradient-like effect
   },
   challengesButtonText: {
     fontSize: 18,
     fontWeight: '600',
     color: '#FFFFFF',
+    letterSpacing: 0.5,
+  },
+  buttonGlow: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    borderRadius: 12,
   },
   galleryTitle: {
     fontSize: 24,
@@ -405,28 +478,42 @@ const styles = StyleSheet.create({
   paddedContent: {
     paddingHorizontal: Spacing.semantic.screenPadding,
   },
-  prestigeBubble: {
-    backgroundColor: '#091343',
-    borderRadius: 12,
-    paddingVertical: 4,
-    paddingHorizontal: 8,
+  prestigeRingContainer: {
     alignItems: 'center',
+    justifyContent: 'center',
   },
-  prestigeBubbleLabel: {
-    fontSize: 12,
-    fontWeight: '600',
-    color: '#FFFFFF',
-    opacity: 0.8,
+  prestigeProgressContainer: {
+    position: 'relative',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  prestigeBubblePoints: {
+  prestigeInnerContent: {
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 60,
+    height: 60,
+  },
+  prestigePoints: {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#FFFFFF',
+    marginBottom: -2,
+  },
+  prestigeLabel: {
+    fontSize: 10,
+    color: '#FFFFFF',
+    opacity: 0.8,
   },
   logoOverlay: {
     position: 'absolute',
     bottom: 45,
     right: 7,
     zIndex: 10,
+  },
+  galleryLogoImage: {
+    width: 15,
+    height: 15,
+    resizeMode: 'contain',
   },
 });
