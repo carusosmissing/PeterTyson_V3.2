@@ -21,13 +21,17 @@ export const ForgotPasswordScreen: React.FC = () => {
       resizeMode="cover"
     >
       <View style={styles.container}>
-        {/* Header with logo and title */}
+        {/* Header with logo */}
         <View style={styles.header}>
           <Image 
             source={Images.logo}
             style={styles.logo}
             resizeMode="contain"
           />
+        </View>
+
+        {/* Title */}
+        <View style={styles.titleContainer}>
           <Text style={styles.title}>Reset Password</Text>
         </View>
         
@@ -70,7 +74,11 @@ export const ForgotPasswordScreen: React.FC = () => {
             style={styles.goBackButton}
             onPress={() => navigation.goBack()}
           >
-            <Text style={styles.goBackButtonText}>Go Back</Text>
+            <Image 
+              source={Icons.back}
+              style={styles.backIcon}
+              resizeMode="contain"
+            />
           </TouchableOpacity>
         </View>
       </View>
@@ -91,19 +99,21 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 60,
+    marginBottom: 80,
   },
   logo: {
     width: 39,
     height: 39,
-    marginRight: 12,
+  },
+  titleContainer: {
+    alignItems: 'center',
+    marginBottom: 40,
   },
   title: {
     fontSize: 32,
-    fontWeight: '600',
+    fontWeight: '700',
     color: '#fff',
+    fontFamily: 'Rubik',
   },
   content: {
     flex: 1,
@@ -117,6 +127,7 @@ const styles = StyleSheet.create({
     marginBottom: 40,
     paddingHorizontal: 20,
     lineHeight: 24,
+    fontFamily: 'Rubik',
   },
   form: {
     width: '100%',
@@ -131,9 +142,10 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     width: '100%',
+    fontFamily: 'Rubik',
   },
   sendResetButton: {
-    backgroundColor: '#60A5FA',
+    backgroundColor: '#5771FE',
     borderRadius: 12,
     height: 56,
     justifyContent: 'center',
@@ -153,6 +165,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '600',
     color: '#fff',
+    fontFamily: 'Rubik',
   },
   signInContainer: {
     flexDirection: 'row',
@@ -162,11 +175,13 @@ const styles = StyleSheet.create({
   signInText: {
     fontSize: 16,
     color: 'rgba(255, 255, 255, 0.7)',
+    fontFamily: 'Rubik',
   },
   signInLink: {
     fontSize: 16,
-    color: '#60A5FA',
+    color: '#5771FE',
     fontWeight: '600',
+    fontFamily: 'Rubik',
   },
   footer: {
     alignItems: 'center',
@@ -179,9 +194,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  goBackButtonText: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#fff',
+  backIcon: {
+    width: 20,
+    height: 20,
+    tintColor: 'rgba(255, 255, 255, 0.8)',
   },
 }); 

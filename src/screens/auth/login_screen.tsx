@@ -33,13 +33,17 @@ export const LoginScreen: React.FC = () => {
       resizeMode="cover"
     >
       <View style={styles.container}>
-        {/* Header with logo and title */}
+        {/* Header with logo */}
         <View style={styles.header}>
           <Image 
             source={Images.logo}
             style={styles.logo}
             resizeMode="contain"
           />
+        </View>
+
+        {/* Title */}
+        <View style={styles.titleContainer}>
           <Text style={styles.title}>Sign In</Text>
         </View>
         
@@ -137,19 +141,21 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 40,
+    marginBottom: 50,
   },
   logo: {
     width: 39,
     height: 39,
-    marginRight: 12,
+  },
+  titleContainer: {
+    alignItems: 'center',
+    marginBottom: 20,
   },
   title: {
     fontSize: 32,
     fontWeight: '700',
     color: '#fff',
+    fontFamily: 'Rubik',
   },
   content: {
     flex: 1,
@@ -163,6 +169,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: '#fff',
     marginBottom: 8,
+    fontFamily: 'Rubik',
   },
   input: {
     backgroundColor: 'rgba(30, 41, 59, 0.8)',
@@ -172,6 +179,7 @@ const styles = StyleSheet.create({
     marginBottom: 24,
     color: '#fff',
     fontSize: 16,
+    fontFamily: 'Rubik',
   },
   passwordContainer: {
     position: 'relative',
@@ -185,6 +193,7 @@ const styles = StyleSheet.create({
     paddingRight: 50,
     color: '#fff',
     fontSize: 16,
+    fontFamily: 'Rubik',
   },
   eyeButton: {
     position: 'absolute',
@@ -206,6 +215,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#D7F0FC',
     fontWeight: '500',
+    fontFamily: 'Rubik',
   },
   signInButton: {
     backgroundColor: '#D7F0FC',
@@ -237,11 +247,13 @@ const styles = StyleSheet.create({
   signUpText: {
     fontSize: 16,
     color: 'rgba(255, 255, 255, 0.7)',
+    fontFamily: 'Rubik',
   },
   signUpLink: {
     fontSize: 16,
     color: '#D7F0FC',
     fontWeight: '600',
+    fontFamily: 'Rubik',
   },
   footer: {
     alignItems: 'center',
@@ -259,6 +271,5 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     tintColor: 'rgba(255, 255, 255, 0.8)',
-    marginRight: 8,
   },
 }); 
