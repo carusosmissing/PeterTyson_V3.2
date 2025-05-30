@@ -136,8 +136,9 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: 24,
-    fontWeight: '600',
+    fontWeight: '500',
     color: '#FFFFFF',
+    fontFamily: Typography.fontFamily.secondary,
   },
   headerRight: {
     flexDirection: 'row',
@@ -175,6 +176,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 12,
     fontWeight: '600',
+    fontFamily: Typography.fontFamily.secondary,
   },
   searchContainer: {
     paddingHorizontal: 0,
@@ -214,6 +216,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#FFFFFF',
     fontWeight: '500',
+    fontFamily: Typography.fontFamily.primary,
   },
   clearButton: {
     padding: 5,
@@ -247,6 +250,7 @@ const styles = StyleSheet.create({
     maxHeight: 100,
     paddingRight: 8,
     paddingVertical: 2,
+    fontFamily: Typography.fontFamily.primary,
   },
   sendButton: {
     backgroundColor: '#5771FE',
@@ -258,6 +262,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 16,
     fontWeight: '600',
+    fontFamily: Typography.fontFamily.secondary,
   },
   logoImage: {
     width: 32,

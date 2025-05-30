@@ -86,7 +86,7 @@ export const MusicOrSportsScreen: React.FC = () => {
 
         {/* Options Section */}
         <View style={styles.optionsSection}>
-          <Text style={styles.optionsTitle}>I'm a fan of...</Text>
+          <Text style={styles.optionsTitle}>I'm a fan of:</Text>
           
           <View style={styles.optionsContainer}>
             {renderOptionCard('music', 'Music')}
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
   },
   logoContainer: {
     marginRight: 16,
-    marginTop: 3,
+    marginTop: 33,
     position: 'absolute',
   },
   logo: {
@@ -148,12 +148,14 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     marginBottom: 16,
     textAlign: 'center',
+    fontFamily: 'Rubik',
   },
   description: {
     fontSize: 18,
     fontWeight: 'bold',
     color: '#FFFFFF',
     textAlign: 'center',
+    fontFamily: 'Rubik',
   },
   optionsSection: {
     flex: 1,
@@ -166,6 +168,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     marginBottom: 32,
     textAlign: 'center',
+    fontFamily: 'Rubik',
   },
   optionsContainer: {
     flexDirection: 'row',
@@ -185,7 +188,7 @@ const styles = StyleSheet.create({
     borderColor: 'transparent',
   },
   optionCardSelected: {
-    backgroundColor: 'rgba(64, 156, 255, 0.8)',
+    backgroundColor: Colors.button.primary,
     borderColor: 'rgba(255, 255, 255, 0.3)',
   },
   optionIcon: {
@@ -196,6 +199,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     color: '#FFFFFF',
+    fontFamily: 'Rubik',
   },
   optionLabelSelected: {
     color: '#FFFFFF',
@@ -204,9 +208,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#FFFFFF',
     textAlign: 'center',
-    opacity: 0.8,
     marginTop: 16,
     marginBottom: 80,
+    fontFamily: 'Rubik',
   },
   fixedButtonContainer: {
     position: 'absolute',

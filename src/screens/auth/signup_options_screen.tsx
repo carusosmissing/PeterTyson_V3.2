@@ -146,6 +146,7 @@ const styles = StyleSheet.create({
     height: 39,
   },
   title: {
+    fontFamily: Typography.fontFamily.display,
     fontSize: 32,
     fontWeight: '700',
     color: '#fff',

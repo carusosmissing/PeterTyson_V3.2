@@ -569,6 +569,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '600',
     color: 'white',
+    fontFamily: 'Rubik',
   },
   cancelButton: {
     padding: 8,
@@ -595,13 +596,16 @@ const styles = StyleSheet.create({
   },
   previewUsername: {
     fontSize: 28,
-    fontWeight: '300',
+    fontWeight: '700',
     color: 'white',
     marginBottom: 4,
+    fontFamily: 'Rubik',
   },
   previewHandle: {
     fontSize: 16,
+    fontWeight: '500',
     color: 'rgba(255, 255, 255, 0.7)',
+    fontFamily: 'Rubik',
   },
   formContainer: {
     paddingHorizontal: 20,
@@ -614,6 +618,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: 'white',
     marginBottom: 16,
+    fontFamily: 'Rubik',
   },
   uploadButton: {
     flexDirection: 'row',
@@ -637,12 +642,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '500',
     color: 'white',
+    fontFamily: 'Rubik',
   },
   orText: {
     fontSize: 14,
     color: 'rgba(255, 255, 255, 0.7)',
     textAlign: 'center',
     marginBottom: 16,
+    fontFamily: 'Rubik',
   },
   avatarScrollView: {
     marginHorizontal: -10,
@@ -670,6 +677,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: 'white',
     textAlign: 'center',
+    fontFamily: 'Rubik',
   },
   inputContainer: {
     backgroundColor: 'rgba(255, 255, 255, 0.15)',
@@ -682,6 +690,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'white',
     fontWeight: '500',
+    fontFamily: 'Rubik',
   },
   buttonContainer: {
     paddingHorizontal: 20,
@@ -698,6 +707,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     color: 'white',
+    fontFamily: 'Rubik',
   },
   cancelButtonLarge: {
     backgroundColor: 'rgba(255, 255, 255, 0.15)',
@@ -709,6 +719,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '500',
     color: 'white',
+    fontFamily: 'Rubik',
   },
   bioInputContainer: {
     height: 120,
@@ -721,6 +732,7 @@ const styles = StyleSheet.create({
     color: 'rgba(255, 255, 255, 0.5)',
     textAlign: 'right',
     marginTop: 4,
+    fontFamily: 'Rubik',
   },
   selectedGenresContainer: {
     flexDirection: 'row',
@@ -741,6 +753,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: 'white',
     fontWeight: '500',
+    fontFamily: 'Rubik',
   },
   removeGenreIcon: {
     width: 12,
@@ -769,6 +782,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: 'white',
     fontWeight: '500',
+    fontFamily: 'Rubik',
   },
   selectedGenreTextFaded: {
     color: 'rgba(255, 255, 255, 0.5)',
@@ -819,6 +833,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: 'white',
     fontWeight: '500',
+    fontFamily: 'Rubik',
   },
   removeSportIcon: {
     width: 12,
@@ -847,6 +862,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: 'white',
     fontWeight: '500',
+    fontFamily: 'Rubik',
   },
   selectedSportTextFaded: {
     color: 'rgba(255, 255, 255, 0.5)',
@@ -873,6 +889,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '500',
     color: 'white',
+    fontFamily: 'Rubik',
   },
   selectedBackgroundTypeText: {
     color: '#5771FE',
@@ -915,6 +932,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: '500',
     marginTop: 8,
+    fontFamily: 'Rubik',
   },
   selectedImageOption: {
     borderColor: '#5771FE',

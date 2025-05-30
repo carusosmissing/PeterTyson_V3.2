@@ -2,10 +2,10 @@
 export const Typography = {
   // Font families - TruEXP brand fonts
   fontFamily: {
-    primary: 'System', // Primary system font
-    secondary: 'System', // Secondary font
-    mono: 'Menlo', // Monospace font
-    display: 'System', // Display font for headers
+    primary: 'Rubik-Regular', // Primary font
+    secondary: 'Rubik-Medium', // Secondary font
+    mono: 'Menlo', // Monospace font (keeping this for code/technical text)
+    display: 'Rubik-Bold', // Display font for headers
   },
   
   // Font sizes - Responsive scale
@@ -36,15 +36,15 @@ export const Typography = {
   
   // Font weights - Complete range
   fontWeight: {
-    thin: '100' as const,
-    extralight: '200' as const,
+    thin: '300' as const,
+    extralight: '300' as const,
     light: '300' as const,
     normal: '400' as const,
     medium: '500' as const,
     semibold: '600' as const,
     bold: '700' as const,
-    extrabold: '800' as const,
-    black: '900' as const,
+    extrabold: '700' as const,
+    black: '700' as const,
   },
   
   // Letter spacing
@@ -234,10 +234,10 @@ export const TypographyUtils = {
   // Get font family with fallbacks
   getFontFamily: (family: keyof typeof Typography.fontFamily) => {
     const fontMap = {
-      primary: 'System, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-      secondary: 'System, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+      primary: 'Rubik-Regular, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+      secondary: 'Rubik-Medium, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
       mono: 'Menlo, Monaco, "Courier New", monospace',
-      display: 'System, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+      display: 'Rubik-Bold, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
     };
     return fontMap[family];
   },

@@ -248,8 +248,9 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: 24,
-    fontWeight: '600',
+    fontWeight: '500',
     color: '#FFFFFF',
+    fontFamily: Typography.fontFamily.secondary,
   },
   headerRight: {
     flexDirection: 'row',
@@ -287,6 +288,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 12,
     fontWeight: '600',
+    fontFamily: Typography.fontFamily.secondary,
   },
   searchContainer: {
     paddingHorizontal: 0,
@@ -313,6 +315,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#FFFFFF',
     fontWeight: '500',
+    fontFamily: Typography.fontFamily.primary,
   },
   clearButton: {
     padding: 5,
@@ -357,17 +360,20 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     color: '#FFFFFF',
+    fontFamily: Typography.fontFamily.secondary,
   },
   messageTime: {
     fontSize: 14,
     color: '#FFFFFF',
     opacity: 0.7,
+    fontFamily: Typography.fontFamily.primary,
   },
   messageText: {
     fontSize: 14,
     color: '#FFFFFF',
     opacity: 0.8,
     lineHeight: 20,
+    fontFamily: Typography.fontFamily.primary,
   },
   unreadBadge: {
     position: 'absolute',
@@ -384,6 +390,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 12,
     fontWeight: '600',
+    fontFamily: Typography.fontFamily.secondary,
   },
   fab: {
     position: 'absolute',

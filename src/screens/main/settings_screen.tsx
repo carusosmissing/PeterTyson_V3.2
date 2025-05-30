@@ -127,6 +127,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '600',
     color: '#FFFFFF',
+    fontFamily: Typography.fontFamily.secondary,
   },
   headerRight: {
     width: 40,
@@ -168,6 +169,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '500',
     color: '#FFFFFF',
+    fontFamily: Typography.fontFamily.primary,
   },
   chevronIcon: {
     width: 16,
@@ -186,5 +188,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     color: 'white',
+    fontFamily: Typography.fontFamily.secondary,
   },
 }); 

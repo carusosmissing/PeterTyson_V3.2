@@ -370,11 +370,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: -25,
     marginBottom: 4,
+    fontFamily: 'Rubik',
   },
   userHandle: {
     fontSize: 16,
     color: 'rgba(255, 255, 255, 0.7)',
     textAlign: 'center',
+    fontFamily: 'Rubik',
   },
   bioSection: {
     marginBottom: 20,
@@ -384,6 +386,7 @@ const styles = StyleSheet.create({
     color: 'rgba(255, 255, 255, 0.7)',
     marginBottom: 12,
     fontStyle: 'italic',
+    fontFamily: 'Rubik',
   },
   statsContainer: {
     flexDirection: 'row',
@@ -408,11 +411,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
     marginBottom: 2,
+    fontFamily: 'Rubik',
   },
   statLabel: {
     fontSize: 12,
     fontWeight: '500',
     color: 'rgba(255, 255, 255, 0.8)',
+    fontFamily: 'Rubik',
   },
   badgesSection: {
     marginBottom: 20,
@@ -437,6 +442,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
     marginBottom: 10,
+    fontFamily: 'Rubik',
   },
   genresDisplayContainer: {
     flexDirection: 'row',
@@ -453,6 +459,7 @@ const styles = StyleSheet.create({
   genreDisplayText: {
     fontSize: 14,
     color: 'white',
+    fontFamily: 'Rubik',
   },
   sportsSection: {
     marginBottom: 0,
@@ -462,6 +469,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
     marginBottom: 10,
+    fontFamily: 'Rubik',
   },
   sportsDisplayContainer: {
     flexDirection: 'row',
@@ -478,12 +486,14 @@ const styles = StyleSheet.create({
   sportDisplayText: {
     fontSize: 14,
     color: 'white',
+    fontFamily: 'Rubik',
   },
   galleryTitle: {
     fontSize: 20,
     fontWeight: 'bold',
     color: 'white',
     marginBottom: -20,
+    fontFamily: 'Rubik',
   },
   galleryGrid: {
     marginTop: -5,
@@ -518,17 +528,20 @@ const styles = StyleSheet.create({
     fontWeight: 'normal',
     color: '#FFFFFF',
     marginBottom: 2,
+    fontFamily: 'Rubik',
   },
   galleryArtist: {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#FFFFFF',
+    fontFamily: 'Rubik',
   },
   gallerySubtitle: {
     fontSize: 14,
     fontWeight: 'normal',
     color: '#FFFFFF',
     marginTop: 2,
+    fontFamily: 'Rubik',
   },
   actionButtonsContainer: {
     flexDirection: 'row',
@@ -548,6 +561,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: '600',
+    fontFamily: 'Rubik',
   },
   messageButton: {
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
@@ -561,6 +575,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: '600',
+    fontFamily: 'Rubik',
   },
   secondaryBubble: {
     marginBottom: 20,

@@ -185,6 +185,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: '700',
     color: '#fff',
+    fontFamily: 'Rubik',
   },
   content: {
     flex: 1,
@@ -200,13 +201,16 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: '#fff',
     marginBottom: 8,
+    fontFamily: 'Rubik',
   },
   required: {
     color: '#FF6B6B',
+    fontFamily: 'Rubik',
   },
   optional: {
     color: 'rgba(255, 255, 255, 0.6)',
     fontWeight: '400',
+    fontFamily: 'Rubik',
   },
   input: {
     backgroundColor: 'rgba(30, 41, 59, 0.8)',
@@ -216,6 +220,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     color: '#fff',
     fontSize: 16,
+    fontFamily: 'Rubik',
   },
   passwordContainer: {
     position: 'relative',
@@ -229,6 +234,7 @@ const styles = StyleSheet.create({
     paddingRight: 50,
     color: '#fff',
     fontSize: 16,
+    fontFamily: 'Rubik',
   },
   eyeButton: {
     position: 'absolute',
@@ -264,6 +270,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '600',
     color: '#fff',
+    fontFamily: 'Rubik',
   },
   goBackButton: {
     backgroundColor: 'rgba(30, 41, 59, 0.8)',
@@ -276,5 +283,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '600',
     color: '#fff',
+    fontFamily: 'Rubik',
   },
 }); 

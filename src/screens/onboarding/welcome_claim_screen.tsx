@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
     marginTop: 120,
     marginBottom: 20,
     textAlign: 'center',
+    fontFamily: 'Rubik',
   },
   logoContainer: {
     alignItems: 'center',

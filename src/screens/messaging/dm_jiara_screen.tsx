@@ -218,6 +218,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#FFFFFF',
     marginBottom: 2,
+    fontFamily: Typography.fontFamily.secondary,
   },
   onlineStatus: {
     flexDirection: 'row',
@@ -234,6 +235,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#7DD3B9',
     fontWeight: '500',
+    fontFamily: Typography.fontFamily.secondary,
   },
   headerRight: {
     flexDirection: 'row',
@@ -273,6 +275,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 12,
     fontWeight: '600',
+    fontFamily: Typography.fontFamily.secondary,
   },
   messagesList: {
     flex: 1,
@@ -306,8 +309,9 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 8,
   },
   messageText: {
-    fontSize: 16,
-    lineHeight: 20,
+    fontSize: 14,
+    color: '#FFFFFF',
+    fontFamily: Typography.fontFamily.primary,
   },
   userMessageText: {
     color: '#FFFFFF',
@@ -317,7 +321,9 @@ const styles = StyleSheet.create({
   },
   timestamp: {
     fontSize: 12,
-    opacity: 0.7,
+    color: 'rgba(255, 255, 255, 0.6)',
+    marginTop: 4,
+    fontFamily: Typography.fontFamily.primary,
   },
   userTimestamp: {
     color: '#FFFFFF',
@@ -337,13 +343,10 @@ const styles = StyleSheet.create({
   },
   textInput: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.3)',
-    borderRadius: 25,
-    paddingHorizontal: 20,
-    paddingVertical: 12,
-    color: '#FFFFFF',
     fontSize: 16,
-    maxHeight: 100,
+    color: '#FFFFFF',
+    paddingHorizontal: 16,
+    fontFamily: Typography.fontFamily.primary,
   },
   sendButton: {
     backgroundColor: '#D7F0FC',
@@ -352,8 +355,9 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
   },
   sendButtonText: {
-    color: '#FFFFFF',
+    color: '#1A365D',
     fontSize: 16,
     fontWeight: '600',
+    fontFamily: Typography.fontFamily.secondary,
   },
 }); 

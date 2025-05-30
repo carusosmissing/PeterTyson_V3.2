@@ -296,8 +296,9 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: 24,
-    fontWeight: '600',
+    fontWeight: '700',
     color: '#FFFFFF',
+    fontFamily: Typography.fontFamily.secondary,
   },
   headerRight: {
     flexDirection: 'row',
@@ -420,11 +421,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#FFFFFF',
     marginBottom: 4,
+    fontFamily: Typography.fontFamily.display,
   },
   tierProgress: {
     fontSize: 14,
     color: '#FFFFFF',
     opacity: 0.8,
+    fontFamily: Typography.fontFamily.primary,
   },
   badgesContainer: {
     alignItems: 'center',
@@ -493,6 +496,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#FFFFFF',
     flex: 1,
+    fontFamily: Typography.fontFamily.primary,
   },
   taskRight: {
     alignItems: 'flex-end',
@@ -501,11 +505,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: '#FFFFFF',
+    fontFamily: Typography.fontFamily.display,
   },
   taskPointsLabel: {
     fontSize: 12,
     color: '#FFFFFF',
     opacity: 0.6,
+    fontFamily: Typography.fontFamily.primary,
   },
   profileRowContainer: {
     paddingHorizontal: 0,

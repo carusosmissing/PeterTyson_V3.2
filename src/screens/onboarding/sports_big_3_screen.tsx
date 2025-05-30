@@ -150,15 +150,16 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: '#FFFFFF',
     textAlign: 'center',
+    fontFamily: 'Rubik',
   },
   subtitle: {
     fontSize: 16,
     color: '#FFFFFF',
-    opacity: 0.8,
     marginBottom: 40,
     marginTop: -20,
     textAlign: 'center',
     fontWeight: '700',
+    fontFamily: 'Rubik',
   },
   optionsContainer: {
     flex: 1,
@@ -184,6 +185,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '500',
     color: '#FFFFFF',
+    fontFamily: 'Rubik',
   },
   optionTextSelected: {
     color: '#FFFFFF',
@@ -199,8 +201,8 @@ const styles = StyleSheet.create({
   selectionCount: {
     fontSize: 14,
     color: '#FFFFFF',
-    opacity: 0.8,
     marginTop: 66,
+    fontFamily: 'Rubik',
   },
   fixedButtonContainer: {
     position: 'absolute',

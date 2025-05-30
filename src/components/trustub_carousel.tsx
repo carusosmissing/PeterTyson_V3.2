@@ -208,11 +208,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'normal',
     color: '#FFFFFF',
+    fontFamily: Typography.fontFamily.primary,
   },
   year: {
     fontSize: 16,
     fontWeight: 'normal',
     color: '#FFFFFF',
+    fontFamily: Typography.fontFamily.primary,
   },
   artistSection: {
     alignItems: 'center',
@@ -226,12 +228,14 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     textAlign: 'center',
     marginBottom: 8,
+    fontFamily: Typography.fontFamily.display,
   },
   venueName: {
     fontSize: 18,
     fontWeight: '500',
     color: '#FFFFFF',
     textAlign: 'center',
+    fontFamily: Typography.fontFamily.secondary,
   },
   bottomSection: {
     height: 60,

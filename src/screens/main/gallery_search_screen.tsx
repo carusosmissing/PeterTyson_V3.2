@@ -157,6 +157,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: '600',
     color: '#FFFFFF',
+    fontFamily: 'Rubik',
   },
   headerRight: {
     flexDirection: 'row',
@@ -194,6 +195,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 12,
     fontWeight: '600',
+    fontFamily: 'Rubik',
   },
   scrollView: {
     flex: 1,
@@ -231,6 +233,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '500',
     flex: 1,
+    fontFamily: 'Rubik',
   },
   timeText: {
     color: '#FFFFFF',
@@ -238,6 +241,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     opacity: 0.7,
     marginLeft: 'auto',
+    fontFamily: 'Rubik',
   },
   searchContainer: {
     paddingHorizontal: Spacing.semantic.screenPadding,
@@ -264,6 +268,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#FFFFFF',
     fontWeight: '500',
+    fontFamily: 'Rubik',
   },
   clearButton: {
     padding: 5,
