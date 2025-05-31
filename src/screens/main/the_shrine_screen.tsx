@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Colors, Typography, Spacing, Images, Icons, Avatars, Trustubs } from '../../constants';
-import { Container, TrustubCarousel } from '../../components';
+import { Container, TrustubCarousel, TrustubGrid } from '../../components';
 import { useAppSelector } from '../../store';
 import { getAvatarSource } from '../../utils/avatar_utils';
 
 export const TheShrineScreen: React.FC = () => {
   const navigation = useNavigation();
   const userProfile = useAppSelector((state: any) => state.user.profile);
+  const [viewType, setViewType] = useState<'carousel' | 'grid'>('carousel');
 
   const handleProfilePress = () => {
     navigation.navigate('Profile' as never);
@@ -30,6 +31,7 @@ export const TheShrineScreen: React.FC = () => {
       artist: 'Kendrick Lamar',
       venue: 'The Forum',
       image: Trustubs.trustub1,
+      notes: 'Pete somehow got backstage and freestyled with Kendrick in the green room. Security had to escort him out but not before Kendrick said "that dude\'s crazy talented!"',
     },
     {
       id: '2',
@@ -38,6 +40,7 @@ export const TheShrineScreen: React.FC = () => {
       artist: 'Halsey',
       venue: 'Huntington Bank Pavilion',
       image: Trustubs.trustub2,
+      notes: 'Pete crowd-surfed during "Without Me" and somehow made it all the way to the stage. Halsey laughed and gave him a high-five before security took him back.',
     },
     {
       id: '3',
@@ -46,6 +49,7 @@ export const TheShrineScreen: React.FC = () => {
       artist: 'Under the Glow',
       venue: 'The Palladium',
       image: Trustubs.trustub3,
+      notes: 'Pete brought glow sticks for the entire venue and started an epic glow stick war. The band loved it so much they dedicated their last song to "the glow stick guy."',
     },
     {
       id: '4',
@@ -54,6 +58,7 @@ export const TheShrineScreen: React.FC = () => {
       artist: 'TruEXP',
       venue: 'Early Adopter',
       image: Trustubs.trustub4,
+      notes: 'Pete figured out how to hack the VR experience and created a virtual Pete army. The developers were so impressed they offered him a job on the spot.',
     },
   ];
 
@@ -72,7 +77,7 @@ export const TheShrineScreen: React.FC = () => {
           <View style={styles.headerRight}>
             <TouchableOpacity style={styles.profileContainer} onPress={handleProfilePress}>
               <Image 
-                source={getAvatarSource(userProfile?.avatar || 'pete', userProfile?.avatarType || 'asset')}
+                source={getAvatarSource(userProfile?.avatar || 'petertyson', userProfile?.avatarType || 'asset')}
                 style={styles.profileImage}
               />
             </TouchableOpacity>
@@ -85,9 +90,25 @@ export const TheShrineScreen: React.FC = () => {
           </View>
         </View>
 
-        {/* Trustub Carousel */}
-        <View style={styles.carouselContainer}>
-          <TrustubCarousel trustubs={trustubsData} />
+        {/* View Toggle */}
+        <View style={styles.toggleContainer}>
+          <TouchableOpacity 
+            style={styles.toggleButton} 
+            onPress={() => setViewType(viewType === 'carousel' ? 'grid' : 'carousel')}
+          >
+            <Text style={styles.toggleText}>
+              {viewType === 'carousel' ? 'Carousel' : 'Grid'}
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        {/* Trustub Views */}
+        <View style={styles.viewContainer}>
+          {viewType === 'carousel' ? (
+            <TrustubCarousel trustubs={trustubsData} />
+          ) : (
+            <TrustubGrid trustubs={trustubsData} />
+          )}
         </View>
       </View>
     </Container>
@@ -126,6 +147,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: '600',
     color: '#FFFFFF',
+    fontFamily: Typography.fontFamily.secondary,
   },
   headerRight: {
     flexDirection: 'row',
@@ -164,9 +186,31 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '600',
   },
-  carouselContainer: {
+  viewContainer: {
     flex: 1,
     marginHorizontal: 0, // No margin needed since container has no padding
-    marginTop: 10, // Add top margin to prevent carousel from being cut off
+    marginTop: 0, // Reduced since toggle provides spacing
+  },
+  toggleContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    paddingHorizontal: Spacing.semantic.screenPadding,
+    paddingTop: 0,
+    paddingBottom: 8,
+    marginTop: -20,
+  },
+  toggleButton: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    borderRadius: 15,
+    alignItems: 'center',
+  },
+  toggleText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    fontFamily: Typography.fontFamily.secondary,
   },
 });

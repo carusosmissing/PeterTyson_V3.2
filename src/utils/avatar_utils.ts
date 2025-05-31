@@ -4,5 +4,5 @@ export const getAvatarSource = (avatar: string, avatarType: 'asset' | 'custom' =
   if (avatarType === 'custom') {
     return { uri: avatar };
   }
-  return Assets.Avatars[avatar as keyof typeof Assets.Avatars] || Assets.Avatars.pete;
+  return Assets.Avatars[avatar as keyof typeof Assets.Avatars] || Assets.Avatars.petertyson;
 }; 

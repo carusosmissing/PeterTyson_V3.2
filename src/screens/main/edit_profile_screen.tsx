@@ -26,7 +26,7 @@ export const EditProfileScreen: React.FC = () => {
 
   const [username, setUsername] = useState(userProfile?.username || 'demo');
   const [handle, setHandle] = useState(userProfile?.handle || '@demo');
-  const [selectedAvatar, setSelectedAvatar] = useState(userProfile?.avatar || 'pete');
+  const [selectedAvatar, setSelectedAvatar] = useState(userProfile?.avatar || 'petertyson');
   const [avatarType, setAvatarType] = useState<'asset' | 'custom'>(userProfile?.avatarType || 'asset');
   const [bio, setBio] = useState(userProfile?.bio || 'Your bio goes here! Share your hobbies, motivations, and fitness goals.');
   const [selectedGenres, setSelectedGenres] = useState<string[]>(userProfile?.genres || []);
@@ -37,6 +37,7 @@ export const EditProfileScreen: React.FC = () => {
 
   // Available avatars from assets
   const availableAvatars = [
+    { key: 'petertyson', source: Assets.Avatars.petertyson, name: 'Peter Tyson' },
     { key: 'pete', source: Assets.Avatars.pete, name: 'Pete' },
     { key: 'user1', source: Assets.Avatars.user1, name: 'Avatar 1' },
     { key: 'user2', source: Assets.Avatars.user2, name: 'Avatar 2' },

@@ -7,7 +7,7 @@ const initialState: UserState = {
     id: '1',
     username: 'Pete',
     handle: '@petertyson',
-    avatar: 'pete', // This will reference Assets.Avatars.pete or custom URI
+    avatar: 'petertyson', // This will reference Assets.Avatars.petertyson or custom URI
     avatarType: 'asset', // 'asset' for preset avatars, 'custom' for uploaded images
     displayName: 'Pete',
     email: 'demo@example.com',

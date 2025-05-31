@@ -107,7 +107,7 @@ export const ProfileScreen: React.FC = () => {
           {/* Profile Picture */}
           <View style={styles.profilePictureContainer}>
             <Avatar
-              source={getAvatarSource(userProfile?.avatar || 'pete', userProfile?.avatarType || 'asset')}
+              source={getAvatarSource(userProfile?.avatar || 'petertyson', userProfile?.avatarType || 'asset')}
               size="3xl"
               variant="circle"
               style={styles.profilePicture}

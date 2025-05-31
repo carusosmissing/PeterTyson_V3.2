@@ -161,7 +161,7 @@ export const DMScreen: React.FC = () => {
           <View style={styles.headerRight}>
             <TouchableOpacity style={styles.profileContainer} onPress={handleProfilePress}>
               <Image 
-                source={getAvatarSource('pete', 'asset')}
+                source={getAvatarSource('petertyson', 'asset')}
                 style={styles.profileImage}
               />
             </TouchableOpacity>

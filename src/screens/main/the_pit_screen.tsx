@@ -163,7 +163,7 @@ export const ThePitScreen: React.FC = () => {
           <View style={styles.headerRight}>
             <TouchableOpacity style={styles.profileContainer} onPress={handleProfilePress}>
               <Image 
-                source={getAvatarSource(userProfile?.avatar || 'pete', userProfile?.avatarType || 'asset')}
+                source={getAvatarSource(userProfile?.avatar || 'petertyson', userProfile?.avatarType || 'asset')}
                 style={styles.profileImage}
               />
             </TouchableOpacity>

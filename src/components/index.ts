@@ -28,5 +28,8 @@ export * from './navigation';
 // Export trustub carousel component
 export { TrustubCarousel } from './trustub_carousel';
 
+// Export trustub grid component
+export { TrustubGrid } from './trustub_grid';
+
 // Export app initializer component
 export { AppInitializer } from './app_initializer'; 

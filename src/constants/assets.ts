@@ -92,12 +92,13 @@ export const Images = {
 
 // Avatar images for demo/testing (using actual TruEXP assets)
 export const Avatars = {
+  petertyson: require('../../assets/avatars/petertyson.png'),
+  pete: require('../../assets/avatars/pete_pfp.png'),
   user1: require('../../assets/avatars/pfp1.png'),
   user2: require('../../assets/avatars/pfp2.png'),
   user3: require('../../assets/avatars/pfp3.png'),
   user4: require('../../assets/avatars/pfp4.png'),
   user5: require('../../assets/avatars/pfp5.png'),
-  pete: require('../../assets/avatars/pete_pfp.png'),
 };
 
 // Event images for demo/testing (using actual TruEXP assets)
