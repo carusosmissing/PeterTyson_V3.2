@@ -50,4 +50,6 @@ export const Layout = {
   buttonRadius: 12,
   inputHeight: 48,
   inputRadius: 8,
-}; 
+};
+
+export * from './social_platforms'; 

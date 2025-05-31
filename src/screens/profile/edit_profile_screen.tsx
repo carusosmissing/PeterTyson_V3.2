@@ -575,7 +575,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '600',
     color: 'white',
-    fontFamily: Typography.fontFamily.secondary,
+    fontFamily: Typography.fontFamily.primary,
   },
   cancelButton: {
     padding: 8,
@@ -605,7 +605,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: 'white',
     marginBottom: 4,
-    fontFamily: Typography.fontFamily.display,
+    fontFamily: Typography.fontFamily.primary,
   },
   previewHandle: {
     fontSize: 16,
@@ -624,7 +624,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: 'white',
     marginBottom: 16,
-    fontFamily: Typography.fontFamily.secondary,
+    fontFamily: Typography.fontFamily.primary,
   },
   uploadButton: {
     flexDirection: 'row',
@@ -655,7 +655,7 @@ const styles = StyleSheet.create({
     color: 'rgba(255, 255, 255, 0.7)',
     textAlign: 'center',
     marginBottom: 16,
-    fontFamily: Typography.fontFamily.secondary,
+    fontFamily: Typography.fontFamily.primary,
   },
   avatarScrollView: {
     marginHorizontal: -10,
@@ -696,7 +696,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'white',
     fontWeight: '500',
-    fontFamily: Typography.fontFamily.secondary,
+    fontFamily: Typography.fontFamily.primary,
   },
   buttonContainer: {
     paddingHorizontal: 20,
@@ -788,7 +788,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: 'white',
     fontWeight: '500',
-    fontFamily: Typography.fontFamily.secondary,
+    fontFamily: Typography.fontFamily.primary,
   },
   selectedGenreTextFaded: {
     color: 'white',
@@ -870,7 +870,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: 'white',
     fontWeight: '500',
-    fontFamily: Typography.fontFamily.secondary,
+    fontFamily: Typography.fontFamily.primary,
   },
   selectedSportTextFaded: {
     color: 'white',
@@ -899,10 +899,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '500',
     color: 'white',
-    fontFamily: Typography.fontFamily.secondary,
+    fontFamily: Typography.fontFamily.primary,
   },
   selectedBackgroundTypeText: {
-    color: '#5771FE',
+    fontWeight: '500',
+    marginTop: 8,
+    fontFamily: Typography.fontFamily.secondary,
   },
   imageOptionsContainer: {
     marginBottom: 16,
@@ -942,7 +944,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: '500',
     marginTop: 8,
-    fontFamily: Typography.fontFamily.secondary,
+    fontFamily: Typography.fontFamily.primary,
   },
   selectedImageOption: {
     borderColor: '#5771FE',

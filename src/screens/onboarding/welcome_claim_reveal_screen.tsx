@@ -123,7 +123,7 @@ export const WelcomeClaimRevealScreen: React.FC = () => {
     // Mark onboarding as complete
     dispatch(completeOnboarding());
     
-    // Navigate directly to the shrine tab
+    // Navigate directly to the shrine tab using the correct structure
     navigation.reset({
       index: 0,
       routes: [
@@ -131,13 +131,21 @@ export const WelcomeClaimRevealScreen: React.FC = () => {
           name: 'Main' as never,
           state: {
             routes: [
-              { name: 'Home' },
-              { name: 'Messaging' },
-              { name: 'TheShrine' },
-              { name: 'ThePit' },
-              { name: 'Search' },
+              {
+                name: 'MainTabs',
+                state: {
+                  routes: [
+                    { name: 'Home' },
+                    { name: 'Messaging' },
+                    { name: 'TheShrine' },
+                    { name: 'ThePit' },
+                    { name: 'Search' },
+                  ],
+                  index: 2, // TheShrine is at index 2
+                },
+              },
             ],
-            index: 2, // TheShrine is at index 2
+            index: 0,
           },
         },
       ],

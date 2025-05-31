@@ -14,19 +14,19 @@ import { Colors, Typography, Layout, Assets, Icons, Trustubs } from '../../const
 import { Avatar } from '../../components/ui/avatar';
 import { getAvatarSource } from '../../utils/avatar_utils';
 
-export const ProfileUser3Screen: React.FC = () => {
+export const ProfileUser1Screen: React.FC = () => {
   const navigation = useNavigation();
 
-  // Dummy profile data for user3
+  // Dummy profile data for user1
   const userProfile = {
-    username: 'Emily Garcia',
-    handle: '@emily_champion',
-    avatar: 'user3',
-    avatarType: 'asset' as 'asset' | 'custom',
-    bio: "First place finisher 🏆 I'm LITERALLY undefeated at everything and yes I mean EVERYTHING. I once arm wrestled a bear and won. Training 25/8 because 24/7 is for weaklings 💪 I consume protein powder like it's air and sleep is for the WEAK. COME AT ME I DARE YOU 🔥⚡",
-    genres: ['Hip Hop', 'Trap', 'R&B'],
-    sports: ['Basketball', 'CrossFit', 'Track & Field'],
-    backgroundColor: '#7DD3B9',
+    username: 'Jiara Martins',
+    handle: '@jiara_music',
+    avatar: 'user1',
+    avatarType: 'asset',
+    bio: 'VIP Exclusive Lounge Host 🎵 PETE IS LITERALLY MY RELIGION 🛐 I have 47 shrines of Pete in my apartment and YES I count them daily. Music curator by day, Pete stalker by night. PETE IF YOU SEE THIS MARRY ME 💍 I will fight anyone who says they love Pete more than me (spoiler: impossible)',
+    genres: ['Electronic', 'House', 'Techno'],
+    sports: ['Tennis', 'Yoga'],
+    backgroundColor: '#5771FE',
     backgroundType: 'color',
     backgroundImage: null,
   };
@@ -47,24 +47,24 @@ export const ProfileUser3Screen: React.FC = () => {
 
   const galleryItems = [
     {
-      id: '#04331',
-      artist: 'Drake',
+      id: '#02145',
+      artist: 'Calvin Harris',
       image: Trustubs.trustub1,
     },
     {
-      id: '#04332',
-      artist: 'Travis Scott',
+      id: '#02146',
+      artist: 'Disclosure',
       image: Trustubs.trustub2,
     },
     {
-      id: '#04333',
+      id: '#02147',
       artist: 'Under the Glow',
       image: Trustubs.trustub3,
     },
     {
-      id: '#04334',
-      artist: 'Future',
-      subtitle: 'Championship Night',
+      id: '#02148',
+      artist: 'ODESZA',
+      subtitle: 'Festival Nights',
       image: Trustubs.trustub4,
     },
   ];
@@ -106,7 +106,7 @@ export const ProfileUser3Screen: React.FC = () => {
           {/* Profile Picture */}
           <View style={styles.profilePictureContainer}>
             <Avatar
-              source={getAvatarSource(userProfile?.avatar || 'user3', userProfile?.avatarType || 'asset')}
+              source={getAvatarSource(userProfile?.avatar || 'user1', userProfile?.avatarType as 'asset' | 'custom' || 'asset')}
               size="3xl"
               variant="circle"
               style={styles.profilePicture}
@@ -115,24 +115,24 @@ export const ProfileUser3Screen: React.FC = () => {
 
           {/* Username and Handle centered */}
           <View style={styles.userInfoContainer}>
-            <Text style={styles.userName}>{userProfile?.username || 'User 3'}</Text>
-            <Text style={styles.userHandle}>{userProfile?.handle || '@user3'}</Text>
+            <Text style={styles.userName}>{userProfile?.username || 'User 1'}</Text>
+            <Text style={styles.userHandle}>{userProfile?.handle || '@user1'}</Text>
           </View>
 
           {/* Stats inside bubble */}
           <View style={styles.statsContainer}>
             <View style={styles.statItem}>
-              <Text style={styles.statNumber}>567</Text>
+              <Text style={styles.statNumber}>89</Text>
               <Text style={styles.statLabel}>Following</Text>
             </View>
             <View style={styles.statDivider} />
             <View style={styles.statItem}>
-              <Text style={styles.statNumber}>8,921</Text>
+              <Text style={styles.statNumber}>2,134</Text>
               <Text style={styles.statLabel}>Followers</Text>
             </View>
             <View style={styles.statDivider} />
             <View style={styles.statItem}>
-              <Text style={styles.statNumber}>12,456</Text>
+              <Text style={styles.statNumber}>5,678</Text>
               <Text style={styles.statLabel}>Likes</Text>
             </View>
           </View>
@@ -191,32 +191,33 @@ export const ProfileUser3Screen: React.FC = () => {
             {/* Badges Section */}
             <View style={styles.badgesSection}>
               <View style={styles.badgesGrid}>
-                <Image source={Assets.Badges.builder} style={styles.badgeImage} />
-                <Image source={Assets.Badges.streaker} style={styles.badgeImage} />
+                <Image source={Assets.Badges.plugged} style={styles.badgeImage} />
+                <Image source={Assets.Badges.fullSend} style={styles.badgeImage} />
+                <Image source={Assets.Badges.thinkTank} style={styles.badgeImage} />
               </View>
             </View>
 
             {/* TruSTUBS/Events/Venues Stats */}
             <View style={styles.profileStatsContainer}>
               <View style={styles.statItem}>
-                <Text style={styles.statNumber}>15</Text>
+                <Text style={styles.statNumber}>8</Text>
                 <Text style={styles.statLabel}>TruSTUBS</Text>
               </View>
               <View style={styles.statDivider} />
               <View style={styles.statItem}>
-                <Text style={styles.statNumber}>23</Text>
+                <Text style={styles.statNumber}>12</Text>
                 <Text style={styles.statLabel}>Events</Text>
               </View>
               <View style={styles.statDivider} />
               <View style={styles.statItem}>
-                <Text style={styles.statNumber}>11</Text>
+                <Text style={styles.statNumber}>6</Text>
                 <Text style={styles.statLabel}>Venues</Text>
               </View>
             </View>
           </View>
 
           {/* Gallery Title */}
-          <Text style={styles.galleryTitle}>{userProfile?.username || 'Emily'}'s Favorite Stubs</Text>
+          <Text style={styles.galleryTitle}>{userProfile?.username || 'Jiara'}'s Favorite Stubs</Text>
 
           {/* Gallery Grid */}
           <View style={styles.galleryGrid}>
@@ -285,7 +286,7 @@ export const ProfileUser3Screen: React.FC = () => {
       {renderContent()}
     </ImageBackground>
   ) : (
-    <View style={[styles.container, { backgroundColor: userProfile?.backgroundColor || '#7DD3B9' }]}>
+    <View style={[styles.container, { backgroundColor: userProfile?.backgroundColor || '#2B6CB0' }]}>
       {renderContent()}
     </View>
   );
@@ -367,13 +368,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: -25,
     marginBottom: 4,
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.display,
   },
   userHandle: {
     fontSize: 16,
     color: 'rgba(255, 255, 255, 0.7)',
     textAlign: 'center',
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.primary,
   },
   bioSection: {
     marginBottom: 20,
@@ -383,7 +384,7 @@ const styles = StyleSheet.create({
     color: 'rgba(255, 255, 255, 0.7)',
     marginBottom: 12,
     fontStyle: 'italic',
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.primary,
   },
   statsContainer: {
     flexDirection: 'row',
@@ -408,13 +409,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
     marginBottom: 2,
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.display,
   },
   statLabel: {
     fontSize: 12,
     fontWeight: '500',
     color: 'rgba(255, 255, 255, 0.8)',
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.secondary,
   },
   badgesSection: {
     marginBottom: 20,
@@ -439,7 +440,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
     marginBottom: 10,
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.display,
   },
   genresDisplayContainer: {
     flexDirection: 'row',
@@ -456,7 +457,7 @@ const styles = StyleSheet.create({
   genreDisplayText: {
     fontSize: 14,
     color: 'white',
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.primary,
   },
   sportsSection: {
     marginBottom: 0,
@@ -466,7 +467,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
     marginBottom: 10,
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.display,
   },
   sportsDisplayContainer: {
     flexDirection: 'row',
@@ -483,14 +484,14 @@ const styles = StyleSheet.create({
   sportDisplayText: {
     fontSize: 14,
     color: 'white',
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.primary,
   },
   galleryTitle: {
     fontSize: 20,
     fontWeight: 'bold',
     color: 'white',
     marginBottom: -20,
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.display,
   },
   galleryGrid: {
     marginTop: -5,
@@ -525,20 +526,20 @@ const styles = StyleSheet.create({
     fontWeight: 'normal',
     color: '#FFFFFF',
     marginBottom: 2,
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.primary,
   },
   galleryArtist: {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#FFFFFF',
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.display,
   },
   gallerySubtitle: {
     fontSize: 14,
     fontWeight: 'normal',
     color: '#FFFFFF',
     marginTop: 2,
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.primary,
   },
   actionButtonsContainer: {
     flexDirection: 'row',
@@ -558,7 +559,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: '600',
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.secondary,
   },
   messageButton: {
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
@@ -572,7 +573,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: '600',
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.secondary,
   },
   secondaryBubble: {
     marginBottom: 20,

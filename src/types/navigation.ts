@@ -36,31 +36,9 @@ export type MainTabParamList = {
 export type MessagingStackParamList = {
   Inbox: undefined;
   NewMessage: undefined;
-  DirectMessage: {
-    userId: string;
-    userName: string;
-  };
-  Chat: {
-    chatId: string;
-    chatName: string;
-  };
   DMEmily: undefined;
   DMJiara: undefined;
   DMLila: undefined;
-};
-
-// Events Stack Types
-export type EventsStackParamList = {
-  EventGallery: undefined;
-  EventDetails: {
-    eventId: string;
-  };
-};
-
-// Shrine Stack Types
-export type ShrineStackParamList = {
-  ShrineView1: undefined;
-  ShrineView2: undefined;
 };
 
 // Root Stack Types
@@ -68,8 +46,6 @@ export type RootStackParamList = {
   Auth: NavigatorScreenParams<AuthStackParamList>;
   Onboarding: NavigatorScreenParams<OnboardingStackParamList>;
   Main: NavigatorScreenParams<MainTabParamList>;
-  Events: NavigatorScreenParams<EventsStackParamList>;
-  Shrine: NavigatorScreenParams<ShrineStackParamList>;
 };
 
 // Navigation prop types

@@ -1,8 +1,4 @@
-# Onboarding Flow
-
-This directory contains the complete onboarding flow for the TruEXP app with 7 total question screens.
-
-## Flow Structure
+# Onboarding Flow Structure
 
 ### 1. Initial Selection (MusicOrSportsScreen)
 - Users select Music, Sports, or both

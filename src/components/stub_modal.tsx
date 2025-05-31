@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, Modal, Animated, Dimensions } from 'react-native';
-import { Images } from '../constants';
+import { Images, Typography } from '../constants';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
@@ -203,20 +203,20 @@ const styles = StyleSheet.create({
     fontWeight: 'normal',
     color: '#FFFFFF',
     marginBottom: 4,
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.primary,
   },
   stubArtist: {
     fontSize: 20,
     fontWeight: 'bold',
     color: '#FFFFFF',
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.display,
   },
   stubSubtitle: {
     fontSize: 16,
     fontWeight: 'normal',
     color: '#FFFFFF',
     marginTop: 4,
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.primary,
   },
   logoOverlay: {
     position: 'absolute',

@@ -24,6 +24,10 @@ export const NewMessageScreen: React.FC = () => {
     navigation.navigate('NotiScreen' as never);
   };
 
+  const handleMenuPress = () => {
+    navigation.navigate('Settings' as never);
+  };
+
   const handleSendPress = () => {
     if (messageText.trim()) {
       // Handle send message logic here
@@ -38,8 +42,7 @@ export const NewMessageScreen: React.FC = () => {
         {/* Header - copied from inbox */}
         <View style={styles.header}>
           <View style={styles.headerLeft}>
-            <Image source={Images.logo} style={styles.logoImage} />
-            <TouchableOpacity>
+            <TouchableOpacity onPress={handleMenuPress}>
               <Image source={Icons.menu} style={styles.menuIcon} />
             </TouchableOpacity>
           </View>
@@ -139,6 +142,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: '#FFFFFF',
     fontFamily: Typography.fontFamily.secondary,
+    marginLeft: 50,
   },
   headerRight: {
     flexDirection: 'row',

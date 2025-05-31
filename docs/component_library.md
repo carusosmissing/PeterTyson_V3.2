@@ -2,7 +2,9 @@
 
 ## Overview
 
-The TruEXP Component Library is a comprehensive collection of reusable React Native components built with TypeScript, designed to match the TruEXP brand aesthetic with glassmorphism effects, gradient backgrounds, and consistent styling.
+The TruEXP Component Library is a collection of reusable React Native components built with TypeScript, designed to match the TruEXP brand aesthetic with glassmorphism effects, gradient backgrounds, and consistent styling.
+
+**Recent Major Addition**: The **TrustubCarousel** system with flippable cards, photo galleries, and QR code generation.
 
 ## Design System
 
@@ -180,6 +182,116 @@ import { LoadingSpinner } from '../components';
   overlay 
 />
 ```
+
+#### TrustubCarousel
+A carousel system for displaying interactive trustub cards with 3D flip animations and content management.
+
+**Props:**
+```typescript
+interface TrustubCarouselProps {
+  trustubs: TrustubData[];
+}
+
+interface TrustubData {
+  id: string;
+  stubNumber: string;
+  year: string;
+  artist: string;
+  venue: string;
+  image: any;
+  notes: string;
+}
+```
+
+**Usage:**
+```tsx
+import { TrustubCarousel } from '../components';
+
+const trustubsData = [
+  {
+    id: '1',
+    stubNumber: '#01236',
+    year: '2024',
+    artist: 'Kendrick Lamar',
+    venue: 'The Forum',
+    image: Trustubs.trustub1,
+    notes: 'Amazing experience with backstage access...',
+  },
+  // ... more trustubs
+];
+
+<TrustubCarousel trustubs={trustubsData} />
+```
+
+**Key Features:**
+- **Infinite Scroll**: Seamless looping with triple data arrays
+- **Snap-to-Center**: Each card centers perfectly when scrolling
+- **Responsive Sizing**: Cards adapt to 90% screen width
+- **Performance Optimized**: Smooth 60fps scrolling with throttled events
+- **Touch Interactions**: Tap to flip, swipe to navigate
+
+#### FlippableCard (Sub-component of TrustubCarousel)
+An advanced card component with 3D flip animations and complex interactive features.
+
+**Features:**
+
+**Front Side:**
+- Full-screen trustub image background (Instagram-style)
+- Transparent overlay with text shadows for readability
+- Header section with stub number and year
+- Centered artist and venue information
+- Gradient logo positioned in bottom right
+
+**Back Side:**
+- **QR Code Section**: Generated using `react-native-qrcode-skia` with unique URLs
+- **Photo Gallery**: 4-column grid with camera/gallery integration
+- **Experience Notes**: Editable multi-line text input
+- **Event Details**: Structured data display with clean table layout
+
+**Photo Management:**
+```typescript
+// Camera integration
+const handleCameraSelection = async () => {
+  const result = await ImagePicker.launchCameraAsync({
+    mediaTypes: ImagePicker.MediaTypeOptions.Images,
+    allowsEditing: true,
+    aspect: [1, 1],
+    quality: 0.8,
+  });
+  // Handle result
+};
+
+// Gallery access
+const handleGallerySelection = async () => {
+  const result = await ImagePicker.launchImageLibraryAsync({
+    mediaTypes: ImagePicker.MediaTypeOptions.Images,
+    allowsEditing: true,
+    aspect: [1, 1],
+    quality: 0.8,
+  });
+  // Handle result
+};
+```
+
+**State Management:**
+```typescript
+const [isFlipped, setIsFlipped] = useState(false);
+const [experienceText, setExperienceText] = useState(trustub.notes);
+const [eventPhotos, setEventPhotos] = useState<Array<any | {uri: string}>>([...]);
+const [selectedPhoto, setSelectedPhoto] = useState<any | null>(null);
+const [modalVisible, setModalVisible] = useState(false);
+```
+
+**Animations:**
+- **3D Flip**: 180° Y-axis rotation with spring physics
+- **Spring Transitions**: Tension/friction tuning for smooth animations
+- **Native Driver**: 60fps performance with hardware acceleration
+- **Backface Visibility**: Proper front/back face handling
+
+**Dependencies Required:**
+- `expo-image-picker`: Camera and photo library access
+- `react-native-qrcode-skia`: QR code generation with styling
+- `react-native-svg`: Vector graphics support
 
 ### Layout Components (`src/components/layout/`)
 
@@ -415,14 +527,14 @@ The component library requires these packages:
 ## Future Enhancements
 
 ### Planned Components
-- Avatar with status indicators
-- Toggle switches and radio buttons
-- Modal and bottom sheet components
-- Tab bar with custom styling
-- Message bubbles for chat
-- Event and user cards
-- Search components
-- Form validation components
+- ~~Avatar with status indicators~~ Implemented in TrustubCarousel
+- ~~QR code generation~~ Implemented in FlippableCard  
+- ~~Photo gallery management~~ Implemented in FlippableCard
+- ~~3D flip animations~~ Implemented in FlippableCard
+- TrustubGrid (Alternative view for carousel)
+- ShareSheet for trustub sharing
+- Camera overlay with trustub frames
+- Social integration components
 
 ### Planned Features
 - Dark/light theme switching
@@ -430,6 +542,148 @@ The component library requires these packages:
 - Icon library integration
 - Accessibility improvements
 - Performance optimizations
-- Storybook documentation
+- ~~Storybook documentation~~ → Component-specific README files
 
-This component library provides a solid foundation for building the TruEXP app with consistent, beautiful, and performant components that match the brand aesthetic. 
+This component library now includes sophisticated interactive components that handle complex state management, 3D animations, camera integration, and rich media content. The TrustubCarousel represents a significant advancement in the component architecture, demonstrating how to build complex, performant, and user-friendly components in React Native. 
+
+## New Interaction Patterns
+
+### 3D Card Flipping
+The TrustubCarousel introduces 3D card flipping as a core interaction pattern:
+
+```tsx
+const flipCard = () => {
+  if (isFlipped) {
+    Animated.spring(flipAnimation, {
+      toValue: 0,
+      tension: 100,
+      friction: 8,
+      useNativeDriver: true,
+    }).start();
+  } else {
+    Animated.spring(flipAnimation, {
+      toValue: 180,
+      tension: 100,
+      friction: 8,
+      useNativeDriver: true,
+    }).start();
+  }
+  setIsFlipped(!isFlipped);
+};
+```
+
+### Photo Gallery Integration
+Components now support integrated photo management:
+
+```tsx
+// Photo grid component
+<View style={styles.photoGrid}>
+  {eventPhotos.map((photo, photoIndex) => (
+    <TouchableOpacity 
+      key={photoIndex} 
+      style={styles.photoContainer}
+      onPress={() => openPhotoModal(photo)}
+      onLongPress={() => removePhoto(photoIndex)}
+    >
+      <Image source={getPhotoSource(photo)} style={styles.eventPhoto} />
+    </TouchableOpacity>
+  ))}
+  
+  <TouchableOpacity style={styles.addPhotoButton} onPress={openImagePicker}>
+    <Text style={styles.addPhotoText}>+</Text>
+  </TouchableOpacity>
+</View>
+```
+
+### QR Code Generation
+Dynamic QR code generation with custom styling:
+
+```tsx
+<QRCode
+  value={`https://truexp.app/trustub/${trustub.id}`}
+  size={140}
+  color="white"
+  errorCorrectionLevel="M"
+  shapeOptions={{
+    shape: "circle",
+    eyePatternShape: "rounded",
+    gap: 1,
+    eyePatternGap: 0,
+  }}
+  strokeWidth={0.9}
+  pathStyle="fill"
+/>
+```
+
+## Complex Component Patterns
+
+### Infinite Scroll Implementation
+```typescript
+// Create infinite data by duplicating items
+const infiniteData = [...trustubs, ...trustubs, ...trustubs];
+
+// Handle infinite scroll jumps
+if (index <= 1) {
+  const middleIndex = index + trustubs.length;
+  const newPosition = middleIndex * itemWidth - containerPadding;
+  setTimeout(() => {
+    scrollViewRef.current?.scrollTo({ x: newPosition, animated: false });
+    setActiveIndex(middleIndex);
+  }, 100);
+}
+```
+
+### Modal Photo Viewing
+```typescript
+<Modal
+  animationType="fade"
+  transparent={true}
+  visible={modalVisible}
+  onRequestClose={closePhotoModal}
+>
+  <View style={styles.modalOverlay}>
+    <TouchableOpacity onPress={closePhotoModal}>
+      <View style={styles.modalContent}>
+        {selectedPhoto && (
+          <Image source={getPhotoSource(selectedPhoto)} style={styles.modalPhoto} />
+        )}
+      </View>
+    </TouchableOpacity>
+  </View>
+</Modal>
+```
+
+### Permission Handling Patterns
+```typescript
+const openImagePicker = () => {
+  Alert.alert(
+    'Add Photo',
+    'Choose how you want to add a photo',
+    [
+      { text: 'Camera', onPress: () => handleCameraSelection() },
+      { text: 'Photo Library', onPress: () => handleGallerySelection() },
+      { text: 'Cancel', style: 'cancel' },
+    ]
+  );
+};
+```
+
+### Planned Components
+- ~~Avatar with status indicators~~ Implemented in TrustubCarousel
+- ~~QR code generation~~ Implemented in FlippableCard  
+- ~~Photo gallery management~~ Implemented in FlippableCard
+- ~~3D flip animations~~ Implemented in FlippableCard
+- TrustubGrid (Alternative view for carousel)
+- ShareSheet for trustub sharing
+- Camera overlay with trustub frames
+- Social integration components
+
+### Planned Features
+- Dark/light theme switching
+- Animation presets
+- Icon library integration
+- Accessibility improvements
+- Performance optimizations
+- ~~Storybook documentation~~ → Component-specific README files
+
+This component library now includes sophisticated interactive components that handle complex state management, 3D animations, camera integration, and rich media content. The TrustubCarousel represents a significant advancement in the component architecture, demonstrating how to build complex, performant, and user-friendly components in React Native. 

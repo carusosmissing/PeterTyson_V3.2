@@ -6,8 +6,6 @@ import { useAppSelector } from '../store';
 import { AuthNavigator } from './auth_navigator';
 import { OnboardingNavigator } from './onboarding_navigator';
 import { MainNavigator } from './main_navigator';
-import { EventsNavigator } from './events_navigator';
-import { ShrineNavigator } from './shrine_navigator';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -27,16 +25,6 @@ export const RootNavigator: React.FC = () => {
         <Stack.Screen name="Auth" component={AuthNavigator} />
         <Stack.Screen name="Onboarding" component={OnboardingNavigator} />
         <Stack.Screen name="Main" component={MainNavigator} />
-        <Stack.Screen 
-          name="Events" 
-          component={EventsNavigator}
-          options={{ presentation: 'modal' }}
-        />
-        <Stack.Screen 
-          name="Shrine" 
-          component={ShrineNavigator}
-          options={{ presentation: 'modal' }}
-        />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -49,7 +49,6 @@ export const GallerySearchScreen: React.FC = () => {
         {/* Header */}
         <View style={styles.header}>
           <View style={styles.headerLeft}>
-            <Image source={Images.logo} style={styles.logoImage} />
             <TouchableOpacity onPress={handleMenuToggle}>
               <Image source={Icons.menu} style={styles.menuIcon} />
             </TouchableOpacity>
@@ -157,7 +156,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: '600',
     color: '#FFFFFF',
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.display,
   },
   headerRight: {
     flexDirection: 'row',
@@ -195,7 +194,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 12,
     fontWeight: '600',
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.display,
   },
   scrollView: {
     flex: 1,
@@ -233,7 +232,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '500',
     flex: 1,
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.primary,
   },
   timeText: {
     color: '#FFFFFF',
@@ -241,7 +240,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     opacity: 0.7,
     marginLeft: 'auto',
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.primary,
   },
   searchContainer: {
     paddingHorizontal: Spacing.semantic.screenPadding,
@@ -268,7 +267,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#FFFFFF',
     fontWeight: '500',
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.primary,
   },
   clearButton: {
     padding: 5,

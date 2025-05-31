@@ -184,7 +184,6 @@ export const HomeScreen: React.FC = () => {
         {/* Header */}
         <View style={styles.header}>
           <View style={styles.headerLeft}>
-            <Image source={Images.logo} style={styles.logoImage} />
             <TouchableOpacity onPress={handleMenuToggle}>
               <Image source={Icons.menu} style={styles.menuIcon} />
             </TouchableOpacity>

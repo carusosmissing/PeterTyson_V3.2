@@ -14,19 +14,19 @@ import { Colors, Typography, Layout, Assets, Icons, Trustubs } from '../../const
 import { Avatar } from '../../components/ui/avatar';
 import { getAvatarSource } from '../../utils/avatar_utils';
 
-export const ProfileUser2Screen: React.FC = () => {
+export const ProfileUser4Screen: React.FC = () => {
   const navigation = useNavigation();
 
-  // Dummy profile data for user2
+  // Dummy profile data for user4
   const userProfile = {
-    username: 'Lila Jane',
-    handle: '@lila_beats',
-    avatar: 'user2',
+    username: 'Alex Rivera',
+    handle: '@alex_vibes',
+    avatar: 'user4',
     avatarType: 'asset' as 'asset' | 'custom',
-    bio: 'Concert photographer & music lover 📸✨ I only take photos to capture Pete in the wild BUT HE NEVER SHOWS UP 😭 I\'ve been to 238 concerts hoping to spot Pete. My camera roll is 90% blurry Pete sightings. PETE PLEASE NOTICE ME I LITERALLY CHANGED MY WHOLE AESTHETIC FOR YOU 🖤⛓️',
-    genres: ['Indie', 'Alternative', 'Folk'],
-    sports: ['Skateboarding', 'Surfing'],
-    backgroundColor: '#D59BF9',
+    bio: 'Chill vibes only 🌊 JK I\'m FERAL about lo-fi beats and I WILL fight you if you say my drops aren\'t perfect ☕🎧 I drink 17 cups of coffee daily and my neighbors call the cops about my 3AM production sessions but ART NEVER SLEEPS 🔊 My therapist says I have "boundary issues" with my music 🎵💀',
+    genres: ['Lo-fi', 'Jazz', 'Chillhop'],
+    sports: ['Golf', 'Swimming'],
+    backgroundColor: '#87ABCC',
     backgroundType: 'color',
     backgroundImage: null,
   };
@@ -47,24 +47,24 @@ export const ProfileUser2Screen: React.FC = () => {
 
   const galleryItems = [
     {
-      id: '#03221',
-      artist: 'Arctic Monkeys',
+      id: '#05441',
+      artist: 'Nujabes',
       image: Trustubs.trustub1,
     },
     {
-      id: '#03222',
-      artist: 'Tame Impala',
+      id: '#05442',
+      artist: 'FKJ',
       image: Trustubs.trustub2,
     },
     {
-      id: '#03223',
-      artist: 'Under the Glow',
+      id: '#05443',
+      artist: 'Bonobo',
       image: Trustubs.trustub3,
     },
     {
-      id: '#03224',
-      artist: 'Vampire Weekend',
-      subtitle: 'Summer Vibes',
+      id: '#05444',
+      artist: 'Emancipator',
+      subtitle: 'Chill Sessions',
       image: Trustubs.trustub4,
     },
   ];
@@ -106,7 +106,7 @@ export const ProfileUser2Screen: React.FC = () => {
           {/* Profile Picture */}
           <View style={styles.profilePictureContainer}>
             <Avatar
-              source={getAvatarSource(userProfile?.avatar || 'user2', userProfile?.avatarType || 'asset')}
+              source={getAvatarSource(userProfile?.avatar || 'user4', userProfile?.avatarType || 'asset')}
               size="3xl"
               variant="circle"
               style={styles.profilePicture}
@@ -115,24 +115,24 @@ export const ProfileUser2Screen: React.FC = () => {
 
           {/* Username and Handle centered */}
           <View style={styles.userInfoContainer}>
-            <Text style={styles.userName}>{userProfile?.username || 'User 2'}</Text>
-            <Text style={styles.userHandle}>{userProfile?.handle || '@user2'}</Text>
+            <Text style={styles.userName}>{userProfile?.username || 'User 4'}</Text>
+            <Text style={styles.userHandle}>{userProfile?.handle || '@user4'}</Text>
           </View>
 
           {/* Stats inside bubble */}
           <View style={styles.statsContainer}>
             <View style={styles.statItem}>
-              <Text style={styles.statNumber}>245</Text>
+              <Text style={styles.statNumber}>178</Text>
               <Text style={styles.statLabel}>Following</Text>
             </View>
             <View style={styles.statDivider} />
             <View style={styles.statItem}>
-              <Text style={styles.statNumber}>1,892</Text>
+              <Text style={styles.statNumber}>3,567</Text>
               <Text style={styles.statLabel}>Followers</Text>
             </View>
             <View style={styles.statDivider} />
             <View style={styles.statItem}>
-              <Text style={styles.statNumber}>3,245</Text>
+              <Text style={styles.statNumber}>7,891</Text>
               <Text style={styles.statLabel}>Likes</Text>
             </View>
           </View>
@@ -192,6 +192,7 @@ export const ProfileUser2Screen: React.FC = () => {
             <View style={styles.badgesSection}>
               <View style={styles.badgesGrid}>
                 <Image source={Assets.Badges.builder} style={styles.badgeImage} />
+                <Image source={Assets.Badges.plugged} style={styles.badgeImage} />
                 <Image source={Assets.Badges.streaker} style={styles.badgeImage} />
                 <Image source={Assets.Badges.fullSend} style={styles.badgeImage} />
                 <Image source={Assets.Badges.thinkTank} style={styles.badgeImage} />
@@ -201,24 +202,24 @@ export const ProfileUser2Screen: React.FC = () => {
             {/* TruSTUBS/Events/Venues Stats */}
             <View style={styles.profileStatsContainer}>
               <View style={styles.statItem}>
-                <Text style={styles.statNumber}>6</Text>
+                <Text style={styles.statNumber}>7</Text>
                 <Text style={styles.statLabel}>TruSTUBS</Text>
               </View>
               <View style={styles.statDivider} />
               <View style={styles.statItem}>
-                <Text style={styles.statNumber}>9</Text>
+                <Text style={styles.statNumber}>14</Text>
                 <Text style={styles.statLabel}>Events</Text>
               </View>
               <View style={styles.statDivider} />
               <View style={styles.statItem}>
-                <Text style={styles.statNumber}>4</Text>
+                <Text style={styles.statNumber}>8</Text>
                 <Text style={styles.statLabel}>Venues</Text>
               </View>
             </View>
           </View>
 
           {/* Gallery Title */}
-          <Text style={styles.galleryTitle}>{userProfile?.username || 'Lila'}'s Favorite Stubs</Text>
+          <Text style={styles.galleryTitle}>{userProfile?.username || 'Alex'}'s Favorite Stubs</Text>
 
           {/* Gallery Grid */}
           <View style={styles.galleryGrid}>
@@ -287,7 +288,7 @@ export const ProfileUser2Screen: React.FC = () => {
       {renderContent()}
     </ImageBackground>
   ) : (
-    <View style={[styles.container, { backgroundColor: userProfile?.backgroundColor || '#552583' }]}>
+    <View style={[styles.container, { backgroundColor: userProfile?.backgroundColor || '#87ABCC' }]}>
       {renderContent()}
     </View>
   );
@@ -369,13 +370,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: -25,
     marginBottom: 4,
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.display,
   },
   userHandle: {
     fontSize: 16,
     color: 'rgba(255, 255, 255, 0.7)',
     textAlign: 'center',
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.primary,
   },
   bioSection: {
     marginBottom: 20,
@@ -385,7 +386,7 @@ const styles = StyleSheet.create({
     color: 'rgba(255, 255, 255, 0.7)',
     marginBottom: 12,
     fontStyle: 'italic',
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.primary,
   },
   statsContainer: {
     flexDirection: 'row',
@@ -410,13 +411,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
     marginBottom: 2,
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.display,
   },
   statLabel: {
     fontSize: 12,
     fontWeight: '500',
     color: 'rgba(255, 255, 255, 0.8)',
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.secondary,
   },
   badgesSection: {
     marginBottom: 20,
@@ -441,7 +442,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
     marginBottom: 10,
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.display,
   },
   genresDisplayContainer: {
     flexDirection: 'row',
@@ -458,7 +459,7 @@ const styles = StyleSheet.create({
   genreDisplayText: {
     fontSize: 14,
     color: 'white',
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.primary,
   },
   sportsSection: {
     marginBottom: 0,
@@ -468,7 +469,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
     marginBottom: 10,
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.display,
   },
   sportsDisplayContainer: {
     flexDirection: 'row',
@@ -485,14 +486,14 @@ const styles = StyleSheet.create({
   sportDisplayText: {
     fontSize: 14,
     color: 'white',
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.primary,
   },
   galleryTitle: {
     fontSize: 20,
     fontWeight: 'bold',
     color: 'white',
     marginBottom: -20,
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.display,
   },
   galleryGrid: {
     marginTop: -5,
@@ -527,20 +528,20 @@ const styles = StyleSheet.create({
     fontWeight: 'normal',
     color: '#FFFFFF',
     marginBottom: 2,
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.primary,
   },
   galleryArtist: {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#FFFFFF',
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.display,
   },
   gallerySubtitle: {
     fontSize: 14,
     fontWeight: 'normal',
     color: '#FFFFFF',
     marginTop: 2,
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.primary,
   },
   actionButtonsContainer: {
     flexDirection: 'row',
@@ -560,7 +561,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: '600',
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.secondary,
   },
   messageButton: {
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
@@ -574,7 +575,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: '600',
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.secondary,
   },
   secondaryBubble: {
     marginBottom: 20,

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -12,19 +12,24 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { Colors, Typography, Layout, Assets, Icons, Trustubs } from '../../constants';
 import { Avatar } from '../../components/ui/avatar';
-import { StubModal } from '../../components';
-import { useAppDispatch, useAppSelector } from '../../store';
-import { logout } from '../../store';
 import { getAvatarSource } from '../../utils/avatar_utils';
 
-export const ProfileScreen: React.FC = () => {
+export const ProfileUser2Screen: React.FC = () => {
   const navigation = useNavigation();
-  const dispatch = useAppDispatch();
-  const userProfile = useAppSelector((state: any) => state.user.profile);
-  
-  // State for stub modal
-  const [selectedStub, setSelectedStub] = useState(null);
-  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  // Dummy profile data for user2
+  const userProfile = {
+    username: 'Lila Jane',
+    handle: '@lila_beats',
+    avatar: 'user2',
+    avatarType: 'asset' as 'asset' | 'custom',
+    bio: 'Concert photographer & music lover 📸✨ I only take photos to capture Pete in the wild BUT HE NEVER SHOWS UP 😭 I\'ve been to 238 concerts hoping to spot Pete. My camera roll is 90% blurry Pete sightings. PETE PLEASE NOTICE ME I LITERALLY CHANGED MY WHOLE AESTHETIC FOR YOU 🖤⛓️',
+    genres: ['Indie', 'Alternative', 'Folk'],
+    sports: ['Skateboarding', 'Surfing'],
+    backgroundColor: '#D59BF9',
+    backgroundType: 'color',
+    backgroundImage: null,
+  };
 
   // Function to get background source for images
   const getBackgroundImageSource = (backgroundKey: string) => {
@@ -42,31 +47,27 @@ export const ProfileScreen: React.FC = () => {
 
   const galleryItems = [
     {
-      id: '#01230',
-      artist: 'Kendrick Lamar',
+      id: '#03221',
+      artist: 'Arctic Monkeys',
       image: Trustubs.trustub1,
     },
     {
-      id: '#01240',
-      artist: 'Halsey',
+      id: '#03222',
+      artist: 'Tame Impala',
       image: Trustubs.trustub2,
     },
     {
-      id: '#01241',
+      id: '#03223',
       artist: 'Under the Glow',
       image: Trustubs.trustub3,
     },
     {
-      id: '#01236',
-      artist: 'TruEXP',
-      subtitle: 'Early Adopter',
+      id: '#03224',
+      artist: 'Vampire Weekend',
+      subtitle: 'Summer Vibes',
       image: Trustubs.trustub4,
     },
   ];
-
-  const handleEditProfile = () => {
-    navigation.navigate('EditProfile' as never);
-  };
 
   const handleBackPress = () => {
     navigation.goBack();
@@ -74,16 +75,6 @@ export const ProfileScreen: React.FC = () => {
 
   const handleMenuToggle = () => {
     navigation.navigate('Settings' as never);
-  };
-
-  const handleStubPress = (stub: any) => {
-    setSelectedStub(stub);
-    setIsModalVisible(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalVisible(false);
-    setSelectedStub(null);
   };
 
   // Check if user has selected a background image (when types are updated)
@@ -112,17 +103,10 @@ export const ProfileScreen: React.FC = () => {
       >
         {/* Background Bubble Container - Only for core profile info */}
         <View style={styles.backgroundBubble}>
-          {/* Edit button in top right */}
-          <View style={styles.editButtonContainer}>
-            <TouchableOpacity style={styles.editButton} onPress={handleEditProfile}>
-              <Text style={styles.editButtonText}>EDIT</Text>
-            </TouchableOpacity>
-          </View>
-
           {/* Profile Picture */}
           <View style={styles.profilePictureContainer}>
             <Avatar
-              source={getAvatarSource(userProfile?.avatar || 'petertyson', userProfile?.avatarType || 'asset')}
+              source={getAvatarSource(userProfile?.avatar || 'user2', userProfile?.avatarType || 'asset')}
               size="3xl"
               variant="circle"
               style={styles.profilePicture}
@@ -131,24 +115,24 @@ export const ProfileScreen: React.FC = () => {
 
           {/* Username and Handle centered */}
           <View style={styles.userInfoContainer}>
-            <Text style={styles.userName}>{userProfile?.username || 'Swickie F'}</Text>
-            <Text style={styles.userHandle}>{userProfile?.handle || '@demo'}</Text>
+            <Text style={styles.userName}>{userProfile?.username || 'User 2'}</Text>
+            <Text style={styles.userHandle}>{userProfile?.handle || '@user2'}</Text>
           </View>
 
           {/* Stats inside bubble */}
           <View style={styles.statsContainer}>
             <View style={styles.statItem}>
-              <Text style={styles.statNumber}>132</Text>
+              <Text style={styles.statNumber}>245</Text>
               <Text style={styles.statLabel}>Following</Text>
             </View>
             <View style={styles.statDivider} />
             <View style={styles.statItem}>
-              <Text style={styles.statNumber}>5410</Text>
+              <Text style={styles.statNumber}>1,892</Text>
               <Text style={styles.statLabel}>Followers</Text>
             </View>
             <View style={styles.statDivider} />
             <View style={styles.statItem}>
-              <Text style={styles.statNumber}>9445</Text>
+              <Text style={styles.statNumber}>3,245</Text>
               <Text style={styles.statLabel}>Likes</Text>
             </View>
           </View>
@@ -208,7 +192,6 @@ export const ProfileScreen: React.FC = () => {
             <View style={styles.badgesSection}>
               <View style={styles.badgesGrid}>
                 <Image source={Assets.Badges.builder} style={styles.badgeImage} />
-                <Image source={Assets.Badges.plugged} style={styles.badgeImage} />
                 <Image source={Assets.Badges.streaker} style={styles.badgeImage} />
                 <Image source={Assets.Badges.fullSend} style={styles.badgeImage} />
                 <Image source={Assets.Badges.thinkTank} style={styles.badgeImage} />
@@ -218,29 +201,29 @@ export const ProfileScreen: React.FC = () => {
             {/* TruSTUBS/Events/Venues Stats */}
             <View style={styles.profileStatsContainer}>
               <View style={styles.statItem}>
-                <Text style={styles.statNumber}>4</Text>
+                <Text style={styles.statNumber}>6</Text>
                 <Text style={styles.statLabel}>TruSTUBS</Text>
               </View>
               <View style={styles.statDivider} />
               <View style={styles.statItem}>
-                <Text style={styles.statNumber}>4</Text>
+                <Text style={styles.statNumber}>9</Text>
                 <Text style={styles.statLabel}>Events</Text>
               </View>
               <View style={styles.statDivider} />
               <View style={styles.statItem}>
-                <Text style={styles.statNumber}>2</Text>
+                <Text style={styles.statNumber}>4</Text>
                 <Text style={styles.statLabel}>Venues</Text>
               </View>
             </View>
           </View>
 
           {/* Gallery Title */}
-          <Text style={styles.galleryTitle}>{userProfile?.username || 'Demo'}'s Favorite Stubs</Text>
+          <Text style={styles.galleryTitle}>{userProfile?.username || 'Lila'}'s Favorite Stubs</Text>
 
           {/* Gallery Grid */}
           <View style={styles.galleryGrid}>
             <View style={styles.galleryRow}>
-              <TouchableOpacity style={styles.galleryItem} onPress={() => handleStubPress(galleryItems[0])}>
+              <TouchableOpacity style={styles.galleryItem}>
                 <Image source={galleryItems[0].image} style={styles.galleryImage} />
                 <View style={styles.galleryOverlay}>
                   <Text style={styles.galleryId}>{galleryItems[0].id}</Text>
@@ -251,7 +234,7 @@ export const ProfileScreen: React.FC = () => {
                 </View>
               </TouchableOpacity>
               
-              <TouchableOpacity style={styles.galleryItem} onPress={() => handleStubPress(galleryItems[1])}>
+              <TouchableOpacity style={styles.galleryItem}>
                 <Image source={galleryItems[1].image} style={styles.galleryImage} />
                 <View style={styles.galleryOverlay}>
                   <Text style={styles.galleryId}>{galleryItems[1].id}</Text>
@@ -264,7 +247,7 @@ export const ProfileScreen: React.FC = () => {
             </View>
             
             <View style={[styles.galleryRow, styles.galleryRowSecond]}>
-              <TouchableOpacity style={styles.galleryItem} onPress={() => handleStubPress(galleryItems[2])}>
+              <TouchableOpacity style={styles.galleryItem}>
                 <Image source={galleryItems[2].image} style={styles.galleryImage} />
                 <View style={styles.galleryOverlay}>
                   <Text style={styles.galleryId}>{galleryItems[2].id}</Text>
@@ -275,7 +258,7 @@ export const ProfileScreen: React.FC = () => {
                 </View>
               </TouchableOpacity>
               
-              <TouchableOpacity style={styles.galleryItem} onPress={() => handleStubPress(galleryItems[3])}>
+              <TouchableOpacity style={styles.galleryItem}>
                 <Image source={galleryItems[3].image} style={styles.galleryImage} />
                 <View style={styles.galleryOverlay}>
                   <Text style={styles.galleryId}>{galleryItems[3].id}</Text>
@@ -292,13 +275,6 @@ export const ProfileScreen: React.FC = () => {
           </View>
         </View>
       </ScrollView>
-
-      {/* Stub Modal */}
-      <StubModal
-        visible={isModalVisible}
-        onClose={handleCloseModal}
-        stub={selectedStub}
-      />
     </>
   );
 
@@ -311,7 +287,7 @@ export const ProfileScreen: React.FC = () => {
       {renderContent()}
     </ImageBackground>
   ) : (
-    <View style={[styles.container, { backgroundColor: userProfile?.backgroundColor || '#000000' }]}>
+    <View style={[styles.container, { backgroundColor: userProfile?.backgroundColor || '#552583' }]}>
       {renderContent()}
     </View>
   );
@@ -393,30 +369,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: -25,
     marginBottom: 4,
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.display,
   },
   userHandle: {
     fontSize: 16,
     color: 'rgba(255, 255, 255, 0.7)',
     textAlign: 'center',
-    fontFamily: 'Rubik',
-  },
-  editButtonContainer: {
-    position: 'absolute',
-    top: 10,
-    right: 10,
-  },
-  editButton: {
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    borderRadius: 12,
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-  },
-  editButtonText: {
-    color: 'white',
-    fontSize: 12,
-    fontWeight: '600',
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.primary,
   },
   bioSection: {
     marginBottom: 20,
@@ -426,7 +385,7 @@ const styles = StyleSheet.create({
     color: 'rgba(255, 255, 255, 0.7)',
     marginBottom: 12,
     fontStyle: 'italic',
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.primary,
   },
   statsContainer: {
     flexDirection: 'row',
@@ -451,13 +410,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
     marginBottom: 2,
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.display,
   },
   statLabel: {
     fontSize: 12,
     fontWeight: '500',
     color: 'rgba(255, 255, 255, 0.8)',
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.secondary,
   },
   badgesSection: {
     marginBottom: 20,
@@ -482,7 +441,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
     marginBottom: 10,
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.display,
   },
   genresDisplayContainer: {
     flexDirection: 'row',
@@ -499,7 +458,7 @@ const styles = StyleSheet.create({
   genreDisplayText: {
     fontSize: 14,
     color: 'white',
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.primary,
   },
   sportsSection: {
     marginBottom: 0,
@@ -509,7 +468,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
     marginBottom: 10,
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.display,
   },
   sportsDisplayContainer: {
     flexDirection: 'row',
@@ -526,14 +485,14 @@ const styles = StyleSheet.create({
   sportDisplayText: {
     fontSize: 14,
     color: 'white',
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.primary,
   },
   galleryTitle: {
     fontSize: 20,
     fontWeight: 'bold',
     color: 'white',
     marginBottom: -20,
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.display,
   },
   galleryGrid: {
     marginTop: -5,
@@ -568,20 +527,20 @@ const styles = StyleSheet.create({
     fontWeight: 'normal',
     color: '#FFFFFF',
     marginBottom: 2,
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.primary,
   },
   galleryArtist: {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#FFFFFF',
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.display,
   },
   gallerySubtitle: {
     fontSize: 14,
     fontWeight: 'normal',
     color: '#FFFFFF',
     marginTop: 2,
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.primary,
   },
   actionButtonsContainer: {
     flexDirection: 'row',
@@ -601,7 +560,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: '600',
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.secondary,
   },
   messageButton: {
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
@@ -615,7 +574,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: '600',
-    fontFamily: 'Rubik',
+    fontFamily: Typography.fontFamily.secondary,
   },
   secondaryBubble: {
     marginBottom: 20,
@@ -649,4 +608,4 @@ const styles = StyleSheet.create({
     height: 15,
     resizeMode: 'contain',
   },
-});
+}); 

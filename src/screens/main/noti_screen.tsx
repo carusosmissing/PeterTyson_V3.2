@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { Colors, Typography, Spacing, Images } from '../../constants';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
+import { Colors, Typography, Spacing, Images, Icons } from '../../constants';
 import { Container } from '../../components';
 import { useNavigation } from '@react-navigation/native';
 
@@ -61,7 +61,7 @@ export const NotiScreen: React.FC = () => {
         {/* Header */}
         <View style={styles.header}>
           <TouchableOpacity onPress={handleGoBack} style={styles.backButton}>
-            <Text style={styles.backText}>←</Text>
+            <Image source={Icons.back} style={styles.backIcon} />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Notifications</Text>
           <View style={styles.headerRight} />
@@ -94,15 +94,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  backText: {
-    fontSize: 24,
-    color: '#FFFFFF',
-    fontWeight: 'bold',
+  backIcon: {
+    width: 24,
+    height: 24,
+    tintColor: '#FFFFFF',
   },
   headerTitle: {
     fontSize: 20,
     fontWeight: '600',
     color: '#FFFFFF',
+    fontFamily: Typography.fontFamily.secondary,
   },
   headerRight: {
     width: 40,
@@ -134,17 +135,20 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     flex: 1,
     marginRight: 8,
+    fontFamily: Typography.fontFamily.secondary,
   },
   notificationTime: {
     fontSize: 12,
     color: '#FFFFFF',
     opacity: 0.7,
+    fontFamily: Typography.fontFamily.primary,
   },
   notificationMessage: {
     fontSize: 14,
     color: '#FFFFFF',
     opacity: 0.9,
     lineHeight: 20,
+    fontFamily: Typography.fontFamily.primary,
   },
   unreadDot: {
     position: 'absolute',
