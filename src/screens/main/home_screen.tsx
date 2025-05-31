@@ -1,46 +1,89 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, Animated } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Svg, { Circle } from 'react-native-svg';
 import LinearGradient from 'react-native-linear-gradient';
 import { Colors, Typography, Spacing, Images, Icons, Avatars, Trustubs } from '../../constants';
-import { Container } from '../../components';
+import { Container, StubModal } from '../../components';
 import { useAppSelector } from '../../store';
 import { getAvatarSource } from '../../utils/avatar_utils';
 
 // Small version of CircularProgressIndicator for home screen
-const SmallCircularProgressIndicator = ({ progress, color }: { progress: number; color: string }) => {
+const SmallCircularProgressIndicator = ({ progress, color, isSparkle }: { progress: number; color: string; isSparkle?: boolean }) => {
   const size = 60;
   const strokeWidth = 6;
   const center = size / 2;
   const radius = size / 2 - strokeWidth / 2;
   const circumference = 2 * Math.PI * radius;
   const progressOffset = circumference - (progress / 100) * circumference;
+  
+  const sparkleAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    if (isSparkle) {
+      // Create sparkle effect
+      Animated.sequence([
+        Animated.timing(sparkleAnim, {
+          toValue: 1,
+          duration: 200,
+          useNativeDriver: true,
+        }),
+        Animated.timing(sparkleAnim, {
+          toValue: 0,
+          duration: 200,
+          useNativeDriver: true,
+        }),
+        Animated.timing(sparkleAnim, {
+          toValue: 1,
+          duration: 200,
+          useNativeDriver: true,
+        }),
+        Animated.timing(sparkleAnim, {
+          toValue: 0,
+          duration: 200,
+          useNativeDriver: true,
+        }),
+      ]).start();
+    }
+  }, [isSparkle, sparkleAnim]);
 
   return (
-    <Svg width={size} height={size}>
-      <Circle
-        stroke="rgba(255, 255, 255, 0.2)"
-        fill="none"
-        cx={center}
-        cy={center}
-        r={radius}
-        strokeWidth={strokeWidth}
-        transform={`rotate(-90 ${center} ${center})`}
-      />
-      <Circle
-        stroke={color}
-        fill="none"
-        cx={center}
-        cy={center}
-        r={radius}
-        strokeWidth={strokeWidth}
-        strokeDasharray={circumference}
-        strokeDashoffset={progressOffset}
-        strokeLinecap="round"
-        transform={`rotate(-90 ${center} ${center})`}
-      />
-    </Svg>
+    <Animated.View style={{
+      opacity: isSparkle ? sparkleAnim.interpolate({
+        inputRange: [0, 1],
+        outputRange: [1, 1.3]
+      }) : 1,
+      transform: [{
+        scale: isSparkle ? sparkleAnim.interpolate({
+          inputRange: [0, 1],
+          outputRange: [1, 1.1]
+        }) : 1
+      }]
+    }}>
+      <Svg width={size} height={size}>
+        <Circle
+          stroke="rgba(255, 255, 255, 0.2)"
+          fill="none"
+          cx={center}
+          cy={center}
+          r={radius}
+          strokeWidth={strokeWidth}
+          transform={`rotate(-90 ${center} ${center})`}
+        />
+        <Circle
+          stroke={isSparkle ? '#FFD700' : color}
+          fill="none"
+          cx={center}
+          cy={center}
+          r={radius}
+          strokeWidth={strokeWidth}
+          strokeDasharray={circumference}
+          strokeDashoffset={progressOffset}
+          strokeLinecap="round"
+          transform={`rotate(-90 ${center} ${center})`}
+        />
+      </Svg>
+    </Animated.View>
   );
 };
 
@@ -48,6 +91,14 @@ export const HomeScreen: React.FC = () => {
   const navigation = useNavigation();
   const userProfile = useAppSelector((state: any) => state.user.profile);
   const pulseAnim = useRef(new Animated.Value(1)).current;
+  
+  // State for streak and sparkle effect
+  const [streakCount, setStreakCount] = useState(2);
+  const [isSparkle, setIsSparkle] = useState(false);
+  
+  // State for stub modal
+  const [selectedStub, setSelectedStub] = useState(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const handleProfilePress = () => {
     navigation.navigate('Profile' as never);
@@ -79,6 +130,29 @@ export const HomeScreen: React.FC = () => {
     };
     pulse();
   }, [pulseAnim]);
+
+  const handleDailyCheckIn = () => {
+    // Increment streak
+    setStreakCount(prev => prev + 1);
+    
+    // Trigger sparkle effect
+    setIsSparkle(true);
+    
+    // Reset sparkle after animation
+    setTimeout(() => {
+      setIsSparkle(false);
+    }, 1000);
+  };
+
+  const handleStubPress = (stub: any) => {
+    setSelectedStub(stub);
+    setIsModalVisible(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalVisible(false);
+    setSelectedStub(null);
+  };
 
   const galleryItems = [
     {
@@ -141,7 +215,7 @@ export const HomeScreen: React.FC = () => {
               <View style={styles.welcomeRow}>
                 <View style={styles.welcomeTextContainer}>
                   <Text style={styles.welcomeTitle}>Welcome, {userProfile?.username || 'demo'}!</Text>
-                  <Text style={styles.streakText}>You're on a 2 day streak!</Text>
+                  <Text style={styles.streakText}>You're on a {streakCount} day streak!</Text>
                 </View>
                 
                 {/* Prestige Progress Ring */}
@@ -150,6 +224,7 @@ export const HomeScreen: React.FC = () => {
                     <SmallCircularProgressIndicator
                       progress={66}
                       color="#C0C0C0"
+                      isSparkle={isSparkle}
                     />
                     <View style={styles.prestigeInnerContent}>
                       <Text style={styles.prestigePoints}>162k</Text>
@@ -162,7 +237,7 @@ export const HomeScreen: React.FC = () => {
 
             {/* View Challenges Button */}
             <Animated.View style={[{ transform: [{ scale: pulseAnim }] }, styles.buttonContainer]}>
-              <TouchableOpacity style={styles.challengesButton}>
+              <TouchableOpacity style={styles.challengesButton} onPress={handleDailyCheckIn}>
                 <Text style={styles.challengesButtonText}>Daily Check In</Text>
                 <View style={styles.buttonGlow} />
               </TouchableOpacity>
@@ -175,7 +250,7 @@ export const HomeScreen: React.FC = () => {
           {/* Gallery Grid - Full Width */}
           <View style={styles.galleryGrid}>
             <View style={styles.galleryRow}>
-              <TouchableOpacity style={styles.galleryItem}>
+              <TouchableOpacity style={styles.galleryItem} onPress={() => handleStubPress(galleryItems[0])}>
                 <Image source={galleryItems[0].image} style={styles.galleryImage} />
                 <View style={styles.galleryOverlay}>
                   <Text style={styles.galleryId}>{galleryItems[0].id}</Text>
@@ -186,7 +261,7 @@ export const HomeScreen: React.FC = () => {
                 </View>
               </TouchableOpacity>
               
-              <TouchableOpacity style={styles.galleryItem}>
+              <TouchableOpacity style={styles.galleryItem} onPress={() => handleStubPress(galleryItems[1])}>
                 <Image source={galleryItems[1].image} style={styles.galleryImage} />
                 <View style={styles.galleryOverlay}>
                   <Text style={styles.galleryId}>{galleryItems[1].id}</Text>
@@ -199,7 +274,7 @@ export const HomeScreen: React.FC = () => {
             </View>
             
             <View style={[styles.galleryRow, styles.galleryRowSecond]}>
-              <TouchableOpacity style={styles.galleryItem}>
+              <TouchableOpacity style={styles.galleryItem} onPress={() => handleStubPress(galleryItems[2])}>
                 <Image source={galleryItems[2].image} style={styles.galleryImage} />
                 <View style={styles.galleryOverlay}>
                   <Text style={styles.galleryId}>{galleryItems[2].id}</Text>
@@ -210,7 +285,7 @@ export const HomeScreen: React.FC = () => {
                 </View>
               </TouchableOpacity>
               
-              <TouchableOpacity style={styles.galleryItem}>
+              <TouchableOpacity style={styles.galleryItem} onPress={() => handleStubPress(galleryItems[3])}>
                 <Image source={galleryItems[3].image} style={styles.galleryImage} />
                 <View style={styles.galleryOverlay}>
                   <Text style={styles.galleryId}>{galleryItems[3].id}</Text>
@@ -250,6 +325,13 @@ export const HomeScreen: React.FC = () => {
           </View>
         </ScrollView>
       </View>
+
+      {/* Stub Modal */}
+      <StubModal
+        visible={isModalVisible}
+        onClose={handleCloseModal}
+        stub={selectedStub}
+      />
     </Container>
   );
 };

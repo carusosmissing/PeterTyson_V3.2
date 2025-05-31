@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -12,6 +12,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { Colors, Typography, Layout, Assets, Icons, Trustubs } from '../../constants';
 import { Avatar } from '../../components/ui/avatar';
+import { StubModal } from '../../components';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { logout } from '../../store';
 import { getAvatarSource } from '../../utils/avatar_utils';
@@ -20,6 +21,10 @@ export const ProfileScreen: React.FC = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const userProfile = useAppSelector((state: any) => state.user.profile);
+  
+  // State for stub modal
+  const [selectedStub, setSelectedStub] = useState(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   // Function to get background source for images
   const getBackgroundImageSource = (backgroundKey: string) => {
@@ -69,6 +74,16 @@ export const ProfileScreen: React.FC = () => {
 
   const handleMenuToggle = () => {
     navigation.navigate('Settings' as never);
+  };
+
+  const handleStubPress = (stub: any) => {
+    setSelectedStub(stub);
+    setIsModalVisible(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalVisible(false);
+    setSelectedStub(null);
   };
 
   // Check if user has selected a background image (when types are updated)
@@ -225,7 +240,7 @@ export const ProfileScreen: React.FC = () => {
           {/* Gallery Grid */}
           <View style={styles.galleryGrid}>
             <View style={styles.galleryRow}>
-              <TouchableOpacity style={styles.galleryItem}>
+              <TouchableOpacity style={styles.galleryItem} onPress={() => handleStubPress(galleryItems[0])}>
                 <Image source={galleryItems[0].image} style={styles.galleryImage} />
                 <View style={styles.galleryOverlay}>
                   <Text style={styles.galleryId}>{galleryItems[0].id}</Text>
@@ -236,7 +251,7 @@ export const ProfileScreen: React.FC = () => {
                 </View>
               </TouchableOpacity>
               
-              <TouchableOpacity style={styles.galleryItem}>
+              <TouchableOpacity style={styles.galleryItem} onPress={() => handleStubPress(galleryItems[1])}>
                 <Image source={galleryItems[1].image} style={styles.galleryImage} />
                 <View style={styles.galleryOverlay}>
                   <Text style={styles.galleryId}>{galleryItems[1].id}</Text>
@@ -249,7 +264,7 @@ export const ProfileScreen: React.FC = () => {
             </View>
             
             <View style={[styles.galleryRow, styles.galleryRowSecond]}>
-              <TouchableOpacity style={styles.galleryItem}>
+              <TouchableOpacity style={styles.galleryItem} onPress={() => handleStubPress(galleryItems[2])}>
                 <Image source={galleryItems[2].image} style={styles.galleryImage} />
                 <View style={styles.galleryOverlay}>
                   <Text style={styles.galleryId}>{galleryItems[2].id}</Text>
@@ -260,7 +275,7 @@ export const ProfileScreen: React.FC = () => {
                 </View>
               </TouchableOpacity>
               
-              <TouchableOpacity style={styles.galleryItem}>
+              <TouchableOpacity style={styles.galleryItem} onPress={() => handleStubPress(galleryItems[3])}>
                 <Image source={galleryItems[3].image} style={styles.galleryImage} />
                 <View style={styles.galleryOverlay}>
                   <Text style={styles.galleryId}>{galleryItems[3].id}</Text>
@@ -277,6 +292,13 @@ export const ProfileScreen: React.FC = () => {
           </View>
         </View>
       </ScrollView>
+
+      {/* Stub Modal */}
+      <StubModal
+        visible={isModalVisible}
+        onClose={handleCloseModal}
+        stub={selectedStub}
+      />
     </>
   );
 

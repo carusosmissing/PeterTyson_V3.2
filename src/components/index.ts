@@ -32,4 +32,7 @@ export { TrustubCarousel } from './trustub_carousel';
 export { TrustubGrid } from './trustub_grid';
 
 // Export app initializer component
-export { AppInitializer } from './app_initializer'; 
+export { AppInitializer } from './app_initializer';
+
+// Export stub modal component
+export { StubModal } from './stub_modal'; 
