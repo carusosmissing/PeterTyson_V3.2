@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Animated } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Colors, Typography, Spacing, Images, Trustubs } from '../../constants';
 import { useAppDispatch } from '../../store';
@@ -9,6 +9,107 @@ import { Container, Button } from '../../components';
 export const WelcomeClaimRevealScreen: React.FC = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
+  
+  // Animation values
+  const cardScaleAnim = useRef(new Animated.Value(0)).current;
+  const cardOpacityAnim = useRef(new Animated.Value(0)).current;
+  const cardFloatAnim = useRef(new Animated.Value(0)).current;
+  const buttonSlideAnim = useRef(new Animated.Value(100)).current;
+  const buttonOpacityAnim = useRef(new Animated.Value(0)).current;
+  const logoGlowAnim = useRef(new Animated.Value(1)).current;
+
+  useEffect(() => {
+    // Sequence of entrance animations
+    const cardEntrance = Animated.parallel([
+      // Bouncy scale entrance
+      Animated.spring(cardScaleAnim, {
+        toValue: 1,
+        tension: 50,
+        friction: 8,
+        useNativeDriver: true,
+      }),
+      // Fade in
+      Animated.timing(cardOpacityAnim, {
+        toValue: 1,
+        duration: 800,
+        useNativeDriver: true,
+      }),
+    ]);
+
+    // Floating animation for the card
+    const floatingAnimation = Animated.loop(
+      Animated.sequence([
+        Animated.timing(cardFloatAnim, {
+          toValue: 6,
+          duration: 2000,
+          useNativeDriver: true,
+        }),
+        Animated.timing(cardFloatAnim, {
+          toValue: -6,
+          duration: 2000,
+          useNativeDriver: true,
+        }),
+        Animated.timing(cardFloatAnim, {
+          toValue: 0,
+          duration: 2000,
+          useNativeDriver: true,
+        }),
+      ])
+    );
+
+    // Buttons slide up animation
+    const buttonEntrance = Animated.parallel([
+      Animated.spring(buttonSlideAnim, {
+        toValue: 0,
+        tension: 80,
+        friction: 8,
+        useNativeDriver: true,
+      }),
+      Animated.timing(buttonOpacityAnim, {
+        toValue: 1,
+        duration: 600,
+        useNativeDriver: true,
+      }),
+    ]);
+
+    // Logo glow animation
+    const logoGlow = Animated.loop(
+      Animated.sequence([
+        Animated.timing(logoGlowAnim, {
+          toValue: 1.3,
+          duration: 1500,
+          useNativeDriver: true,
+        }),
+        Animated.timing(logoGlowAnim, {
+          toValue: 1,
+          duration: 1500,
+          useNativeDriver: true,
+        }),
+      ])
+    );
+
+    // Start entrance sequence
+    cardEntrance.start(() => {
+      // Reset float position before starting floating
+      cardFloatAnim.setValue(0);
+      // Start floating after card appears
+      floatingAnimation.start();
+      // Start button entrance with slight delay
+      setTimeout(() => {
+        buttonEntrance.start();
+      }, 300);
+    });
+
+    // Start logo glow
+    logoGlow.start();
+
+    return () => {
+      cardEntrance.stop();
+      floatingAnimation.stop();
+      buttonEntrance.stop();
+      logoGlow.stop();
+    };
+  }, []);
 
   const handleGetStarted = () => {
     // Mark onboarding as complete
@@ -47,7 +148,16 @@ export const WelcomeClaimRevealScreen: React.FC = () => {
     <Container variant="image" backgroundImage={Images.onboardingBackground} safeArea>
       <View style={styles.content}>
         {/* Ticket Card */}
-        <View style={styles.ticketCard}>
+        <Animated.View style={[
+          styles.ticketCard,
+          {
+            transform: [
+              { scale: cardScaleAnim },
+              { translateY: cardFloatAnim }
+            ],
+            opacity: cardOpacityAnim,
+          }
+        ]}>
           {/* Trustub Image - Full Background */}
           <Image source={Trustubs.trustub4} style={styles.trustubImage} />
           
@@ -68,17 +178,31 @@ export const WelcomeClaimRevealScreen: React.FC = () => {
             {/* Bottom section with gradient logo */}
             <View style={styles.bottomSection}>
               <View style={styles.logoContainer}>
-                <Image source={Images.logo} style={styles.gradientLogo} />
+                <Animated.Image 
+                  source={Images.logo} 
+                  style={[
+                    styles.gradientLogo,
+                    {
+                      transform: [{ scale: logoGlowAnim }]
+                    }
+                  ]} 
+                />
               </View>
             </View>
           </View>
-        </View>
+        </Animated.View>
 
         {/* Spacer to push buttons to bottom */}
         <View style={{ flex: 1 }} />
 
         {/* Action Buttons */}
-        <View style={styles.buttonContainer}>
+        <Animated.View style={[
+          styles.buttonContainer,
+          {
+            transform: [{ translateY: buttonSlideAnim }],
+            opacity: buttonOpacityAnim,
+          }
+        ]}>
           <View style={styles.buttonRow}>
             <TouchableOpacity style={styles.getStartedButton} onPress={handleGetStarted}>
               <Text style={styles.getStartedText}>Get Started</Text>
@@ -88,7 +212,7 @@ export const WelcomeClaimRevealScreen: React.FC = () => {
               <Text style={styles.shrineText}>View in Shrine</Text>
             </TouchableOpacity>
           </View>
-        </View>
+        </Animated.View>
       </View>
     </Container>
   );
